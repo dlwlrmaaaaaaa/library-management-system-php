@@ -1,0 +1,188 @@
+:root {
+    --main-bg-color: #002a9d;
+    --main-text-color: #145DA0;
+    --second-text-color: #bbbec5;
+    --second-bg-color: #93ABBF;
+  }
+
+
+  .primary-text {
+    color: var(--main-text-color);
+  }
+  
+  .second-text {
+    color: var(--second-text-color);
+  }
+  
+  .primary-bg {
+    background-color: var(--main-bg-color);
+  }
+  
+  .secondary-bg {
+    background-color: var(--second-bg-color);
+  }
+  
+  .rounded-full {
+    border-radius: 100%;
+  }
+  
+.main {
+  background: #F2F9FF;
+  border: 3px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.maintop {
+  background: #F2F9FF;
+  border: 3px;
+  border-radius: 10px;
+}
+
+.top{
+  background: #C7E5FF;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+  
+.background-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.svg-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.scrollable-content {
+  height: calc(100vh); /* Adjust the height as needed, considering the height of your navbar */
+  overflow-y: auto;
+}
+
+table.dataTable tbody th,
+table.dataTable tbody td {
+    padding: 15px !important; 
+}
+
+table.dataTable thead th {
+  padding: 15px !important; 
+  background-color: #C7E5FF;
+}
+
+table.dataTable tbody tr:hover {
+  background-color: #f5f5f5; /* Change this to the desired hover background color */
+  transition: background-color 0.3s ease; /* Add a smooth transition effect */
+}
+
+div.dataTables_wrapper, div.dataTables_filter, div.dataTables_length, .dataTables_paginate {
+    padding-top: 10px;
+   padding-bottom: 10px;
+}
+
+.col-md-3 img {
+  width: 50%;
+  margin: auto;
+  display: block;
+  border: 4px solid #0e4066;
+}
+
+
+  #wrapper {
+    overflow-x: hidden;
+    background-color: #0e4066;
+  }
+  
+  #sidebar-wrapper {
+    min-height: 100vh;
+    margin-left: -15rem;
+    -webkit-transition: margin 0.25s ease-out;
+    -moz-transition: margin 0.25s ease-out;
+    -o-transition: margin 0.25s ease-out;
+    transition: margin 0.25s ease-out;
+    z-index: 1;
+  }
+  
+  #sidebar-wrapper .sidebar-heading {
+    padding: 0.875rem 1.25rem;
+    font-size: 1.2rem;
+  }
+  
+  #sidebar-wrapper .list-group {
+    width: 15rem;
+  }
+  
+  #page-content-wrapper {
+    min-width: 100vw;
+  }
+  
+  #wrapper.toggled #sidebar-wrapper {
+    margin-left: 0;
+  }
+  
+  #menu-toggle {
+    cursor: pointer;
+  }
+  
+  .list-group-item {
+    border: none;
+    padding: 20px 30px;
+  }
+  
+  .list-group-item.active {
+    background-color: transparent;
+    color: var(--main-text-color);
+    font-weight: bold;
+    border: none;
+  }
+
+
+
+.background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.svg-background {
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.content-container {
+    padding-top: 10vh;
+    padding-bottom: 10vh;
+}
+
+  
+  @media (min-width: 768px) {
+    #sidebar-wrapper {
+      margin-left: 0;
+    }
+  
+    #page-content-wrapper {
+      min-width: 0;
+      width: 100%;
+    }
+  
+    #wrapper.toggled #sidebar-wrapper {
+      margin-left: -15rem;
+    }
+    
+    .col-md-3 img {
+      width: 100%;
+      margin: auto;
+      display: block;
+  }
+  }
