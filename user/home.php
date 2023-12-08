@@ -81,68 +81,28 @@
                 <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
                     <div class="d-flex align-items-center">
                         <i class="fas fa-align-left second-text fs-4 me-3" id="menu-toggle"></i>
-                        <h2 class="fs-2 m-0 second-text">All Books</h2>
+                        <h2 class="fs-2 m-0 second-text">Home</h2>
                     </div>
                 </nav>
 
                 <div class="container-fluid px-4">
-                    <form action="" method="post" class="post">
                     <br>
-                        <div class="container col-md-11 top border border-dark">
-                            <div class="d-flex justify-content-between my-3">
-                                <h3>List of Books</h3>
-                                <div class="d-flex">
-                                    <a href="addBook.php" class="btn btn-light"><i class="fa fa-plus mx-1"></i> Add New Books</a>
-                                </div>
-                            </div>
+                    <div class="container col-md-11 maintop border border-dark">
+                        <div class="row  justify-content-center">
+                            <a href="borrowBook.php" class="col-md-2 m-3 maintop border border-dark list-group-item-action">
+                                <p> </p>
+                                <img src="https://impressionsininkblog.files.wordpress.com/2021/08/6655.jpg" alt="Book Photo" class="img-fluid img-thumbnail">
+                                <p> </p>
+                                <h6>The Divine Comedy</h6>
+                                <p>Dante Alighieri</p>
+                                <p> </p>
+                            </a>
                         </div>
-                        <div class="container col-md-11 main border border-dark">
-                            <table class="table table-bordered-dark" id="tbl-books">
-                                <thead>
-                                    <tr>
-                                        <th>Book ID</th>
-                                        <th>Book Name</th>
-                                        <th>Genre</th>
-                                        <th>Author</th>
-                                        <th>Availability</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                <?php
-                                    echo '<tr>
-                                        <th scope="row">1</th>
-                                        <td>Divine Comedy</td>
-                                        <td>Epic Poetry</td>
-                                        <td>Dante Alighieri</td>
-                                        <td>2</td>
-                                        <td>
-                                            <a href="updateBook.php" class="btn mx-auto" data-toggle="tooltip" title="Update Book Information">
-                                                <i class="fa fa-edit mx-1"></i>
-                                            </a>
-                                        </td>
-                                    </tr>';
-                                    echo ' <tr>
-
-                                    <th scope="row">' . "Book ID" . '</th>
-                                    <td>' . "Book Title" . '</td>
-                                    <td>' . "Genre" . '</td>
-                                    <td>' . "Author" . '</td>
-                                    <td>' . "Availability" . '</td>
-                                    <td>
-                                    <a href="updateBook.php" class="btn mx-auto" data-toggle="tooltip" title="Update Book Information">
-                                        <i class="fa fa-edit mx-1"></i>
-                                    </a>
-                                    </td>
-                                    </tr>';
-                                ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </form>
+                    </div>
                     <br>
                     <br>
                 </div>
+
             </div>
         </div>
     </div>
@@ -153,8 +113,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-
-
+    
     <script>
         var el = document.getElementById("wrapper");
         var toggleButton = document.getElementById("menu-toggle");
@@ -162,24 +121,8 @@
         toggleButton.onclick = function () {
             el.classList.toggle("toggled");
         };
-
-        $(document).ready(function() {
-            $('#tbl-books').DataTable({
-        });
-
-            // Customizing the search bar
-            $('.dataTables_filter input').addClass('form-control'); 
-            $('.dataTables_filter input').attr('placeholder', 'Search');
-            $('.dataTables_filter label').contents().filter(function() {
-                return this.nodeType === 3; 
-            }).remove(); 
-
-            $('.dataTables_filter input').wrap('<div class="input-group"></div>');
-            $('.dataTables_filter input').before('<div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-search"></i></span></div>');
-
-            $('.dataTables_filter').addClass('col-6');
-        });
     </script>
+
 </body>
 
 </html>

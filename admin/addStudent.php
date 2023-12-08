@@ -1,5 +1,10 @@
 <?php
-
+    if (isset($_POST['submit'])){
+        if ($_POST['name'] == '' or $_POST['studNum'] == '' or $_POST['course'] == '' or
+                $_POST['email'] == '' or $_POST['password']) {
+            echo '<script>alert("Some inputs are empty. Please fill in all fields.")</script>';
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -73,7 +78,7 @@
             
                 <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
                     <div class="d-flex align-items-center">
-                        <i class="fas fa-align-left primary-text fs-4 me-3" id="menu-toggle"></i>
+                        <i class="fas fa-align-left second-text fs-4 me-3" id="menu-toggle"></i>
                         <h2 class="fs-2 m-0 second-text">Manage Students</h2>
                     </div>
                 </nav>
@@ -82,14 +87,12 @@
                     <form action="" method="post" class="post">
                         <br>
                         <div class="container col-md-9 top border border-dark">
-                            <form action="" method="post" class="post">
-                                <div class="d-flex justify-content-between my-3">
-                                    <h3>Add a New Student</h3>
-                                    <div class="d-flex">
-                                        <a href="manageStudent.php" class="btn btn-light"><i class="fa fa-list mx-1"></i> Student List</a>
-                                    </div>
+                            <div class="d-flex justify-content-between my-3">
+                                <h3>Add a New Student</h3>
+                                <div class="d-flex">
+                                    <a href="manageStudent.php" class="btn btn-light"><i class="fa fa-list mx-1"></i> Student List</a>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                         <div class="container col-md-9 main border border-dark">
                             <div class="form-element mt-4">

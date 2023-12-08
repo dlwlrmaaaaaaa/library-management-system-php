@@ -80,7 +80,7 @@
             
                 <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
                     <div class="d-flex align-items-center">
-                        <i class="fas fa-align-left primary-text fs-4 me-3" id="menu-toggle"></i>
+                        <i class="fas fa-align-left second-text fs-4 me-3" id="menu-toggle"></i>
                         <h2 class="fs-2 m-0 second-text">Manage Students</h2>
                     </div>
                 </nav>
@@ -89,14 +89,12 @@
                     <form action="" method="post" class="post">
                         <br>
                         <div class="container col-md-11 top border border-dark">
-                            <form action="" method="post" class="post">
-                                <div class="d-flex justify-content-between my-3">
-                                    <h3>List of Students</h3>
-                                    <div class="d-flex">
-                                        <a href="addStudent.php" class="btn btn-light"><i class="fa fa-plus mx-1"></i> Add New Students</a>
-                                    </div>
+                            <div class="d-flex justify-content-between my-3">
+                                <h3>List of Students</h3>
+                                <div class="d-flex">
+                                    <a href="addStudent.php" class="btn btn-light"><i class="fa fa-plus mx-1"></i> Add New Students</a>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                         <div class="container col-md-11 main border border-dark">
                             <table class="table table-bordered-dark" id="tbl-list-students">
@@ -123,12 +121,6 @@
                                             <a href="#" class="btn mx-auto" data-toggle="tooltip" title="Delete User">
                                                 <i class="fa fa-trash mx-1"></i>
                                             </a>
-                                            <a href="#" class="btn mx-auto" data-toggle="tooltip" title="Suspend User">
-                                                <i class="fa fa-pause mx-1"></i>
-                                            </a>
-                                            <a href="#" class="btn mx-auto" data-toggle="tooltip" title="Block User">
-                                                <i class="fa fa-ban mx-1"></i>
-                                            </a>
                                         </td>
                                     </tr>';
                                     echo ' <tr>
@@ -143,12 +135,6 @@
                                         </a>
                                         <a href="#" class="btn mx-auto" data-toggle="tooltip" title="Delete User">
                                             <i class="fa fa-trash mx-1"></i>
-                                        </a>
-                                        <a href="#" class="btn mx-auto" data-toggle="tooltip" title="Suspend User">
-                                            <i class="fa fa-pause mx-1"></i>
-                                        </a>
-                                        <a href="#" class="btn mx-auto" data-toggle="tooltip" title="Block User">
-                                            <i class="fa fa-ban mx-1"></i>
                                         </a>
                                     </td>
                                     </tr>';

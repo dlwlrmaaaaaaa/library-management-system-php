@@ -12,13 +12,6 @@
     <link rel="stylesheet" href="Bootsrap\css\bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-    <!-- Include Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-    <!-- Include Bootstrap JS (including Popper.js) and jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <title>Urban Reads</title>
 </head>
 <body>
@@ -80,8 +73,8 @@
             
                 <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
                     <div class="d-flex align-items-center">
-                        <i class="fas fa-align-left primary-text fs-4 me-3" id="menu-toggle"></i>
-                        <h2 class="fs-2 m-0 second-text">Return Request</h2>
+                        <i class="fas fa-align-left second-text fs-4 me-3" id="menu-toggle"></i>
+                        <h2 class="fs-2 m-0 second-text">Borrowed Books</h2>
                     </div>
                 </nav>
 
@@ -89,48 +82,33 @@
                     <form action="" method="post" class="post">
                         <br>
                         <div class="container col-md-11 maintop border border-dark">
-                            <table class="table table-bordered-dark" id="tbl-return-request">
+                            <table class="table table-bordered-dark" id="tbl-borrowed-books">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
-                                        <th>Student Number</th>
                                         <th>Book ID</th>
                                         <th>Book Name</th>
-                                        <th>Action</th>
+                                        <th>Issue Date</th>
+                                        <th>Due Date</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                <?php
+                                    <?php
                                         echo ' <tr>
+                                            <th scope="row">' . "31" . '</th>
+                                            <td>' . "Harry Potter " . '</td>
+                                            <td>' . "11-21-2021" . '</td>
+                                            <td>' . "11-23-2023" . '</td> 
+                                        </tr>';
 
-                                        <th scope="row">' . "1" . '</th>
-                                        <td>' . "20210684-M" . '</td>
-                                        <td>' . "23" . '</td>
-                                        <td>' . "Pride and Prejudice" . '</td>
-                                        <td>
-                                            <a href="#" class="btn mx-auto" data-toggle="tooltip" title="Accept">
-                                                <i class="fa fa-check mx-1"></i>
-                                            </a>
-                                            <a href="#" class="btn mx-auto" data-toggle="tooltip" title="Deny">
-                                                <i class="fa fa-ban mx-1"></i>
-                                            </a>
-                                        </td>';
                                         echo ' <tr>
+                                            <th scope="row">' . "Book ID" . '</th>
+                                            <td>' . "Book Name" . '</td>
+                                            <td>' . "Issue Date" . '</td>
+                                            <td>' . "Due Date" . '</td>
+                                        </tr>';
 
-                                        <th scope="row">' . "ID" . '</th>
-                                        <td>' . "Student Number" . '</td>
-                                        <td>' . "Number" . '</td>
-                                        <td>' . "Title" . '</td>
-                                        <td>
-                                            <a href="#" class="btn mx-auto" data-toggle="tooltip" title="Accept">
-                                                <i class="fa fa-check mx-1"></i>
-                                            </a>
-                                            <a href="#" class="btn mx-auto" data-toggle="tooltip" title="Deny">
-                                                <i class="fa fa-ban mx-1"></i>
-                                            </a>
-                                        </td>
-                                        ';
                                     ?>
+                                <tbody>
+
                                 </tbody>
                             </table>
                         </div>
@@ -159,21 +137,21 @@
         };
 
         $(document).ready(function() {
-            $('#tbl-return-request').DataTable({
+        $('#tbl-borrowed-books').DataTable({
         });
 
-            // Customizing the search bar
-            $('.dataTables_filter input').addClass('form-control'); 
-            $('.dataTables_filter input').attr('placeholder', 'Search');
-            $('.dataTables_filter label').contents().filter(function() {
-                return this.nodeType === 3; 
-            }).remove(); 
+        // Customizing the search bar
+        $('.dataTables_filter input').addClass('form-control'); 
+        $('.dataTables_filter input').attr('placeholder', 'Search');
+        $('.dataTables_filter label').contents().filter(function() {
+            return this.nodeType === 3; 
+        }).remove(); 
 
-            $('.dataTables_filter input').wrap('<div class="input-group"></div>');
-            $('.dataTables_filter input').before('<div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-search"></i></span></div>');
+        $('.dataTables_filter input').wrap('<div class="input-group"></div>');
+        $('.dataTables_filter input').before('<div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-search"></i></span></div>');
 
-            $('.dataTables_filter').addClass('col-6');
-        });
+        $('.dataTables_filter').addClass('col-6');
+    });
     </script>
 </body>
 

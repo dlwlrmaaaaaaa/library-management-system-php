@@ -73,7 +73,7 @@
             
                 <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
                     <div class="d-flex align-items-center">
-                        <i class="fas fa-align-left primary-text fs-4 me-3" id="menu-toggle"></i>
+                        <i class="fas fa-align-left second-text fs-4 me-3" id="menu-toggle"></i>
                         <h2 class="fs-2 m-0 second-text">Currently Issued Books</h2>
                     </div>
                 </nav>
@@ -96,7 +96,7 @@
                                     <?php
                                         echo ' <tr>
 
-                                        <th scope="row">' . "20210684-M" . '</th>
+                                        <td scope="row">' . "20210684-M" . '</td>
                                         <td>' . "Dan Edward Manuel" . '</td>
                                         <td>' . "31" . '</td>
                                         <td>' . "Harry Potter " . '</td>
@@ -104,7 +104,7 @@
                                         <td>' . "11-23-2023" . '</td>';
                                         echo ' <tr>
 
-                                        <th scope="row">' . "Student Number" . '</th>
+                                        <td scope="row">' . "Student Number" . '</td>
                                         <td>' . "Name" . '</td>
                                         <td>' . "Book ID" . '</td>
                                         <td>' . "Book Name" . '</td>

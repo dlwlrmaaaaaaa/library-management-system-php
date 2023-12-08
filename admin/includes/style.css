@@ -31,18 +31,21 @@
   border: 3px;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
+  box-shadow: 5px 5px 10px 1px rgba(23, 10, 0, 0.5);
 }
 
 .maintop {
   background: #F2F9FF;
   border: 3px;
   border-radius: 10px;
+  box-shadow: 5px 5px 10px 1px rgba(23, 10, 0, 0.5);
 }
 
 .top{
   background: #C7E5FF;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
+  box-shadow: 5px 5px 10px 1px rgba(23, 10, 0, 0.5);
 }
   
 .background-container {

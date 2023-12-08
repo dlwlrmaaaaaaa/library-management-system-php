@@ -87,17 +87,9 @@
 
                 <div class="container-fluid px-4">
                     <form action="" method="post" class="post">
-                    <br>
-                        <div class="container col-md-11 top border border-dark">
-                            <div class="d-flex justify-content-between my-3">
-                                <h3>List of Books</h3>
-                                <div class="d-flex">
-                                    <a href="addBook.php" class="btn btn-light"><i class="fa fa-plus mx-1"></i> Add New Books</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="container col-md-11 main border border-dark">
-                            <table class="table table-bordered-dark" id="tbl-books">
+                        <br>
+                        <div class="container col-md-11 maintop border border-dark">
+                            <table class="table table-bordered-dark" id="tbl-all-books">
                                 <thead>
                                     <tr>
                                         <th>Book ID</th>
@@ -117,23 +109,23 @@
                                         <td>Dante Alighieri</td>
                                         <td>2</td>
                                         <td>
-                                            <a href="updateBook.php" class="btn mx-auto" data-toggle="tooltip" title="Update Book Information">
-                                                <i class="fa fa-edit mx-1"></i>
+                                            <a href="borrowBook.php" class="btn mx-auto" data-toggle="tooltip" title="View Book Information">
+                                                <i class="fa fa-eye mx-1"></i>
                                             </a>
                                         </td>
                                     </tr>';
+                                    
                                     echo ' <tr>
-
-                                    <th scope="row">' . "Book ID" . '</th>
-                                    <td>' . "Book Title" . '</td>
-                                    <td>' . "Genre" . '</td>
-                                    <td>' . "Author" . '</td>
-                                    <td>' . "Availability" . '</td>
-                                    <td>
-                                    <a href="updateBook.php" class="btn mx-auto" data-toggle="tooltip" title="Update Book Information">
-                                        <i class="fa fa-edit mx-1"></i>
-                                    </a>
-                                    </td>
+                                        <th scope="row">' . "Book ID" . '</th>
+                                        <td>' . "Book Title" . '</td>
+                                        <td>' . "Genre" . '</td>
+                                        <td>' . "Author" . '</td>
+                                        <td>' . "Availability" . '</td>
+                                        <td>
+                                        <a href="borrowBook.php" class="btn mx-auto" data-toggle="tooltip" title="View Book Information">
+                                            <i class="fa fa-eye mx-1"></i>
+                                        </a>
+                                        </td>
                                     </tr>';
                                 ?>
                                 </tbody>
@@ -164,7 +156,7 @@
         };
 
         $(document).ready(function() {
-            $('#tbl-books').DataTable({
+            $('#tbl-all-books').DataTable({
         });
 
             // Customizing the search bar

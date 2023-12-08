@@ -81,63 +81,81 @@
                 <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
                     <div class="d-flex align-items-center">
                         <i class="fas fa-align-left second-text fs-4 me-3" id="menu-toggle"></i>
-                        <h2 class="fs-2 m-0 second-text">All Books</h2>
+                        <h2 class="fs-2 m-0 second-text">Book Information</h2>
                     </div>
                 </nav>
 
                 <div class="container-fluid px-4">
                     <form action="" method="post" class="post">
-                    <br>
-                        <div class="container col-md-11 top border border-dark">
-                            <div class="d-flex justify-content-between my-3">
-                                <h3>List of Books</h3>
-                                <div class="d-flex">
-                                    <a href="addBook.php" class="btn btn-light"><i class="fa fa-plus mx-1"></i> Add New Books</a>
+                        <br>
+                        <div class="container col-md-11 maintop border border-dark">
+                        <br>
+                            <div class="row ">
+                                <div class="col-md-3 my-2">
+                                    <!-- Portrait Photo -->
+                                    <img src="https://impressionsininkblog.files.wordpress.com/2021/08/6655.jpg" alt="Book Photo" class="img-fluid img-thumbnail" width="100">
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="form-element my-2">
+                                        <div class="row">
+                                            <div class="col-md-2 my-2">
+                                                <h6>Book Title:</h6>
+                                            </div>
+                                            <div class="col-md-10">
+                                                <input type="text" class="form-control" name="title" placeholder="Book Title">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-element my-2">
+                                        <div class="row">
+                                            <div class="col-md-2 my-2">
+                                                <h6>Author:</h6>
+                                            </div>
+                                            <div class="col-md-10">
+                                        <input type="text" class="form-control" name="author" placeholder="Author">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-element my-2">
+                                        <div class="row">
+                                            <div class="col-md-2 my-2">
+                                                <h6>Genre:</h6>
+                                            </div>
+                                            <div class="col-md-10">
+                                                <select name="genre" class="form-control">
+                                                    <option value="" disabled selected>Select a Genre</option>
+                                                    <option value="Fiction">Fiction</option>
+                                                    <option value="Romance">Romance</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-element my-2">
+                                        <div class="row">
+                                            <div class="col-md-2 my-2">
+                                                <h6>ISBN:</h6>
+                                            </div>
+                                            <div class="col-md-10">
+                                                <input type="text" class="form-control" name="isbn" placeholder="ISBN">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-element my-2">
+                                        <div class="row">
+                                            <div class="col-md-2 my-2">
+                                                <h6>Summary:</h6>
+                                            </div>
+                                            <div class="col-md-10">
+                                                <textarea class="form-control" name="message" rows="5" cols="60" placeholder="Book Summary"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-element my-3">
+                                    <input type="submit" class="btn btn-secondary rounded" name="borrow" value="Borrow Book">
                                 </div>
                             </div>
-                        </div>
-                        <div class="container col-md-11 main border border-dark">
-                            <table class="table table-bordered-dark" id="tbl-books">
-                                <thead>
-                                    <tr>
-                                        <th>Book ID</th>
-                                        <th>Book Name</th>
-                                        <th>Genre</th>
-                                        <th>Author</th>
-                                        <th>Availability</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                <?php
-                                    echo '<tr>
-                                        <th scope="row">1</th>
-                                        <td>Divine Comedy</td>
-                                        <td>Epic Poetry</td>
-                                        <td>Dante Alighieri</td>
-                                        <td>2</td>
-                                        <td>
-                                            <a href="updateBook.php" class="btn mx-auto" data-toggle="tooltip" title="Update Book Information">
-                                                <i class="fa fa-edit mx-1"></i>
-                                            </a>
-                                        </td>
-                                    </tr>';
-                                    echo ' <tr>
-
-                                    <th scope="row">' . "Book ID" . '</th>
-                                    <td>' . "Book Title" . '</td>
-                                    <td>' . "Genre" . '</td>
-                                    <td>' . "Author" . '</td>
-                                    <td>' . "Availability" . '</td>
-                                    <td>
-                                    <a href="updateBook.php" class="btn mx-auto" data-toggle="tooltip" title="Update Book Information">
-                                        <i class="fa fa-edit mx-1"></i>
-                                    </a>
-                                    </td>
-                                    </tr>';
-                                ?>
-                                </tbody>
-                            </table>
                         </div>
                     </form>
                     <br>
