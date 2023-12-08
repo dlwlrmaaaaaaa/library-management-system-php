@@ -1,5 +1,5 @@
 <?php
-
+include('includes/authenticate.php');
 ?>
 
 <!DOCTYPE html>

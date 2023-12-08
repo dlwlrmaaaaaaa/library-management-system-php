@@ -18,7 +18,7 @@
                         class="fas fa-bookmark me-2"></i>Currently Issued</a>
                 <a href="returnRequest.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-arrow-left me-2"></i>Return Request</a>
-                <a href="#" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold mt-auto"><i
+                <a href="logout.php" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold mt-auto"><i
                         class="fas fa-power-off me-2"></i>Logout</a>
         </div>
 </div>

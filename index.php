@@ -1,9 +1,6 @@
 <?php
         session_start();
-        include("dbconfig.php");
-        
-
-     
+        include("dbconfig.php");    
 ?>
 
 <!DOCTYPE html>
@@ -146,7 +143,8 @@
                     $admin = $stmt->fetch(PDO::FETCH_OBJ);                  
             if ($stmt->rowCount() > 0) {
                 if (password_verify($password, $admin->password)) {
-                    $_SESSION['admin_name'] = $admin->admin_name;                       
+                    $_SESSION['admin_name'] = $admin->admin_name;     
+                    $_SESSION['loggedin'] = true;                  
                      echo '<script>window.location.href = "admin/dashboard.php";</script>';
                      exit();
                  

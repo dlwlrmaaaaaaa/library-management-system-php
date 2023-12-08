@@ -1,4 +1,5 @@
 <?php
+include('includes/authenticate.php');
     include('../dbconfig.php');
     try {   
         $id = $_GET['id'];

@@ -1,6 +1,6 @@
 <?php
     include('../dbconfig.php');
-    session_start();
+    include('includes/authenticate.php');
 
 ?>
 

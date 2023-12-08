@@ -1,5 +1,4 @@
 <?php
-
 $dbname = 'lms';
 $dbuser = 'root';
 $dbpass = '';

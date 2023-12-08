@@ -1,6 +1,6 @@
 <?php  
    include('../dbconfig.php');
-   
+   include('includes/authenticate.php');
 ?>
 
 <!DOCTYPE html>
