@@ -1,5 +1,6 @@
-<?php
-
+<?php  
+   include('../dbconfig.php');
+   
 ?>
 
 <!DOCTYPE html>
@@ -10,6 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="includes/style.css">
     <link rel="stylesheet" href="Bootsrap\css\bootstrap.min.css">
+     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <title>Urban Reads</title>
 </head>
@@ -82,14 +84,14 @@
                     <form action="" method="post" class="post">
                         <br>
                         <div class="container col-md-9 top border border-dark">
-                            <form action="" method="post" class="post">
+                      
                                 <div class="d-flex justify-content-between my-3">
                                     <h3>Add a New Student</h3>
                                     <div class="d-flex">
                                         <a href="manageStudent.php" class="btn btn-light"><i class="fa fa-list mx-1"></i> Student List</a>
                                     </div>
                                 </div>
-                            </form>
+                           
                         </div>
                         <div class="container col-md-9 main border border-dark">
                             <div class="form-element mt-4">
@@ -111,10 +113,10 @@
                                 <input type="text" class="form-control" name="email" placeholder="Email Address">
                             </div>
                             <div class="form-element mt-3">
-                                <input type="text" class="form-control" name="password" placeholder="Password">
+                                <input type="password" class="form-control" name="password" placeholder="Password">
                             </div>
                             <div class="form-element my-4">
-                                <input type="submit" class="btn btn-secondary" name="submit" value="Add New">
+                                <input type="submit" name="submit" value="submit" class="btn btn-secondary">
                             </div>
                         </div>
                     </form>
@@ -127,12 +129,15 @@
     
     <!-- Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+   
 
     <!-- Bootstrap JS (Popper.js and Bootstrap JS) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+   
+
 
 
     <script>
@@ -142,7 +147,34 @@
         toggleButton.onclick = function () {
             el.classList.toggle("toggled");
         };
+    
     </script>
 </body>
 
 </html>
+<?php
+    
+try {
+    if (isset($_POST['submit'])) {
+        $name = $_POST['name'];
+        $studNum = $_POST['studNum'];
+        $course = $_POST['course'] ?? '';
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        // Check if all input fields are empty
+        if (empty($name) || empty($studNum) || empty($course) || empty($email) || empty($password)) {
+            echo '<script>alert("Required fields are empty!");</script>';
+        } else {
+            // Prepare SQL statement
+            $sql = "INSERT INTO students (full_name, student_number, course, email, password) VALUES (:name, :studNum, :course, :email, :password)";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([":name" => $name, ":studNum" => $studNum, ":course" => $course,":email"=>$email,":password"=>$hashedPassword]);         
+            echo '<script>alert("Student added successfully!");</script>';
+        }
+    }
+} catch (Exception $e) {
+    echo "<script>alert('" . $e->getMessage() . "')</script>";
+}
+?>

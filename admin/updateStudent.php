@@ -1,4 +1,44 @@
 <?php
+       include('../dbconfig.php');
+    $id = $_GET['id'];
+
+    $displaySelectedStudents = "SELECT * FROM students WHERE id = :id";
+    $stmt = $pdo->prepare($displaySelectedStudents);
+    $stmt->execute([':id' => $id]);
+    $rows = $stmt->fetch(PDO::FETCH_OBJ);
+    if($rows){
+        $student_number = $rows->student_number;
+        $fullname = $rows->full_name;
+        $course = $rows->course;
+        $email = $rows->email;
+    }
+
+    if(isset($_POST['submit'])){
+        // Form validation
+        if(!empty($_POST['studNum']) && !empty($_POST['name']) && !empty($_POST['email'])) {
+            $studnum = $_POST['studNum'];
+            $nameinput = $_POST['name'];
+            $courseinput = $_POST['course'] ?? '';
+            $emailinput = $_POST['email'];
+            $newpassword = $_POST['password'];
+
+            $hashedpassword = '';
+            $updatesql = "UPDATE students SET student_number = :sn, full_name = :fn, course = :course, email = :email";
+            
+            if (!empty($newpassword)) {
+                $hashedpassword = password_hash($newpassword, PASSWORD_DEFAULT);
+                $updatesql .= ", password = :pass";
+            }
+            $updatesql .= " WHERE id = :id";          
+            $stmt = $pdo->prepare($updatesql);
+            $parameter = [":sn" => $studnum, ":fn" => $nameinput, ":course" => $courseinput, ":email" => $emailinput, ":id" => $id];           
+            if (!empty($hashedpassword)) {
+                $parameter[":pass"] = $hashedpassword;
+            }     
+            $rowAffected = $stmt->execute($parameter);
+
+         
+      
 
 ?>
 
@@ -14,6 +54,17 @@
     <title>Urban Reads</title>
 </head>
 <body>
+     <?php
+     if ($rowAffected) {            
+                $student_number = $studnum;
+                $fullname = $nameinput;
+                $course = $courseinput;
+                $email = $emailinput;    
+                echo "<script> alert('Updated Succesfully!') </script>";        
+            }
+  }
+    }
+        ?>
     <div class="background-container">
         <svg class="svg-background" version="1.1" xmlns="http://www.w3.org/2000/svg" 
             xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" height="100%" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice">
@@ -82,33 +133,33 @@
                     <form action="" method="post" class="post">
                         <br>
                         <div class="container col-md-9 top border border-dark">
-                            <form action="" method="post" class="post">
+                           
                                 <div class="d-flex justify-content-between my-3">
                                     <h3>Update Student Information</h3>
                                     <div class="d-flex">
                                         <a href="manageStudent.php" class="btn btn-light"><i class="fa fa-list mx-1"></i> Student List</a>
                                     </div>
                                 </div>
-                            </form>
+                           
                         </div>
                         <div class="container col-md-9 main border border-dark">
                             <div class="form-element mt-4">
-                                <input type="text" class="form-control" name="name" placeholder="Name">
+                                <input type="text" class="form-control" name="name" placeholder="Name" value="<?php echo $fullname; ?>">
                             </div>
                             <div class="form-element mt-3">
-                                <input type="text" class="form-control" name="studNum" placeholder="Student Number">
+                                <input type="text" class="form-control" name="studNum" placeholder="Student Number" value="<?php echo $student_number; ?>">
                             </div>
                             <div class="form-element mt-3">
-                                <select name="course" class="form-control">
-                                    <option value="" disabled selected>Select a Course</option>
-                                    <option value="BSCS">BSCS</option>
-                                    <option value="BSIS">BSIS</option>
-                                    <option value="BSIT">BSIT</option>
-                                    <option value="BSEMC">BSEMC</option>
-                                </select>
+                               <select name="course" class="form-control">
+                                <option value="" disabled <?php echo ($course === '') ? 'selected' : ''; ?>>Select a Course</option>
+                                <option value="BSCS" <?php echo ($course === 'BSCS') ? 'selected' : ''; ?>>BSCS</option>
+                                <option value="BSIS" <?php echo ($course === 'BSIS') ? 'selected' : ''; ?>>BSIS</option>
+                                <option value="BSIT" <?php echo ($course === 'BSIT') ? 'selected' : ''; ?>>BSIT</option>
+                                <option value="BSEMC" <?php echo ($course === 'BSEMC') ? 'selected' : ''; ?>>BSEMC</option>
+                            </select>
                             </div>
                             <div class="form-element mt-3">
-                                <input type="text" class="form-control" name="email" placeholder="Email Address">
+                                <input type="text" class="form-control" name="email" placeholder="Email Address" value="<?php echo $email; ?>">
                             </div>
                             <div class="form-element mt-3">
                                 <input type="text" class="form-control" name="password" placeholder="Password">
@@ -133,7 +184,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-
+     
 
     <script>
         var el = document.getElementById("wrapper");
@@ -143,6 +194,16 @@
             el.classList.toggle("toggled");
         };
     </script>
+
 </body>
 
 </html>
+<?php
+
+    if(isset($_POST['submit'])){
+        if(empty($_POST['studNum']) || empty($_POST['name']) || empty($_POST['email'])) {
+        echo "<script> alert('Please fill in all Field Requirements') </script>";
+    }
+
+    }
+?>

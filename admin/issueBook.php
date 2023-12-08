@@ -1,4 +1,6 @@
 <?php
+    include('../dbconfig.php');
+    session_start();
 
 ?>
 
@@ -108,10 +110,10 @@
                                         <td>' . "Pride and Prejudice" . '</td>
                                         <td>
                                             <a href="#" class="btn mx-auto" data-toggle="tooltip" title="Accept">
-                                                <i class="fa fa-check mx-1"></i>
+                                                <i class="fa fa-check mx-1" name="check"></i>
                                             </a>
                                             <a href="#" class="btn mx-auto" data-toggle="tooltip" title="Deny">
-                                                <i class="fa fa-ban mx-1"></i>
+                                                <i class="fa fa-ban mx-1" name="ex"></i>
                                             </a>
                                         </td>
                                     </tr>';
@@ -123,10 +125,10 @@
                                         <td>' . "Title" . '</td>
                                         <td>
                                             <a href="#" class="btn mx-auto" data-toggle="tooltip" title="Accept">
-                                                <i class="fa fa-check mx-1"></i>
+                                                <i class="fa fa-check mx-1" name="check"></i>
                                             </a>
                                             <a href="#" class="btn mx-auto" data-toggle="tooltip" title="Deny">
-                                                <i class="fa fa-ban mx-1"></i>
+                                                <i class="fa fa-ban mx-1" name="ex"></i>
                                             </a>
                                         </td>
                                     </tr>';

@@ -1,5 +1,7 @@
 <?php
+    include('../dbconfig.php');
 
+   
 ?>
 
 <!DOCTYPE html>
@@ -111,16 +113,23 @@
                                 </thead>
                                 <tbody>
                                 <?php
-                                    echo '<tr>
-                                        <th scope="row">1</th>
-                                        <td>20210684-M</td>
-                                        <td>Dan Edward Manuel</td>
-                                        <td>BSCS</td>
+                                 try {
+                                    
+                                    $displayStudent = "SELECT * FROM students";
+                                    $stmt = $pdo->prepare($displayStudent);
+                                    $stmt->execute();
+                                    $rows = $stmt->fetchAll(PDO::FETCH_OBJ); 
+                                    foreach($rows as $row){
+                                       echo '<tr>
+                                        <th scope="row">' . $row->id . '</th>
+                                        <td>'.$row->student_number.'</td>
+                                        <td>'.$row->full_name.'</td>
+                                        <td>'.$row->course.'</td>
                                         <td>
-                                            <a href="updateStudent.php" class="btn mx-auto" data-toggle="tooltip" title="Edit User">
+                                            <a href="updateStudent.php?id='. $row->id .'" class="btn mx-auto" data-toggle="tooltip" title="Edit User">
                                                 <i class="fa fa-edit mx-1"></i>
                                             </a>
-                                            <a href="#" class="btn mx-auto" data-toggle="tooltip" title="Delete User">
+                                            <a href="delete.php?id= '. $row->id . '" class="btn mx-auto" data-toggle="tooltip" title="Delete User">
                                                 <i class="fa fa-trash mx-1"></i>
                                             </a>
                                             <a href="#" class="btn mx-auto" data-toggle="tooltip" title="Suspend User">
@@ -131,28 +140,14 @@
                                             </a>
                                         </td>
                                     </tr>';
-                                    echo ' <tr>
+                                    }
 
-                                    <th scope="row">' . "ID" . '</th>
-                                    <td>' . "Student Number" . '</td>
-                                    <td>' . "Name" . '</td>
-                                    <td>' . "Course" . '</td>
-                                    <td>
-                                        <a href="updateStudent.php" class="btn mx-auto" data-toggle="tooltip" title="Edit User">
-                                            <i class="fa fa-edit mx-1"></i>
-                                        </a>
-                                        <a href="#" class="btn mx-auto" data-toggle="tooltip" title="Delete User">
-                                            <i class="fa fa-trash mx-1"></i>
-                                        </a>
-                                        <a href="#" class="btn mx-auto" data-toggle="tooltip" title="Suspend User">
-                                            <i class="fa fa-pause mx-1"></i>
-                                        </a>
-                                        <a href="#" class="btn mx-auto" data-toggle="tooltip" title="Block User">
-                                            <i class="fa fa-ban mx-1"></i>
-                                        </a>
-                                    </td>
-                                    </tr>';
-                                    ?>
+                                    } catch (PDOException $th) {
+                                        echo $th->getMessage();
+                                    }
+                                   
+                                    
+                                ?>
                                 </tbody>
                             </table>
                         </div>
