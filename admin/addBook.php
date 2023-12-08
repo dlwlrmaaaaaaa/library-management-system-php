@@ -89,7 +89,6 @@ include('../dbconfig.php');
                 <div class="container-fluid px-4">
                     <form action="" method="post" class="post" enctype="multipart/form-data">
                     <br>
-<<<<<<< HEAD
                         <div class="container col-md-11 top border border-dark">
                             <div class="d-flex justify-content-between my-3">
                                 <h3>Add New Book</h3>
@@ -97,15 +96,6 @@ include('../dbconfig.php');
                                     <a href="allBooks.php" class="btn btn-light"><i class="fa fa-list mx-1"></i> List of Books</a>
                                 </div>
                             </div>
-=======
-                        <div class="container col-md-11 top border border-dark">                
-                                <div class="d-flex justify-content-between my-3">
-                                    <h3>Add New Book</h3>
-                                    <div class="d-flex">
-                                        <a href="allBooks.php" class="btn btn-light"><i class="fa fa-list mx-1"></i> List of Books</a>
-                                    </div>
-                                </div>                     
->>>>>>> c56b6926f96bb3d74dd69fd3aba0b3b51ac82a60
                         </div>
                         <div class="container col-md-11 main border border-dark">
                             <div class="row ">
@@ -174,21 +164,7 @@ include('../dbconfig.php');
                                                 <h6>Availability:</h6>
                                             </div>
                                             <div class="col-md-10">
-<<<<<<< HEAD
-                                                <input type="text" class="form-control" name="isbn" placeholder="Available Copies">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-element my-2">
-                                        <div class="row">
-                                            <div class="col-md-2 my-2">
-                                                <h6>Summary:</h6>
-                                            </div>
-                                            <div class="col-md-10">
-                                                <textarea class="form-control" name="message" rows="5" cols="60" placeholder="Book Summary"></textarea>
-=======
                                                 <textarea class="form-control" name="summary" rows="5" cols="60" placeholder="Enter a Summary"></textarea>
->>>>>>> c56b6926f96bb3d74dd69fd3aba0b3b51ac82a60
                                             </div>
                                         </div>
                                     </div>

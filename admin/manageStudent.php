@@ -134,29 +134,12 @@
                                     </tr>';
                                     }
 
-<<<<<<< HEAD
-                                    <th scope="row">' . "ID" . '</th>
-                                    <td>' . "Student Number" . '</td>
-                                    <td>' . "Name" . '</td>
-                                    <td>' . "Course" . '</td>
-                                    <td>
-                                        <a href="updateStudent.php" class="btn mx-auto" data-toggle="tooltip" title="Edit User">
-                                            <i class="fa fa-edit mx-1"></i>
-                                        </a>
-                                        <a href="#" class="btn mx-auto" data-toggle="tooltip" title="Delete User">
-                                            <i class="fa fa-trash mx-1"></i>
-                                        </a>
-                                    </td>
-                                    </tr>';
-                                    ?>
-=======
                                     } catch (PDOException $th) {
                                         echo $th->getMessage();
                                     }
                                    
                                     
                                 ?>
->>>>>>> c56b6926f96bb3d74dd69fd3aba0b3b51ac82a60
                                 </tbody>
                             </table>
                         </div>

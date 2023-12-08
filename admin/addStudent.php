@@ -1,16 +1,6 @@
-<<<<<<< HEAD
-<?php
-    if (isset($_POST['submit'])){
-        if ($_POST['name'] == '' or $_POST['studNum'] == '' or $_POST['course'] == '' or
-                $_POST['email'] == '' or $_POST['password']) {
-            echo '<script>alert("Some inputs are empty. Please fill in all fields.")</script>';
-        }
-    }
-=======
 <?php  
    include('../dbconfig.php');
    include('includes/authenticate.php');
->>>>>>> c56b6926f96bb3d74dd69fd3aba0b3b51ac82a60
 ?>
 
 <!DOCTYPE html>
@@ -94,23 +84,12 @@
                     <form action="" method="post" class="post">
                         <br>
                         <div class="container col-md-9 top border border-dark">
-<<<<<<< HEAD
                             <div class="d-flex justify-content-between my-3">
                                 <h3>Add a New Student</h3>
                                 <div class="d-flex">
                                     <a href="manageStudent.php" class="btn btn-light"><i class="fa fa-list mx-1"></i> Student List</a>
                                 </div>
                             </div>
-=======
-                      
-                                <div class="d-flex justify-content-between my-3">
-                                    <h3>Add a New Student</h3>
-                                    <div class="d-flex">
-                                        <a href="manageStudent.php" class="btn btn-light"><i class="fa fa-list mx-1"></i> Student List</a>
-                                    </div>
-                                </div>
-                           
->>>>>>> c56b6926f96bb3d74dd69fd3aba0b3b51ac82a60
                         </div>
                         <div class="container col-md-9 main border border-dark">
                             <div class="form-element mt-4">

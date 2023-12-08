@@ -16,15 +16,9 @@
                         class="fas fa-book-open me-2"></i>Issue Books</a>
                 <a href="currentlyIssued.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-bookmark me-2"></i>Currently Issued</a>
-<<<<<<< HEAD
                 <a href="expiredBooks.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-hourglass-end me-2"></i>Expired Books</a>
                 <a href="#" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold mt-auto"><i
-=======
-                <a href="returnRequest.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-arrow-left me-2"></i>Return Request</a>
-                <a href="logout.php" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold mt-auto"><i
->>>>>>> c56b6926f96bb3d74dd69fd3aba0b3b51ac82a60
                         class="fas fa-power-off me-2"></i>Logout</a>
         </div>
 </div>
