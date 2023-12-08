@@ -1,5 +1,6 @@
 <?php
-
+        session_start();
+        include("dbconfig.php");    
 ?>
 
 <!DOCTYPE html>
@@ -78,7 +79,7 @@
                 </nav>
 
                 <div class="container-fluid px-4">
-                    <form action="" method="post" class="post">
+                    <form method="post" action=""class="post">
                         <br>
                         <br>
                         <br>
@@ -88,15 +89,15 @@
                         <br>
                         <header>Welcome Back!</header><br>
                             <div class="input-field">
-                                <input type="text" class="input" id="studentNumber" required autocomplete="off">
+                                <input type="text" class="input" name="studentNumber" id="studentNumber" required autocomplete="off">
                                 <label for="studentNumber">Student Number</label>
                             </div>
                             <div class="input-field">
-                                <input type="password" class="input" id="password1" required>
+                                <input type="password" class="input" id="password1" name="password" required>
                                 <label for="password1">Enter Password</label>
                             </div>
                             <div class="input-field">
-                                <input type="submit" class="submit" value="Login" href="dashboard.php">
+                                <input type="submit" class="submit" value="Login" href="dashboard.php" name="login">
                             </div>
                         </div>
                     </form>
@@ -127,5 +128,38 @@
         };
     </script>
 </body>
-
 </html>
+<?php
+    try {
+        if(isset($_POST['login'])){
+            $student_number = $_POST['studentNumber'];
+            $password = $_POST['password'];
+            
+ 
+        if (!is_numeric($student_number)) {
+                    $sql = "SELECT * FROM admin WHERE username = :username";
+                    $stmt = $pdo->prepare($sql);
+                    $stmt->execute(['username' => $student_number]);
+                    $admin = $stmt->fetch(PDO::FETCH_OBJ);                  
+            if ($stmt->rowCount() > 0) {
+                if (password_verify($password, $admin->password)) {
+                    $_SESSION['admin_name'] = $admin->admin_name;     
+                    $_SESSION['loggedin'] = true;                  
+                     echo '<script>window.location.href = "admin/dashboard.php";</script>';
+                     exit();
+                 
+                } else {
+                    echo "<script> alert('Admin not found') </script>";
+                }
+            } else {
+                 echo "<script> alert('Admin not found') </script>";
+            }
+                }
+                                           
+}
+}catch(PDOException $e) {
+        echo "<script> alert('" + $e->getMessage() + "') </script>" ;
+    }
+
+
+?>

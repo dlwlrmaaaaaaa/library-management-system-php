@@ -1,5 +1,5 @@
 <?php
-
+     include('includes/authenticate.php');
 ?>
 
 <!DOCTYPE html>
@@ -73,7 +73,7 @@
                         <h2 class="fs-2 m-0 mx-2 second-text">UrbanReads</h2>
                     </div>
                     
-                    <a href="#" class="m-0 ml-auto text-danger"><h5>Logout</h5></a>
+                    <a href="logout.php" class="m-0 ml-auto text-danger" ><h5>Logout</h5></a>
                 </nav>
 
                 <div class="container-fluid px-4">
@@ -174,3 +174,7 @@
 </body>
 
 </html>
+<?php
+
+
+?>

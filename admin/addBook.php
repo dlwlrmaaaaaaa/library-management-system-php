@@ -1,5 +1,6 @@
 <?php
-
+include('includes/authenticate.php');
+include('../dbconfig.php');
 ?>
 
 <!DOCTYPE html>
@@ -86,8 +87,9 @@
                 </nav>
 
                 <div class="container-fluid px-4">
-                    <form action="" method="post" class="post">
+                    <form action="" method="post" class="post" enctype="multipart/form-data">
                     <br>
+<<<<<<< HEAD
                         <div class="container col-md-11 top border border-dark">
                             <div class="d-flex justify-content-between my-3">
                                 <h3>Add New Book</h3>
@@ -95,6 +97,15 @@
                                     <a href="allBooks.php" class="btn btn-light"><i class="fa fa-list mx-1"></i> List of Books</a>
                                 </div>
                             </div>
+=======
+                        <div class="container col-md-11 top border border-dark">                
+                                <div class="d-flex justify-content-between my-3">
+                                    <h3>Add New Book</h3>
+                                    <div class="d-flex">
+                                        <a href="allBooks.php" class="btn btn-light"><i class="fa fa-list mx-1"></i> List of Books</a>
+                                    </div>
+                                </div>                     
+>>>>>>> c56b6926f96bb3d74dd69fd3aba0b3b51ac82a60
                         </div>
                         <div class="container col-md-11 main border border-dark">
                             <div class="row ">
@@ -140,6 +151,16 @@
                                     <div class="form-element my-2">
                                         <div class="row">
                                             <div class="col-md-2 my-2">
+                                                <h6>Copies:</h6>
+                                            </div>
+                                            <div class="col-md-10">
+                                                <input type="text" class="form-control" name="copies" placeholder="Copies">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-element my-2">
+                                        <div class="row">
+                                            <div class="col-md-2 my-2">
                                                 <h6>ISBN:</h6>
                                             </div>
                                             <div class="col-md-10">
@@ -153,6 +174,7 @@
                                                 <h6>Availability:</h6>
                                             </div>
                                             <div class="col-md-10">
+<<<<<<< HEAD
                                                 <input type="text" class="form-control" name="isbn" placeholder="Available Copies">
                                             </div>
                                         </div>
@@ -164,13 +186,16 @@
                                             </div>
                                             <div class="col-md-10">
                                                 <textarea class="form-control" name="message" rows="5" cols="60" placeholder="Book Summary"></textarea>
+=======
+                                                <textarea class="form-control" name="summary" rows="5" cols="60" placeholder="Enter a Summary"></textarea>
+>>>>>>> c56b6926f96bb3d74dd69fd3aba0b3b51ac82a60
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 
                                 <div class="form-element my-3">
-                                    <input type="submit" class="btn btn-secondary rounded" name="pickPhoto" value="Choose a Photo">
+                                    <input type="file" class="btn btn-secondary rounded" name="upload" id="upload" value="Choose a Photo">
                                     <input type="submit" class="btn btn-secondary rounded" name="submit" value="Add Book">
                                 </div>
                             </div>
@@ -219,3 +244,72 @@
 </body>
 
 </html>
+<?php
+
+    
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
+    $title = $_POST['title'];
+    $author = $_POST['author'];
+    $copies = $_POST['copies'];
+    $genre = $_POST['genre'];
+    $isbn = $_POST['isbn'];
+    $summary = $_POST['summary'];
+    $targetDir = "upload/";
+    
+    $uploadOk = 1;
+    $uniqid = uniqid();
+    $randomPart = substr($uniqueID, 0, 6);
+    $fileExtension = pathinfo($_FILES['upload']['name'], PATHINFO_EXTENSION);
+    $randomFileName = $randomPart . '.' . $fileExtension;
+
+    $destination = $targetDir . $randomFileName;
+    $check = getimagesize($_FILES["upload"]["tmp_name"]);
+    if ($check !== false) {
+        $uploadOk = 1;
+    } else {
+        echo "File is not an image.";
+        $uploadOk = 0;
+    }
+    if (file_exists($destination)) {
+        echo "Sorry, file already exists.";
+        $uploadOk = 0;
+    }
+
+    if ($_FILES["upload"]["size"] > 500000) {
+        echo "Sorry, your file is too large.";
+        $uploadOk = 0;
+    }
+    if (
+        $fileExtension != "jpg" && $fileExtension != "png" && $fileExtension != "jpeg"
+        && $fileExtension != "gif"
+    ) {
+        echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+        $uploadOk = 0;
+    }
+    if ($uploadOk == 1) {
+        if (move_uploaded_file($_FILES["upload"]["tmp_name"], $destination)) {
+            $filename = $_FILES['upload']['name'];
+            try {
+                $sql = "INSERT INTO books (title, author, genre, ISBN, summary, copies, file_name) VALUES (:title, :author, :genre, :isbn, :summary, :copies, :filename)";
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute([
+                    ":title" => $title,
+                    ":author" => $author,
+                    ":genre" => $genre,
+                    ":isbn" => $isbn,
+                    ":summary" => $summary,
+                    ":copies" => $copies,
+                    ":filename" => $filename
+                ]);
+            } catch (PDOException $th) {
+                echo $th->getMessage();
+            }
+            
+        } else {
+            echo "Sorry, there was an error uploading your file.";
+        }
+    }
+}
+
+
+?>
