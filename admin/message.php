@@ -1,5 +1,6 @@
 <?php
-include('includes/authenticate.php');
+    include('includes/authenticate.php');
+    include('../dbconfig.php');
 ?>
 
 <!DOCTYPE html>
@@ -130,3 +131,40 @@ include('includes/authenticate.php');
 </body>
 
 </html>
+<?php
+
+    if(isset($_POST['submit'])){
+        $student_number = $_POST['studNum'];
+        try {
+            $getID = "SELECT id FROM students WHERE student_number = :studentnum";
+            $stmt = $pdo->prepare($getID);
+            $stmt->execute([":studentnum" => $student_number]);
+            $student = $stmt->fetch(PDO::FETCH_OBJ);
+
+            if($student){
+                $id = $student->id;
+
+                $message = $_POST['message'];
+                $sendMessage = "INSERT INTO messages(id, student_number, message) VALUES (:id, :sn, :msg)";
+                $stmt = $pdo->prepare($sendMessage);
+                $stmt->execute([
+                    ":id" => $id,
+                    ":sn" => $student_number,
+                    ":msg" => $message
+                ]);
+                if($stmt->rowCount() > 0){
+                    echo "<script> alert('You have sent a message successfully!') </script>";
+                }else{
+                     echo "<script> alert('Failed to sent a message') </script>";
+                }
+            }else{
+                 echo "<script> alert('Student Number is not valid or not found!') </script>";
+            }
+        }catch (PDOException $th) {
+           echo $th->getMessage();
+        }
+
+    }
+
+
+?>

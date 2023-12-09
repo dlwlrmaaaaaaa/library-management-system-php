@@ -1,4 +1,37 @@
 <?php
+    include('includes/authenticate.php');
+    include('../dbconfig.php');
+    $name = $_SESSION['student_name'];
+     $id = 0;
+    try {
+        $getID = "SELECT * FROM students WHERE full_name = :name";
+        $stmt = $pdo->prepare($getID);
+        $stmt->execute(["name" => $name]);
+        $row = $stmt->fetch(PDO::FETCH_OBJ);
+        $id = $row->id;
+    } catch (Throwable $th) {
+        throw $th;
+    }
+
+    $messages = '';
+    $date = '';
+    $time = '';
+    try {
+        $getMessage = "SELECT * FROM messages WHERE id = :id";
+        $stmt = $pdo->prepare($getMessage);
+        $stmt->execute(["id" => $id]);
+        $row = $stmt->fetch(PDO::FETCH_OBJ); 
+        if($row){
+            $messages = $row->message;
+            $newDate = $row->date;
+            $ndate = new DateTime($newDate);
+            $date = $ndate->format('Y-m-d');
+            $time = $ndate->format('H:i:s');
+        }
+        
+    } catch (Throwable $th) {
+        throw $th;
+    }
 
 ?>
 
@@ -75,7 +108,7 @@
             </svg>
 
         <div class="d-flex" id="wrapper">
-            <?php include('includes/sidebar.php'); ?>
+            <?php include('includes/sidebar.php');?>
             <div id="page-content-wrapper" class="scrollable-content">
             
                 <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
@@ -100,15 +133,9 @@
                                 <tbody>
                                 <?php
                                     echo '<tr>
-                                        <td scope="row">Your request for issue of Harry Potter has been accepted</td>
-                                        <td>2023-12-08</td>
-                                        <td>17:37:00</td>
-                                    </tr>';
-
-                                    echo ' <tr>
-                                        <td scope="row">' . "Message" . '</td>
-                                        <td>' . "Date" . '</td>
-                                        <td>' . "Time" . '</td>
+                                        <td scope="row"> ' . $messages .' </td>
+                                        <td>' . $date .'</td>
+                                        <td>' . $time .'</td>
                                     </tr>';
                                 ?>
                                 </tbody>

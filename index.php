@@ -1,6 +1,7 @@
 <?php
         session_start();
-        include("dbconfig.php");    
+        include("dbconfig.php");  
+          
 ?>
 
 <!DOCTYPE html>
@@ -132,14 +133,14 @@
 <?php
     try {
         if(isset($_POST['login'])){
-            $student_number = $_POST['studentNumber'];
+            $username = $_POST['studentNumber'];
             $password = $_POST['password'];
             
  
-        if (!is_numeric($student_number)) {
+        if (!is_numeric($username)) {
                     $sql = "SELECT * FROM admin WHERE username = :username";
                     $stmt = $pdo->prepare($sql);
-                    $stmt->execute(['username' => $student_number]);
+                    $stmt->execute(['username' => $username]);
                     $admin = $stmt->fetch(PDO::FETCH_OBJ);                  
             if ($stmt->rowCount() > 0) {
                 if (password_verify($password, $admin->password)) {
@@ -154,7 +155,21 @@
             } else {
                  echo "<script> alert('Admin not found') </script>";
             }
-                }
+     }else{
+            $loginsql = "SELECT * FROM students WHERE student_number = :username";
+            $stmt = $pdo->prepare($loginsql);
+            $stmt->execute([":username" => $username]);
+            $users = $stmt->fetch(PDO::FETCH_OBJ);
+            if ($stmt->rowCount() > 0 && password_verify($password, $users->password)) {
+            $_SESSION['student_name'] = $users->full_name;
+            $_SESSION['userloggedin'] = true;
+            echo '<script>window.location.href = "user/home.php";</script>';
+            exit();
+            } else {
+                echo "<script> alert('Invalid student number or password') </script>";
+            }
+
+     }
                                            
 }
 }catch(PDOException $e) {
