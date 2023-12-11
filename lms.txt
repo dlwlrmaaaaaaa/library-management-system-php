@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 11, 2023 at 01:55 AM
+-- Generation Time: Dec 11, 2023 at 03:25 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -101,22 +101,17 @@ CREATE TABLE `borrowed` (
   `id` int(11) NOT NULL,
   `book_title` varchar(50) NOT NULL,
   `student_number` varchar(50) NOT NULL,
-  `due_date` date NOT NULL DEFAULT current_timestamp()
+  `due_date` date DEFAULT (curdate() + interval 7 day),
+  `issue_date` date NOT NULL DEFAULT current_timestamp(),
+  `full_name` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `borrowed`
 --
 
-INSERT INTO `borrowed` (`issued_id`, `book_id`, `id`, `book_title`, `student_number`, `due_date`) VALUES
-(1, 2, 5, 'The Secret Garden', '20210686', '0000-00-00'),
-(2, 2, 5, 'The Secret Garden', '20210686', '2023-12-11'),
-(3, 2, 5, 'The Secret Garden', '20210686', '2023-12-11'),
-(4, 2, 5, 'The Secret Garden', '20210686', '2023-12-11'),
-(5, 2, 5, 'The Secret Garden', '20210686', '2023-12-11'),
-(6, 2, 5, 'The Secret Garden', '20210686', '2023-12-11'),
-(7, 2, 5, 'The Secret Garden', '20210686', '2023-12-11'),
-(8, 1, 5, 'The Great Gatsby', '20210686', '2023-12-11');
+INSERT INTO `borrowed` (`issued_id`, `book_id`, `id`, `book_title`, `student_number`, `due_date`, `issue_date`, `full_name`) VALUES
+(13, 1, 5, 'The Great Gatsby', '20210686', '2023-12-18', '2023-12-11', 'Justin Marucut');
 
 -- --------------------------------------------------------
 
@@ -127,6 +122,7 @@ INSERT INTO `borrowed` (`issued_id`, `book_id`, `id`, `book_title`, `student_num
 CREATE TABLE `borrowing` (
   `borrow_id` int(11) NOT NULL,
   `book_id` int(11) DEFAULT NULL,
+  `full_name` varchar(100) NOT NULL,
   `student_number` varchar(50) NOT NULL,
   `book_title` varchar(100) NOT NULL,
   `id` int(11) DEFAULT NULL
@@ -241,13 +237,13 @@ ALTER TABLE `books`
 -- AUTO_INCREMENT for table `borrowed`
 --
 ALTER TABLE `borrowed`
-  MODIFY `issued_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `issued_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `borrowing`
 --
 ALTER TABLE `borrowing`
-  MODIFY `borrow_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `borrow_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `messages`
