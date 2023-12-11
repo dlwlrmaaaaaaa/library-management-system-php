@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 09, 2023 at 04:52 AM
+-- Generation Time: Dec 11, 2023 at 01:55 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -92,6 +92,49 @@ INSERT INTO `books` (`book_id`, `title`, `author`, `genre`, `ISBN`, `summary`, `
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `borrowed`
+--
+
+CREATE TABLE `borrowed` (
+  `issued_id` int(11) NOT NULL,
+  `book_id` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
+  `book_title` varchar(50) NOT NULL,
+  `student_number` varchar(50) NOT NULL,
+  `due_date` date NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `borrowed`
+--
+
+INSERT INTO `borrowed` (`issued_id`, `book_id`, `id`, `book_title`, `student_number`, `due_date`) VALUES
+(1, 2, 5, 'The Secret Garden', '20210686', '0000-00-00'),
+(2, 2, 5, 'The Secret Garden', '20210686', '2023-12-11'),
+(3, 2, 5, 'The Secret Garden', '20210686', '2023-12-11'),
+(4, 2, 5, 'The Secret Garden', '20210686', '2023-12-11'),
+(5, 2, 5, 'The Secret Garden', '20210686', '2023-12-11'),
+(6, 2, 5, 'The Secret Garden', '20210686', '2023-12-11'),
+(7, 2, 5, 'The Secret Garden', '20210686', '2023-12-11'),
+(8, 1, 5, 'The Great Gatsby', '20210686', '2023-12-11');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `borrowing`
+--
+
+CREATE TABLE `borrowing` (
+  `borrow_id` int(11) NOT NULL,
+  `book_id` int(11) DEFAULT NULL,
+  `student_number` varchar(50) NOT NULL,
+  `book_title` varchar(100) NOT NULL,
+  `id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `messages`
 --
 
@@ -150,6 +193,22 @@ ALTER TABLE `books`
   ADD PRIMARY KEY (`book_id`);
 
 --
+-- Indexes for table `borrowed`
+--
+ALTER TABLE `borrowed`
+  ADD PRIMARY KEY (`issued_id`),
+  ADD KEY `book_id` (`book_id`),
+  ADD KEY `id` (`id`);
+
+--
+-- Indexes for table `borrowing`
+--
+ALTER TABLE `borrowing`
+  ADD PRIMARY KEY (`borrow_id`),
+  ADD KEY `book_id` (`book_id`),
+  ADD KEY `id` (`id`);
+
+--
 -- Indexes for table `messages`
 --
 ALTER TABLE `messages`
@@ -179,6 +238,18 @@ ALTER TABLE `books`
   MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
+-- AUTO_INCREMENT for table `borrowed`
+--
+ALTER TABLE `borrowed`
+  MODIFY `issued_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `borrowing`
+--
+ALTER TABLE `borrowing`
+  MODIFY `borrow_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
@@ -193,6 +264,20 @@ ALTER TABLE `students`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `borrowed`
+--
+ALTER TABLE `borrowed`
+  ADD CONSTRAINT `borrowed_ibfk_1` FOREIGN KEY (`book_id`) REFERENCES `books` (`book_id`),
+  ADD CONSTRAINT `borrowed_ibfk_2` FOREIGN KEY (`id`) REFERENCES `students` (`id`);
+
+--
+-- Constraints for table `borrowing`
+--
+ALTER TABLE `borrowing`
+  ADD CONSTRAINT `borrowing_ibfk_1` FOREIGN KEY (`book_id`) REFERENCES `books` (`book_id`),
+  ADD CONSTRAINT `borrowing_ibfk_2` FOREIGN KEY (`id`) REFERENCES `students` (`id`);
 
 --
 -- Constraints for table `messages`
