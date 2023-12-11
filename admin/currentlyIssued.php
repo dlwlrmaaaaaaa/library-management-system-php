@@ -1,5 +1,12 @@
 <?php
 include('includes/authenticate.php');
+include('../dbconfig.php');
+
+    $sql = 'SELECT * FROM borrowed';
+    $stmt = $pdo->prepare($sql);
+    $rows = $stmt->fetchAll(PDO::FETCH_OBJ);
+    
+
 ?>
 
 <!DOCTYPE html>
@@ -94,23 +101,17 @@ include('includes/authenticate.php');
                                     </tr>
                                 </thead>
                                     <?php
+                                    foreach($rows as $row){
                                         echo ' <tr>
 
-                                        <td scope="row">' . "20210684-M" . '</td>
-                                        <td>' . "Dan Edward Manuel" . '</td>
-                                        <td>' . "31" . '</td>
-                                        <td>' . "Harry Potter " . '</td>
-                                        <td>' . "11-21-2021" . '</td>
-                                        <td>' . "11-23-2023" . '</td>';
-                                        echo ' <tr>
-
-                                        <td scope="row">' . "Student Number" . '</td>
-                                        <td>' . "Name" . '</td>
-                                        <td>' . "Book ID" . '</td>
-                                        <td>' . "Book Name" . '</td>
-                                        <td>' . "Issue Date" . '</td>
-                                        <td>' . "Due Date" . '</td>';
-
+                                        <td scope="row">' . $row->student_number . '</td>
+                                        <td>' . $row->full_name . '</td>
+                                        <td>' . $row->book_id . '</td>
+                                        <td>' . $row->title . '</td>
+                                        <td>' . $row->full_name . '</td>
+                                        <td>' . $row->full_name . '</td>';
+                                        echo ' </tr> ';
+                                    }
                                     ?>
                                 <tbody>
 

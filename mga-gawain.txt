@@ -1,0 +1,8 @@
+Admin side:
+Update books
+expiredBooks
+Currently issued
+
+User side:
+home
+borrwedBook

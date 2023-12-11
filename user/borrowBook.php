@@ -238,12 +238,17 @@
 </html>
 <?php
     $student_number = $_SESSION['student_number'];
+    $fullname = $_SESSION['student_name'];
     $user_id = $_SESSION['user_id'];
     if(isset($_POST['borrow'])){
         try {
-            $borrow = "INSERT INTO borrowing (book_id, student_number, book_title, id) VALUES (:book_id, :sn, :title, :user_id)";
+            $borrow = "INSERT INTO borrowing (book_id, full_name , student_number, book_title, id) VALUES (:book_id, :fn, :sn, :title, :user_id)";
             $stmt = $pdo->prepare($borrow);
-            $stmt->execute([":book_id" => $id, ":sn" => $student_number, ":title" => $title, ":user_id" => $user_id]);
+            $stmt->execute([":book_id" => $id, 
+            ":fn" => $fullname,
+            ":sn" => $student_number, 
+            ":title" => $title,
+             ":user_id" => $user_id]);
             if($stmt){
                 echo "<script> alert('Request book success!')
                     window.location.href = 'allBooks.php'

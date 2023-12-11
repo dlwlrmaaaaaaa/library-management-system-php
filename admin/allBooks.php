@@ -1,5 +1,8 @@
 <?php
 include('includes/authenticate.php');
+include('../dbconfig.php');
+
+
 ?>
 
 <!DOCTYPE html>
@@ -110,12 +113,25 @@ include('includes/authenticate.php');
                                 </thead>
                                 <tbody>
                                 <?php
+                               
+                                  try {
+                                            $displayBook = "SELECT * FROM books";
+                                            $stmt = $pdo->prepare($displayBook);
+                                            $stmt->execute();
+                                            $rows = $stmt->fetchAll(PDO::FETCH_OBJ);
+                                            if($stmt->rowCount() > 0){
+                                            foreach ($rows as $row) {
+                                            $id = $row->book_id;
+                                            $title = $row->title;
+                                            $author = $row->author;
+                                            $genre = $row->genre;
+                                            $copies = $row->copies;
                                     echo '<tr>
-                                        <th scope="row">1</th>
-                                        <td>Divine Comedy</td>
-                                        <td>Epic Poetry</td>
-                                        <td>Dante Alighieri</td>
-                                        <td>2</td>
+                                        <th scope="row">'. $id .'</th>
+                                        <td> '. $title .'</td>
+                                        <td>'. $author .'/td>
+                                        <td>'. $genre .'</td>
+                                        <td>'. $copies .'</td>
                                         <td>
                                             <a href="updateBook.php" class="btn mx-auto" data-toggle="tooltip" title="Update Book Information">
                                                 <i class="fa fa-edit mx-1"></i>
@@ -135,6 +151,13 @@ include('includes/authenticate.php');
                                     </a>
                                     </td>
                                     </tr>';
+                                        }
+                                        }else{
+                                                echo "<script> alert('There is no available book at the moment')";
+                                            }                                           
+                                        } catch (Throwable $th) {
+                                            throw $th;
+                                        }
                                 ?>
                                 </tbody>
                             </table>

@@ -106,6 +106,7 @@
                             $student_number;
                             $book_id;
                             $title;
+                            $full_name;
                               try {
                                 $display = "SELECT * FROM borrowing";
                                 $stmt = $pdo->prepare($display);
@@ -113,17 +114,19 @@
                                 $rows = $stmt->fetchAll(PDO::FETCH_OBJ);     
                                 foreach($rows as $row)  {                  
                                     $student_number = $row->student_number;
+                                    $full_name = $row->full_name;
                                     $user_id = $row->id;
                                     $book_id = $row->book_id;
                                     $title = $row->book_title;
                                     $borrow_id = $row->borrow_id;
+                                    
                                     echo ' <tr>
                                         <th scope="row">' . $row->borrow_id . '</th>
                                         <td>' . $row->student_number  . '</td>
                                         <td>' . $row->book_id  . '</td>
                                         <td>' . $row->book_title . '</td>
                                         <td>
-                                          <a class="btn mx-auto" data-toggle="tooltip" title="Accept" onclick="sendData(' . $user_id . ', \'' . $book_id . '\', \'' . $student_number . '\', \'' . $title  . '\', \'' . $borrow_id . '\')">
+                                          <a class="btn mx-auto" data-toggle="tooltip" title="Accept" onclick="sendData(' . $user_id . ', \'' . $book_id . '\', \'' . $student_number . '\', \'' . $title  . '\', \'' . $borrow_id . '\', \'' . $full_name . '\')">
                                             <i class="fa fa-check mx-1" id="accept"></i>
                                         </a>
                                         <a href="#" class="btn mx-auto" data-toggle="tooltip" title="Deny" onclick="deleteData(' . $borrow_id . ')">
@@ -158,7 +161,7 @@
         var el = document.getElementById("wrapper");
         var toggleButton = document.getElementById("menu-toggle");      
         
-        const sendData = async (id, book_id, studentnumber , title, borrow_id) => {
+        const sendData = async (id, book_id, studentnumber , title, borrow_id, full_name) => {
            const confirmed = confirm('Click yes to issue book');
            if(confirmed){
              try {
@@ -168,6 +171,7 @@
                         studentnumber: studentnumber,
                         title: title,
                         borrow_id: borrow_id,
+                        full_name: full_name
                     };
                 const response = await fetch('issued.php', {
                     method: 'POST',
@@ -181,7 +185,7 @@
                     throw new Error('Network response was not ok.');
                 }
                 const data = await response.text();
-                location.reload();
+                 location.reload();
                 console.log('Request Issued!'); 
             } catch (error) {
                 console.error('Error:', error);
@@ -239,9 +243,3 @@
 </body>
 
 </html>
-<?php
-
-
-
-
-?>
