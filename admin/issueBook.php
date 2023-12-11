@@ -126,7 +126,7 @@
                                           <a class="btn mx-auto" data-toggle="tooltip" title="Accept" onclick="sendData(' . $user_id . ', \'' . $book_id . '\', \'' . $student_number . '\', \'' . $title  . '\', \'' . $borrow_id . '\')">
                                             <i class="fa fa-check mx-1" id="accept"></i>
                                         </a>
-                                        <a href="#" class="btn mx-auto" data-toggle="tooltip" title="Deny">
+                                        <a href="#" class="btn mx-auto" data-toggle="tooltip" title="Deny" onclick="deleteData(' . $borrow_id . ')">
                                             <i class="fa fa-ban mx-1" name="ex"></i>
                                         </a>
                                         </td>
@@ -182,12 +182,37 @@
                 }
                 const data = await response.text();
                 location.reload();
-                console.log('Issued Succesfully!'); 
+                console.log('Request Issued!'); 
             } catch (error) {
                 console.error('Error:', error);
             }
            }
         };
+
+
+        const deleteData = async (borrow_id) =>{
+            const confirmed = confirm('Click ok to deny the request');
+            const data = {
+                borrow_id: borrow_id
+            }
+
+            if(confirmed){
+                const response = await fetch('denied.php',  {
+                    method: 'POST',
+                    headers: {
+                        'Content-type' : 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                })
+                 if (!response.ok) {
+                    throw new Error('Network response was not ok.');
+                }
+
+                const datos = await response.text()
+                location.reload()
+                console.log('Request Denied!');
+            }
+        }
 
 
         toggleButton.onclick = function () {
