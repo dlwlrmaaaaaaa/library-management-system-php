@@ -133,6 +133,7 @@
     <!-- Bootstrap JS (Popper.js and Bootstrap JS) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!-- jQuery -->
    
 
@@ -163,13 +164,13 @@ try {
 
         // Check if all input fields are empty
         if (empty($name) || empty($studNum) || empty($course) || empty($email) || empty($password)) {
-            echo '<script>alert("Required fields are empty!");</script>';
+            echo "<script> swal('Error!', 'Required fields are empty!', 'error');  </script>";
         } else {
             // Prepare SQL statement
             $sql = "INSERT INTO students (full_name, student_number, course, email, password) VALUES (:name, :studNum, :course, :email, :password)";
             $stmt = $pdo->prepare($sql);
             $stmt->execute([":name" => $name, ":studNum" => $studNum, ":course" => $course,":email"=>$email,":password"=>$hashedPassword]);         
-            echo '<script>alert("Student added successfully!");</script>';
+            echo "<script> swal('Success!', 'Student added successfully', 'success'); </script>";
         }
     }
 } catch (Exception $e) {

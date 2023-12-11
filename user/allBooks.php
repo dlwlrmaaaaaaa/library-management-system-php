@@ -135,7 +135,7 @@
                                     </tr>';
                                      }
                                         }else{
-                                                echo "<script> alert('There is no available book at the moment')";
+                                                echo "<script> swal('Error!', 'There is no available book at the moment', 'error'); ";
                                             }
                                             
                                         } catch (Throwable $th) {
@@ -159,6 +159,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 
     <script>

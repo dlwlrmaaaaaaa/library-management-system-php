@@ -127,10 +127,10 @@ include('../dbconfig.php');
                                             $genre = $row->genre;
                                             $copies = $row->copies;
                                     echo '<tr>
-                                        <th scope="row">'. $id .'</th>
+                                        <th>'. $id .'</th>
                                         <td> '. $title .'</td>
-                                        <td>'. $author .'/td>
-                                        <td>'. $genre .'</td>
+                                        <td>'. $author .'</td>
+                                        <td>'. $genre .' </td>
                                         <td>'. $copies .'</td>
                                         <td>
                                             <a href="updateBook.php" class="btn mx-auto" data-toggle="tooltip" title="Update Book Information">
@@ -140,7 +140,7 @@ include('../dbconfig.php');
                                     </tr>';
                                     echo ' <tr>
 
-                                    <th scope="row">' . "Book ID" . '</th>
+                                    <th>' . "Book ID" . '</th>
                                     <td>' . "Book Title" . '</td>
                                     <td>' . "Genre" . '</td>
                                     <td>' . "Author" . '</td>

@@ -184,6 +184,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
      
 
     <script>
@@ -202,7 +203,7 @@
 
     if(isset($_POST['submit'])){
         if(empty($_POST['studNum']) || empty($_POST['name']) || empty($_POST['email'])) {
-        echo "<script> alert('Please fill in all Field Requirements') </script>";
+        echo "<script> swal('Error!', 'Please fill in all Field Requirements!', 'error'); </script>";
     }
 
     }

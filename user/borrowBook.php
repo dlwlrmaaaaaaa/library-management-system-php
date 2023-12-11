@@ -118,7 +118,11 @@
                             <div class="row ">
                                 <div class="col-md-3 my-2">
                                     <!-- Portrait Photo -->
-                                    <img src="https://impressionsininkblog.files.wordpress.com/2021/08/6655.jpg" alt="Book Photo" class="img-fluid img-thumbnail" width="100">
+                                    <?php
+                                        // Assuming $row->file_name contains the file name from the database
+                                        $imagePath = '../admin/upload/' . $row->file_name;
+                                    ?>
+                                    <img src="<?php echo $imagePath; ?>" alt="Book Photo" class="img-fluid img-thumbnail" width="100">
                                 </div>
                                 <div class="col-md-9">
                                     <div class="form-element my-2">
@@ -206,6 +210,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 
     <script>
@@ -250,7 +255,7 @@
             ":title" => $title,
              ":user_id" => $user_id]);
             if($stmt){
-                echo "<script> alert('Request book success!')
+                echo "<script> swal('Success!', 'Request book success!', 'success'); 
                     window.location.href = 'allBooks.php'
                 </script>";     
             }

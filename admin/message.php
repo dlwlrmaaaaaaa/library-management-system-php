@@ -118,6 +118,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 
     <script>
@@ -153,12 +154,12 @@
                     ":msg" => $message
                 ]);
                 if($stmt->rowCount() > 0){
-                    echo "<script> alert('You have sent a message successfully!') </script>";
+                    echo "<script> swal('Success!', 'Message sent successfully!', 'success'); </script>";
                 }else{
-                     echo "<script> alert('Failed to sent a message') </script>";
+                     echo "<script> swal('Error!', 'Message was not successfully!', 'error'); </script>";
                 }
             }else{
-                 echo "<script> alert('Student Number is not valid or not found!') </script>";
+                 echo "<script> swal('Error!', 'Student Number is not valid or not found', 'error'); </script>";
             }
         }catch (PDOException $th) {
            echo $th->getMessage();
