@@ -8,6 +8,7 @@
     $isbn;
     $copies;
     $summary;
+    $file_name;
     try {
         $sql = "SELECT * FROM books WHERE book_id = :id";
         $stmt = $pdo->prepare($sql);
@@ -20,9 +21,10 @@
             $isbn = $row->ISBN;
             $copies = $row->copies;
             $summary = $row->summary;
+            $file_name = $row->file_name;
         }
-    } catch (\Throwable $th) {
-        //throw $th;
+    } catch (Throwable $th) {
+        throw $th;
     }
 
 ?>
@@ -120,7 +122,7 @@
                                     <!-- Portrait Photo -->
                                     <?php
                                         // Assuming $row->file_name contains the file name from the database
-                                        $imagePath = '../admin/upload/' . $row->file_name;
+                                        $imagePath = 'upload/' . $row->file_name;
                                     ?>
                                     <img src="<?php echo $imagePath; ?>" alt="Book Photo" class="img-fluid img-thumbnail" width="100">
                                 </div>
@@ -256,7 +258,6 @@
              ":user_id" => $user_id]);
             if($stmt){
                 echo "<script> swal('Success!', 'Request book success!', 'success'); 
-                    window.location.href = 'allBooks.php'
                 </script>";     
             }
         }catch (Throwable $th) {

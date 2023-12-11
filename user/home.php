@@ -1,4 +1,6 @@
 <?php
+    include('includes/authenticate.php');
+    include('../dbconfig.php');
     // $id = 0;
     // try {
     //     $getID = "SELECT * FROM students WHERE full_name = :name";
@@ -9,6 +11,11 @@
     // } catch (Throwable $th) {
     //     throw $th;
     // }
+
+    $sql = "SELECT * FROM books ORDER by book_id LIMIT 10";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    $rows = $stmt->fetchAll(PDO::FETCH_OBJ);
 
 ?>
 
@@ -98,26 +105,28 @@
                 <div class="container-fluid px-4">
                     <br>
                     <div class="container col-md-11 maintop border border-dark">
+
+                    
                         <div class="row  justify-content-center">
-                            <a href="borrowBook.php" class="col-md-2 m-3 maintop border border-dark list-group-item-action">
+                            <?php
+                            foreach($rows as $row){
+                                $file_name = $row->file_name;
+                       ?>   
+                            <a href="borrowBook.php?id=<?php echo $row->book_id?>" class="col-md-2 m-3 maintop border border-dark list-group-item-action">
                                 <p> </p>
-                                <img src="https://impressionsininkblog.files.wordpress.com/2021/08/6655.jpg" alt="Book Photo" class="img-fluid img-thumbnail">
+                                <img src="upload/<?php echo $file_name; ?>" alt="Book Photo" class="img-fluid img-thumbnail">
                                 <p> </p>
-                                <h6>The Divine Comedy</h6>
-                                <p>Dante Alighieri</p>
-                                <p> </p>
-                            </a>
-                            <a href="borrowBook.php" class="col-md-2 m-3 maintop border border-dark list-group-item-action">
-                                <p> </p>
-                                <img src="../admin/upload/iu.jpg" alt="Book Photo" class="img-fluid img-thumbnail">
-                                <p> </p>
-                                <h6>The Divine Comedy</h6>
-                                <p>Dante Alighieri</p>
+                                <h6><?php echo $row->title  ?>y</h6>
+                                <p><?php echo $row->author  ?></p>
                                 <p> </p>
                             </a>
-                        </div>
-                        
+                              <?php     
+                        }
+
+                    ?> 
                     </div>
+                   
+                   
                     <br>
                     <br>
                 </div>

@@ -1,5 +1,6 @@
 <?php
        include('../dbconfig.php');
+       include('includes/authenticate.php');
     $id = $_GET['id'];
 
     $displaySelectedStudents = "SELECT * FROM students WHERE id = :id";
@@ -12,6 +13,11 @@
         $course = $rows->course;
         $email = $rows->email;
     }
+
+    $student_number;
+    $fullname;
+    $course;
+    $email;
 
     if(isset($_POST['submit'])){
         // Form validation
@@ -37,6 +43,16 @@
             }     
             $rowAffected = $stmt->execute($parameter);
 
+            if ($rowAffected) {            
+                        $student_number = $studnum;
+                        $fullname = $nameinput;
+                        $course = $courseinput;
+                        $email = $emailinput;    
+                        echo "<script> alert('Updated Succesfully!') </script>";        
+                    }
+        }
+    }
+    
          
       
 
@@ -54,17 +70,7 @@
     <title>Urban Reads</title>
 </head>
 <body>
-     <?php
-     if ($rowAffected) {            
-                $student_number = $studnum;
-                $fullname = $nameinput;
-                $course = $courseinput;
-                $email = $emailinput;    
-                echo "<script> alert('Updated Succesfully!') </script>";        
-            }
-  }
-    }
-        ?>
+   
     <div class="background-container">
         <svg class="svg-background" version="1.1" xmlns="http://www.w3.org/2000/svg" 
             xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" height="100%" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice">

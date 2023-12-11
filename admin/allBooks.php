@@ -129,11 +129,11 @@ include('../dbconfig.php');
                                     echo '<tr>
                                         <th>'. $id .'</th>
                                         <td> '. $title .'</td>
-                                        <td>'. $author .'</td>
-                                        <td>'. $genre .' </td>
+                                        <td>'. $genre .'</td>
+                                        <td>'. $author .' </td>
                                         <td>'. $copies .'</td>
                                         <td>
-                                            <a href="updateBook.php" class="btn mx-auto" data-toggle="tooltip" title="Update Book Information">
+                                            <a href="updateBook.php?id='. $id .'" class="btn mx-auto" data-toggle="tooltip" title="Update Book Information">
                                                 <i class="fa fa-edit mx-1"></i>
                                             </a>
                                         </td>

@@ -1,5 +1,17 @@
 <?php
-
+    include('includes/authenticate.php');
+    include('../dbconfig.php');
+    $id = $_GET['id'];
+    $sql = "SELECT * FROM books WHERE book_id = :id";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([":id" => $id]);
+    $row = $stmt->fetch(PDO::FETCH_OBJ);
+    $title = $row->title;
+    $author = $row->author;
+    $genre = $row->genre; 
+    $isbn = $row->ISBN;
+    $copies = $row->copies; 
+    $summary = $row->summary;
 ?>
 
 <!DOCTYPE html>
@@ -76,15 +88,13 @@
 
         <div class="d-flex" id="wrapper">
             <?php include('includes/sidebar.php'); ?>
-            <div id="page-content-wrapper" class="scrollable-content">
-            
+            <div id="page-content-wrapper" class="scrollable-content">      
                 <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
                     <div class="d-flex align-items-center">
                         <i class="fas fa-align-left second-text fs-4 me-3" id="menu-toggle"></i>
                         <h2 class="fs-2 m-0 second-text">All Books</h2>
                     </div>
                 </nav>
-
                 <div class="container-fluid px-4">
                     <form action="" method="post" class="post">
                     <br>
@@ -109,7 +119,7 @@
                                                 <h6>Book Title:</h6>
                                             </div>
                                             <div class="col-md-10">
-                                                <input type="text" class="form-control" name="title" placeholder="Book Title">
+                                                <input type="text" class="form-control" name="title" placeholder="Book Title" value="<?php echo $title; ?>">
                                             </div>
                                         </div>
                                     </div>
@@ -119,7 +129,7 @@
                                                 <h6>Author:</h6>
                                             </div>
                                             <div class="col-md-10">
-                                        <input type="text" class="form-control" name="author" placeholder="Author">
+                                        <input type="text" class="form-control" name="author" placeholder="Author" value="<?php echo $author; ?>">
                                             </div>
                                         </div>
                                     </div>
@@ -130,9 +140,15 @@
                                             </div>
                                             <div class="col-md-10">
                                                 <select name="genre" class="form-control">
-                                                    <option value="" disabled selected>Select a Genre</option>
-                                                    <option value="Fiction">Fiction</option>
-                                                    <option value="Romance">Romance</option>
+                                                    <option value="" disabled <?php echo ($genre === '') ? 'selected' : ''; ?>>Select a Genre</option>
+                                                    <option value="Fiction" <?php echo ($genre === 'Fiction') ? 'selected' : ''; ?>>Fiction</option>
+                                                    <option value="Romance" <?php echo ($genre === 'Romance') ? 'selected' : ''; ?>>Romance</option>
+                                                    <option value="Thriller" <?php echo ($genre === 'Thriller') ? 'selected' : ''; ?>>Thriller</option>
+                                                    <option value="Novel" <?php echo ($genre === 'Novel') ? 'selected' : ''; ?>>Novel</option>
+                                                    <option value="Non-fiction" <?php echo ($genre === 'Non-fiction') ? 'selected' : ''; ?>>Non-fiction</option>
+                                                    <option value="Self-help book" <?php echo ($genre === 'Self-help book') ? 'selected' : ''; ?>>Self-help book</option>
+                                                    <option value="Mystery" <?php echo ($genre === 'Mystery') ? 'selected' : ''; ?>>Mystery</option>
+                                                    <option value="Fantasy" <?php echo ($genre === 'Fantasy') ? 'selected' : ''; ?>>Fantasy</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -143,7 +159,7 @@
                                                 <h6>ISBN:</h6>
                                             </div>
                                             <div class="col-md-10">
-                                                <input type="text" class="form-control" name="isbn" placeholder="ISBN">
+                                                <input type="text" class="form-control" name="isbn" placeholder="ISBN" value="<?php echo $isbn; ?>">
                                             </div>
                                         </div>
                                     </div>
@@ -153,7 +169,7 @@
                                                 <h6>Availability:</h6>
                                             </div>
                                             <div class="col-md-10">
-                                                <input type="text" class="form-control" name="isbn" placeholder="Available Copies">
+                                                <input type="text" class="form-control" name="copies" placeholder="Available Copies" value="<?php echo $copies; ?>">
                                             </div>
                                         </div>
                                     </div>
@@ -163,7 +179,7 @@
                                                 <h6>Summary:</h6>
                                             </div>
                                             <div class="col-md-10">
-                                                <textarea class="form-control" name="message" rows="5" cols="60" placeholder="Book Summary"></textarea>
+                                                <textarea class="form-control" name="summary" rows="5" cols="60" placeholder="Book Summary"><?php echo $summary; ?></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -171,7 +187,7 @@
                                 
                                 <div class="form-element my-3">
                                     <input type="submit" class="btn btn-secondary rounded" name="pickPhoto" value="Choose a Photo">
-                                    <input type="submit" class="btn btn-secondary rounded" name="submit" value="Update Book">
+                                    <input type="submit" class="btn btn-secondary rounded" name="update" value="Update Book">
                                 </div>
                             </div>
                         </div>
@@ -196,6 +212,7 @@
         var el = document.getElementById("wrapper");
         var toggleButton = document.getElementById("menu-toggle");
 
+
         toggleButton.onclick = function () {
             el.classList.toggle("toggled");
         };
@@ -218,5 +235,33 @@
         });
     </script>
 </body>
-
 </html>
+
+<?php
+
+    try {
+        if(isset($_POST['update'])){
+            $title = $_POST['title']; $author = $_POST['author'];
+            $genre = $_POST['genre'];
+            $isbn = $_POST['isbn']; $copies = $_POST['copies']; $summary = $_POST['summary'];
+            $sql = "UPDATE books SET title = :title, author = :author, genre = :genre, ISBN = :isbn, copies = :copies, summary = :summary WHERE book_id = :id";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([
+                ":title" => $title,
+                ":author" => $author,
+                ":genre" => $genre,
+                ":isbn" => $isbn,
+                ":copies" => $copies,
+                ":summary" => $summary,
+                ":id" => $id
+            ]);       
+            echo "<script> 
+                    alert('Updated Succesfull!')
+                    window.location.href = 'allBooks.php'
+            </script>";
+        }
+    } catch (Throwable $th) {
+      throw $th;
+    }
+
+?>
