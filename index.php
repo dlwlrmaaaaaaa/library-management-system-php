@@ -162,6 +162,8 @@
             $users = $stmt->fetch(PDO::FETCH_OBJ);
             if ($stmt->rowCount() > 0 && password_verify($password, $users->password)) {
             $_SESSION['student_name'] = $users->full_name;
+            $_SESSION['student_number'] = $users->student_number;
+            $_SESSION['user_id'] = $users->id;
             $_SESSION['userloggedin'] = true;
             echo '<script>window.location.href = "user/home.php";</script>';
             exit();

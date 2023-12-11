@@ -103,35 +103,39 @@
                                 </thead>
                                 <tbody>
                             <?php
+                            $student_number;
+                            $book_id;
+                            $title;
+                              try {
+                                $display = "SELECT * FROM borrowing";
+                                $stmt = $pdo->prepare($display);
+                                $stmt->execute();
+                                $rows = $stmt->fetchAll(PDO::FETCH_OBJ);     
+                                foreach($rows as $row)  {                  
+                                    $student_number = $row->student_number;
+                                    $user_id = $row->id;
+                                    $book_id = $row->book_id;
+                                    $title = $row->book_title;
+                                    $borrow_id = $row->borrow_id;
                                     echo ' <tr>
-                                        <th scope="row">' . "1" . '</th>
-                                        <td>' . "20210684-M" . '</td>
-                                        <td>' . "23" . '</td>
-                                        <td>' . "Pride and Prejudice" . '</td>
+                                        <th scope="row">' . $row->borrow_id . '</th>
+                                        <td>' . $row->student_number  . '</td>
+                                        <td>' . $row->book_id  . '</td>
+                                        <td>' . $row->book_title . '</td>
                                         <td>
-                                            <a href="#" class="btn mx-auto" data-toggle="tooltip" title="Accept">
-                                                <i class="fa fa-check mx-1" name="check"></i>
-                                            </a>
-                                            <a href="#" class="btn mx-auto" data-toggle="tooltip" title="Deny">
-                                                <i class="fa fa-ban mx-1" name="ex"></i>
-                                            </a>
+                                          <a class="btn mx-auto" data-toggle="tooltip" title="Accept" onclick="sendData(' . $user_id . ', \'' . $book_id . '\', \'' . $student_number . '\', \'' . $title  . '\', \'' . $borrow_id . '\')">
+                                            <i class="fa fa-check mx-1" id="accept"></i>
+                                        </a>
+                                        <a href="#" class="btn mx-auto" data-toggle="tooltip" title="Deny">
+                                            <i class="fa fa-ban mx-1" name="ex"></i>
+                                        </a>
                                         </td>
                                     </tr>';
+                                    }  
+                                }catch (Throwable $th) {
+                                                        throw $th;
+                                                    }
 
-                                    echo ' <tr>
-                                        <th scope="row">' . "ID" . '</th>
-                                        <td>' . "Student Number" . '</td>
-                                        <td>' . "Number" . '</td>
-                                        <td>' . "Title" . '</td>
-                                        <td>
-                                            <a href="#" class="btn mx-auto" data-toggle="tooltip" title="Accept">
-                                                <i class="fa fa-check mx-1" name="check"></i>
-                                            </a>
-                                            <a href="#" class="btn mx-auto" data-toggle="tooltip" title="Deny">
-                                                <i class="fa fa-ban mx-1" name="ex"></i>
-                                            </a>
-                                        </td>
-                                    </tr>';
                                     ?>
                                 </tbody>
                             </table>
@@ -152,7 +156,39 @@
 
     <script>
         var el = document.getElementById("wrapper");
-        var toggleButton = document.getElementById("menu-toggle");
+        var toggleButton = document.getElementById("menu-toggle");      
+        
+        const sendData = async (id, book_id, studentnumber , title, borrow_id) => {
+           const confirmed = confirm('Click yes to issue book');
+           if(confirmed){
+             try {
+                  const dataToSend = {
+                        id: id,                     
+                        book_id: book_id,
+                        studentnumber: studentnumber,
+                        title: title,
+                        borrow_id: borrow_id,
+                    };
+                const response = await fetch('issued.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-type': 'application/json',
+                    },
+                    body: JSON.stringify(dataToSend)
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok.');
+                }
+                const data = await response.text();
+                location.reload();
+                console.log('Issued Succesfully!'); 
+            } catch (error) {
+                console.error('Error:', error);
+            }
+           }
+        };
+
 
         toggleButton.onclick = function () {
             el.classList.toggle("toggled");
@@ -178,3 +214,9 @@
 </body>
 
 </html>
+<?php
+
+
+
+
+?>

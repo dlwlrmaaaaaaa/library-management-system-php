@@ -128,7 +128,7 @@
                                         <td>'. $author .'</td>
                                         <td>'. $copies .'</td>
                                         <td>
-                                            <a href="borrowBook.php" class="btn mx-auto" data-toggle="tooltip" title="View Book Information">
+                                            <a href="borrowBook.php?id='. $id .'" class="btn mx-auto" data-toggle="tooltip" title="View Book Information">
                                                 <i class="fa fa-eye mx-1"></i>
                                             </a>
                                         </td>

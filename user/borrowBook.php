@@ -1,4 +1,29 @@
 <?php
+    include('../dbconfig.php');
+    include('includes/authenticate.php');
+    $id = $_GET['id'];
+    $title;
+    $author;
+    $genre;
+    $isbn;
+    $copies;
+    $summary;
+    try {
+        $sql = "SELECT * FROM books WHERE book_id = :id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([":id" => $id]);
+        $row = $stmt->fetch(PDO::FETCH_OBJ);
+        if($stmt->rowCount() > 0){
+             $title = $row->title;
+            $author = $row->author;
+            $genre = $row->genre;
+            $isbn = $row->ISBN;
+            $copies = $row->copies;
+            $summary = $row->summary;
+        }
+    } catch (\Throwable $th) {
+        //throw $th;
+    }
 
 ?>
 
@@ -102,7 +127,7 @@
                                                 <h6>Book Title:</h6>
                                             </div>
                                             <div class="col-md-10">
-                                                <input type="text" class="form-control" name="title" placeholder="Book Title">
+                                                <input type="text" class="form-control" name="title" placeholder="Book Title" value="<?php echo $title; ?>">
                                             </div>
                                         </div>
                                     </div>
@@ -112,7 +137,7 @@
                                                 <h6>Author:</h6>
                                             </div>
                                             <div class="col-md-10">
-                                        <input type="text" class="form-control" name="author" placeholder="Author">
+                                        <input type="text" class="form-control" name="author" placeholder="Author" value="<?php echo $author; ?>">
                                             </div>
                                         </div>
                                     </div>
@@ -122,10 +147,10 @@
                                                 <h6>Genre:</h6>
                                             </div>
                                             <div class="col-md-10">
-                                                <select name="genre" class="form-control">
+                                                 <select name="genre" class="form-control">
                                                     <option value="" disabled selected>Select a Genre</option>
-                                                    <option value="Fiction">Fiction</option>
-                                                    <option value="Romance">Romance</option>
+                                                    <option value="Fiction" <?php if ($genre === 'Fiction') echo 'selected'; ?>>Fiction</option>
+                                                    <option value="Romance" <?php if ($genre === 'Romance') echo 'selected'; ?>>Romance</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -136,7 +161,17 @@
                                                 <h6>ISBN:</h6>
                                             </div>
                                             <div class="col-md-10">
-                                                <input type="text" class="form-control" name="isbn" placeholder="ISBN">
+                                                <input type="text" class="form-control" name="isbn" placeholder="ISBN" value="<?php echo $isbn; ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-element my-2">
+                                        <div class="row">
+                                            <div class="col-md-2 my-2">
+                                                <h6>Copies:</h6>
+                                            </div>
+                                            <div class="col-md-10">
+                                                <input type="text" class="form-control" name="copies" placeholder="Copies" value="<?php echo $copies; ?>">
                                             </div>
                                         </div>
                                     </div>
@@ -146,7 +181,7 @@
                                                 <h6>Summary:</h6>
                                             </div>
                                             <div class="col-md-10">
-                                                <textarea class="form-control" name="message" rows="5" cols="60" placeholder="Book Summary"></textarea>
+                                                <textarea class="form-control" name="message" rows="5" cols="60" placeholder="Book Summary" ><?php echo $summary; ?></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -201,3 +236,25 @@
 </body>
 
 </html>
+<?php
+    $student_number = $_SESSION['student_number'];
+    $user_id = $_SESSION['user_id'];
+    if(isset($_POST['borrow'])){
+        try {
+            $borrow = "INSERT INTO borrowing (book_id, student_number, book_title, id) VALUES (:book_id, :sn, :title, :user_id)";
+            $stmt = $pdo->prepare($borrow);
+            $stmt->execute([":book_id" => $id, ":sn" => $student_number, ":title" => $title, ":user_id" => $user_id]);
+            if($stmt){
+                echo "<script> alert('Request book success!')
+                    window.location.href = 'allBooks.php'
+                </script>";     
+            }
+        }catch (Throwable $th) {
+            throw $th;
+        }
+
+
+    }
+    
+
+?>

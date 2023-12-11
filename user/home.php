@@ -10,7 +10,6 @@
     //     throw $th;
     // }
 
-
 ?>
 
 <!DOCTYPE html>
@@ -108,7 +107,16 @@
                                 <p>Dante Alighieri</p>
                                 <p> </p>
                             </a>
+                            <a href="borrowBook.php" class="col-md-2 m-3 maintop border border-dark list-group-item-action">
+                                <p> </p>
+                                <img src="../admin/upload/iu.jpg" alt="Book Photo" class="img-fluid img-thumbnail">
+                                <p> </p>
+                                <h6>The Divine Comedy</h6>
+                                <p>Dante Alighieri</p>
+                                <p> </p>
+                            </a>
                         </div>
+                        
                     </div>
                     <br>
                     <br>
