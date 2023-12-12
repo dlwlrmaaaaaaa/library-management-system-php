@@ -160,19 +160,19 @@
 
     <script>
         var el = document.getElementById("wrapper");
-    var toggleButton = document.getElementById("menu-toggle");      
+        var toggleButton = document.getElementById("menu-toggle");      
 
-    const sendData = async (id, book_id, studentnumber, title, borrow_id, full_name) => {
-        swal({
-            title: 'Confirmation',
-            text: 'Click Yes to issue the book',
-            icon: 'info',
-            buttons: ['No, cancel', 'Yes, issue it!'],
-            dangerMode: false,
-        })
-        .then((confirmed) => {
-            if (confirmed) {
-                try {
+        const sendData = async (id, book_id, studentnumber, title, borrow_id, full_name) => {
+            try {
+                const confirmed = await swal({
+                    title: 'Confirmation',
+                    text: 'Click Yes to issue the book',
+                    icon: 'info',
+                    buttons: ['No, cancel', 'Yes, issue it!'],
+                    dangerMode: false,
+                });
+
+                if (confirmed) {
                     const dataToSend = {
                         id: id,
                         book_id: book_id,
@@ -181,80 +181,66 @@
                         borrow_id: borrow_id,
                         full_name: full_name
                     };
-
-                    fetch('issueBookAction/issued.php', {
+                    const response = await fetch('issued.php', {
                         method: 'POST',
                         headers: {
                             'Content-type': 'application/json',
                         },
                         body: JSON.stringify(dataToSend)
-                    })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok.');
-                        }
-                        return response.text();
-                    })
-                    .then(data => {
-                        location.reload();
-                        console.log('Request Issued!');
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
                     });
-                } catch (error) {
-                    console.error('Error:', error);
-                }
-            }
-        });
-    };
 
-    const deleteData = async (borrow_id) => {
-        swal({
-            title: 'Confirmation',
-            text: 'Click OK to deny the request',
-            icon: 'warning',
-            buttons: ['No, cancel', 'OK, deny it!'],
-            dangerMode: true,
-        })
-        .then((confirmed) => {
-            if (confirmed) {
-                try {
-                    const data = {
-                        borrow_id: borrow_id
-                    };
-                    fetch('issueBookAction/denied.php', {
-                        method: 'POST',
-                        headers: {
-                            'Content-type': 'application/json',
-                        },
-                        body: JSON.stringify(data)
-                    })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok.');
-                        }
-                        return response.text();
-                    })
-                    .then(datos => {
-                        location.reload();
-                        console.log('Request Denied!');
-                    })
-                    .catch(error => {
+                    const data = await response.json();
+                    console.log(data);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        };
+
+        const deleteData = async (borrow_id) => {
+            swal({
+                title: 'Confirmation',
+                text: 'Click OK to deny the request',
+                icon: 'warning',
+                buttons: ['No, cancel', 'OK, deny it!'],
+                dangerMode: true,
+            })
+            .then((confirmed) => {
+                if (confirmed) {
+                    try {
+                        const data = {
+                            borrow_id: borrow_id
+                        };
+                        fetch('denied.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-type': 'application/json',
+                            },
+                            body: JSON.stringify(data)
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok.');
+                            }
+                            return response.text();
+                        })
+                        .then(datos => {
+                            location.reload();
+                            console.log('Request Denied!');
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                    } catch (error) {
                         console.error('Error:', error);
-                    });
-                } catch (error) {
-                    console.error('Error:', error);
+                    }
                 }
-            }
-        });
-    };
+            });
+        };
 
-    toggleButton.onclick = function () {
-        el.classList.toggle("toggled");
-    };
-
-
+        toggleButton.onclick = function () {
+            el.classList.toggle("toggled");
+        };
 
         $(document).ready(function() {
             $('#tbl-issue-book').DataTable({

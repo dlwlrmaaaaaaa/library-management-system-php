@@ -92,6 +92,7 @@ include('../dbconfig.php');
                             <table class="table table-bordered-dark" id="tbl-current-issued">
                                 <thead>
                                     <tr>
+                                        <th>ID</th>
                                         <th>Student Number</th>
                                         <th>Name</th>
                                         <th>Book ID</th>
@@ -104,7 +105,8 @@ include('../dbconfig.php');
                                     foreach($rows as $row){
                                         echo ' <tr>
 
-                                        <td scope="row">' . $row->student_number . '</td>
+                                        <td scope="row">' . $row->issued_id . '</td>
+                                        <td>' . $row->student_number . '</td>
                                         <td>' . $row->full_name . '</td>
                                         <td>' . $row->book_id . '</td>
                                         <td>' . $row->book_title . '</td>

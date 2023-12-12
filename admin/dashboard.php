@@ -111,9 +111,7 @@
                                 <i class="fas fa-book fs-1 primary-text border rounded-full secondary-bg p-4 ms-auto"></i>
                             </div>
                         </a>
-                    </div>
 
-                    <div class="row g-3 my-2 center-content justify-content-center">
                         <a href="issueBook.php" class="col-md-3 d-flex flex-column list-group-item-action">
                             <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded" style="flex: 1;">
                                 <div>
@@ -124,7 +122,9 @@
                                 <i class="fas fa-book-open fs-1 primary-text border rounded-full secondary-bg p-4 ms-auto"></i>
                             </div>
                         </a>
+                    </div>
 
+                    <div class="row g-3 my-2 center-content justify-content-center">
                         <a href="currentlyIssued.php    " class="col-md-3 d-flex flex-column list-group-item-action">
                             <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded" style="flex: 1;">
                                 <div>
@@ -144,6 +144,17 @@
                                     <br >
                                 </div>
                                 <i class="fas fa-hourglass-end fs-1 primary-text border rounded-full secondary-bg p-4 ms-auto"></i>
+                            </div>
+                        </a>
+
+                        <a href="suspendedUser.php" class="col-md-3 d-flex flex-column list-group-item-action">
+                            <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded" style="flex: 1;">
+                                <div>
+                                    <br >
+                                    <h3 class="fs-2">Suspended User</h3>
+                                    <br >
+                                </div>
+                                <i class="fas fa-pause fs-1 primary-text border rounded-full secondary-bg p-4 ms-auto"></i>
                             </div>
                         </a>
                     </div>
