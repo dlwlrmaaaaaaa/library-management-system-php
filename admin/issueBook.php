@@ -182,7 +182,7 @@
                         full_name: full_name
                     };
 
-                    fetch('issued.php', {
+                    fetch('issueBookAction/issued.php', {
                         method: 'POST',
                         headers: {
                             'Content-type': 'application/json',
@@ -223,8 +223,7 @@
                     const data = {
                         borrow_id: borrow_id
                     };
-
-                    fetch('denied.php', {
+                    fetch('issueBookAction/denied.php', {
                         method: 'POST',
                         headers: {
                             'Content-type': 'application/json',

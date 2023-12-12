@@ -160,14 +160,20 @@
             $stmt = $pdo->prepare($loginsql);
             $stmt->execute([":username" => $username]);
             $users = $stmt->fetch(PDO::FETCH_OBJ);
-            if ($stmt->rowCount() > 0 && password_verify($password, $users->password)) {
-            $_SESSION['student_name'] = $users->full_name;
+            if ($stmt->rowCount() > 0 && password_verify($password, $users->password) && $users->status == 'Blacklisted') {
+                 $errorMessage = "Your account is in our Blacklist";
+                 echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
+                echo '<script>';
+                echo 'swal("Oops!", "' . $errorMessage . '", "error").then(() => { window.location.href = "index.php"; });';
+                echo '</script>';
+            }elseif ($stmt->rowCount() > 0 && password_verify($password, $users->password) && $users->status == 'Active'){
+             $_SESSION['student_name'] = $users->full_name;
             $_SESSION['student_number'] = $users->student_number;
             $_SESSION['user_id'] = $users->id;
             $_SESSION['userloggedin'] = true;
             echo '<script>window.location.href = "user/home.php";</script>';
-            exit();
-            } else {
+            exit();               
+            }else{
                 echo "<script> alert('Invalid student number or password') </script>";
             }
 
@@ -178,5 +184,4 @@
         echo "<script> alert('" + $e->getMessage() + "') </script>" ;
     }
 
-    //Push sample
 ?>

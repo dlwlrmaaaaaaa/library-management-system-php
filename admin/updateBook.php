@@ -12,6 +12,7 @@
     $isbn = $row->ISBN;
     $copies = $row->copies; 
     $summary = $row->summary;
+    $file_name = $row->file_name;
 ?>
 
 <!DOCTYPE html>
@@ -110,7 +111,7 @@
                             <div class="row ">
                                 <div class="col-md-3 my-2">
                                     <!-- Portrait Photo -->
-                                    <img src="https://cdn.kobo.com/book-images/56458624-b537-41a2-bf30-843d592e3595/1200/1200/False/they-both-die-at-the-end.jpg" alt="Book Photo" class="img-fluid img-thumbnail" width="100">
+                                    <img src="upload/<?php echo $file_name ?>" alt="Book Photo" class="img-fluid img-thumbnail" width="100">
                                 </div>
                                 <div class="col-md-9">
                                     <div class="form-element my-2">

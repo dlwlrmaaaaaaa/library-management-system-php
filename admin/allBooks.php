@@ -137,20 +137,7 @@ include('../dbconfig.php');
                                                 <i class="fa fa-edit mx-1"></i>
                                             </a>
                                         </td>
-                                    </tr>';
-                                    echo ' <tr>
-
-                                    <th>' . "Book ID" . '</th>
-                                    <td>' . "Book Title" . '</td>
-                                    <td>' . "Genre" . '</td>
-                                    <td>' . "Author" . '</td>
-                                    <td>' . "Availability" . '</td>
-                                    <td>
-                                    <a href="updateBook.php" class="btn mx-auto" data-toggle="tooltip" title="Update Book Information">
-                                        <i class="fa fa-edit mx-1"></i>
-                                    </a>
-                                    </td>
-                                    </tr>';
+                                    </tr>';                                    
                                         }
                                         }else{
                                                 echo "<script> alert('There is no available book at the moment')";

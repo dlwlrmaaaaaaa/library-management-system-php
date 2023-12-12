@@ -4,8 +4,8 @@ include('../dbconfig.php');
 
     $sql = 'SELECT * FROM borrowed';
     $stmt = $pdo->prepare($sql);
+    $stmt->execute();
     $rows = $stmt->fetchAll(PDO::FETCH_OBJ);
-    
 
 ?>
 
@@ -107,9 +107,9 @@ include('../dbconfig.php');
                                         <td scope="row">' . $row->student_number . '</td>
                                         <td>' . $row->full_name . '</td>
                                         <td>' . $row->book_id . '</td>
-                                        <td>' . $row->title . '</td>
-                                        <td>' . $row->full_name . '</td>
-                                        <td>' . $row->full_name . '</td>';
+                                        <td>' . $row->book_title . '</td>
+                                        <td>' . $row->issue_date . '</td>
+                                        <td>' . $row->due_date . '</td>';
                                         echo ' </tr> ';
                                     }
                                     ?>

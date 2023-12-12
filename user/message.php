@@ -12,28 +12,7 @@
     } catch (Throwable $th) {
         throw $th;
     }
-
-    $messages = '';
-    $date = '';
-    $time = '';
-    try {
-        $getMessage = "SELECT * FROM messages WHERE id = :id";
-        $stmt = $pdo->prepare($getMessage);
-        $stmt->execute(["id" => $id]);
-        $row = $stmt->fetch(PDO::FETCH_OBJ); 
-        if($row){
-            $messages = $row->message;
-            $newDate = $row->date;
-            $ndate = new DateTime($newDate);
-            $date = $ndate->format('Y-m-d');
-            $time = $ndate->format('H:i:s');
-        }
-        
-    } catch (Throwable $th) {
-        throw $th;
-    }
-
-?>
+    ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -132,12 +111,25 @@
                                 </thead>
                                 <tbody>
                                 <?php
-                                    echo '<tr>
-                                        <td scope="row"> ' . $messages .' </td>
-                                        <td>' . $date .'</td>
-                                        <td>' . $time .'</td>
-                                    </tr>';
-                                ?>
+                                    try {
+                                        $getMessage = "SELECT * FROM messages WHERE id = :id";
+                                        $stmt = $pdo->prepare($getMessage);
+                                        $stmt->execute(["id" => $id]);
+                                        while($message = $stmt->fetch(PDO::FETCH_OBJ)){
+                                            $date = $message->date; 
+                                            $dateTime = new DateTime($date);
+                                            $fdate = $dateTime->format('Y-m-d');
+                                            $ftime = $dateTime->format('H:i:s');
+                                            echo '<tr>
+                                                <td scope="row">' . $message->message . '</td>
+                                                <td>' . $fdate . '</td>
+                                                <td>' . $ftime . '</td>
+                                            </tr>';
+                                        }
+                                    } catch (Throwable $th) {
+                                        throw $th;
+                                    }
+                                    ?>
                                 </tbody>
                             </table>
                         </div>

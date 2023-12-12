@@ -1,5 +1,12 @@
 <?php
 include('includes/authenticate.php');
+include('../dbconfig.php');
+
+    $sql = 'SELECT student_number, book_id, id, book_title, due_date FROM borrowed WHERE due_date < NOW()';
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    $rows = $stmt->fetchAll(PDO::FETCH_OBJ);
+
 ?>
 
 <!DOCTYPE html>
@@ -101,35 +108,29 @@ include('includes/authenticate.php');
                                 </thead>
                                 <tbody>
                                 <?php
-                                        echo ' <tr>
+                                foreach($rows as $row){
+                                    $id = $row->id;
+                                    $student_number = $row->student_number;
+                                    $title = $row->book_title;
 
-                                        <td scope="row">' . "20210684-M" . '</td>
-                                        <td>' . "23" . '</td>
-                                        <td>' . "Pride and Prejudice" . '</td>
-                                        <td>' . "11-23-2023" . '</td>
+                                        echo ' <tr>
+                                        <td scope="row">' . $row->student_number. '</td>
+                                        <td>' . $row->book_id . '</td>
+                                        <td>' . $row->book_title . '</td>
+                                        <td>' . $row->due_date . '</td>
                                         <td>
-                                            <a href="#" class="btn mx-auto" data-toggle="tooltip" title="Suspend User">
+                                            <a href="#" class="btn mx-auto" data-toggle="tooltip" title="Suspend User" onclick="Suspend(\'' . $student_number . '\' , \'' . $id . '\')">
                                                 <i class="fa fa-pause mx-1"></i>
                                             </a>
                                             <a href="#" class="btn mx-auto" data-toggle="tooltip" title="Block User">
                                                 <i class="fa fa-ban mx-1"></i>
                                             </a>
-                                        </td>';
-                                        echo ' <tr>
-
-                                        <td scope="row">' . "Student Number" . '</td>
-                                        <td>' . "Book ID" . '</td>
-                                        <td>' . "Title" . '</td>
-                                        <td>' . "Due Date" . '</td>
-                                        <td>
-                                            <a href="#" class="btn mx-auto" data-toggle="tooltip" title="Suspend User">
-                                                <i class="fa fa-pause mx-1"></i>
-                                            </a>
-                                            <a href="#" class="btn mx-auto" data-toggle="tooltip" title="Block User">
-                                                <i class="fa fa-ban mx-1"></i>
-                                            </a>
+                                            <a href="#" class="btn mx-auto" data-toggle="tooltip" title="Send Warning" onclick="sendMessage(\'' . $student_number . '\', \'' . $id . '\' , \'' . $title . '\')">
+                                                    <i class="fa fa-bell"></i>
+                                                </a>
                                         </td>
-                                        ';
+                                        </tr>';
+                                    }
                                     ?>
                                 </tbody>
                             </table>
@@ -154,6 +155,63 @@ include('includes/authenticate.php');
         var el = document.getElementById("wrapper");
         var toggleButton = document.getElementById("menu-toggle");
 
+        const sendMessage = async (student_number, id,title) => {
+            const data = {
+                student_number: student_number,
+                id: id,
+                title: title
+            }
+            try {
+        const response = await fetch('expiredBooksAction/sendWarning.php', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok.');
+        }
+        const datos = await response.json();
+        console.log(datos);
+        } catch (error) {
+            console.error('Error:', error.message);
+        }
+        }                            
+
+    const Suspend = async (id, student_number) => {
+            const studentNumber = {
+                id: id,
+                student_number: student_number
+            }
+            try {
+                const response = await fetch('expiredBooksAction/suspension.php',{
+                    method: 'POST',
+                    headers: {
+                        'Content-type' : 'application/json'
+                    },
+                    body: JSON.stringify(studentNumber)
+                });
+
+            if(!response.ok){
+                throw new Error("Network response was not ok.")
+            }
+            const data = await response.json()
+            console.log(data);
+            } catch (error) {
+                console.error(error);                
+            }
+        }
+
+
+
+        
+
+
+
+
+
         toggleButton.onclick = function () {
             el.classList.toggle("toggled");
         };
@@ -176,5 +234,4 @@ include('includes/authenticate.php');
         });
     </script>
 </body>
-
 </html>
