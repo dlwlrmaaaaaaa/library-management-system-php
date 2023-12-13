@@ -199,13 +199,15 @@
                 $course = $courseinput;
                 $email = $emailinput;    
                 echo "<script> 
-                        swal('Success!', 'Updated Succesfully!!', 'success'); 
-                        setTimeout(function() {
+                       swal('Success!', 'Updated Succesfully!!', 'success'); 
+                       
+                            setTimeout(function() {
                             window.location.href = 'manageStudent.php';
-                        }, 2000); 
-                    </script>";        
+                        }, 1000)
+                        
+                </script>";        
             }
-            if(empty($_POST['studNum']) || empty($_POST['name']) || empty($_POST['course']) || empty($_POST['email']) || empty($_POST['password'])) {
+            if(empty($_POST['studNum']) || empty($_POST['name']) || empty($_POST['course']) || empty($_POST['email'])) {
                 echo "<script> swal('Error!', 'Please fill in all Field Requirements!', 'error'); </script>";
             }
         }

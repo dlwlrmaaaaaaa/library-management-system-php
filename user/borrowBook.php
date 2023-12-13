@@ -248,7 +248,16 @@
     $fullname = $_SESSION['student_name'];
     $user_id = $_SESSION['user_id'];
     if(isset($_POST['borrow'])){
-        try {
+        $checkIfSuspended = "SELECT * FROM penalty WHERE suspension > NOW() AND id = :id";
+        $penaltyStmt = $pdo->prepare($checkIfSuspended);
+        $penaltyStmt->execute([":id" => $user_id]);
+        if($penaltyStmt->rowCount() > 0){
+             echo "<script> 
+                swal('Suspended!', 'Request book error!', 'warning'); 
+               </script>"; 
+               return;
+        }else{
+                try {
             $borrow = "INSERT INTO borrowing (book_id, full_name , student_number, book_title, id) VALUES (:book_id, :fn, :sn, :title, :user_id)";
             $stmt = $pdo->prepare($borrow);
             $stmt->execute([":book_id" => $id, 
@@ -262,11 +271,18 @@
                 setTimeout(function() {
                     window.location.href = 'allBooks.php';
                 }, 2000);
-                </script>";     
+               </script>";     
             }
         }catch (Throwable $th) {
             throw $th;
         }
+        }
+
+
+
+
+
+       
 
 
     }

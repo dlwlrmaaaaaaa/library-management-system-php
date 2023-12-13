@@ -7,11 +7,12 @@
     $count = 1;
     try {
         try {
-            $penalty = "INSERT INTO penalty (student_number, count)
-                 VALUES (:sn, :count)
-                ON DUPLICATE KEY UPDATE count = count + 1";
+            $penalty = "INSERT INTO penalty (id, student_number, count)
+            VALUES (:id, :sn, :count)
+            ON DUPLICATE KEY UPDATE count = count + 1";
             $stmt = $pdo->prepare($penalty);
             $stmt->execute([
+                ":id" => $id,
                 ":sn" => $student_number,
                 ":count" => $count
             ]);

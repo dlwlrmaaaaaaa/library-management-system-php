@@ -155,22 +155,44 @@
     
 try {
     if (isset($_POST['submit'])) {
-        $name = $_POST['name'];
-        $studNum = $_POST['studNum'];
-        $course = $_POST['course'] ?? '';
-        $email = $_POST['email'];
+        // Retrieve form data
+        $name = htmlspecialchars($_POST['name']);
+        $studNum = htmlspecialchars($_POST['studNum']);
+        $course = isset($_POST['course']) ? htmlspecialchars($_POST['course']) : '';
+        $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
         $password = $_POST['password'];
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
         // Check if all input fields are empty
-        if (empty($name) || empty($studNum) || empty($course) || empty($email) || empty($password)) {
-            echo "<script> swal('Error!', 'Required fields are empty!', 'error');  </script>";
+        if (empty($name) || empty($studNum) || empty($email) || empty($password)) {
+            echo "<script> swal('Error!', 'Required fields are empty!', 'error'); </script>";
         } else {
-            // Prepare SQL statement
-            $sql = "INSERT INTO students (full_name, student_number, course, email, password) VALUES (:name, :studNum, :course, :email, :password)";
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute([":name" => $name, ":studNum" => $studNum, ":course" => $course,":email"=>$email,":password"=>$hashedPassword]);         
-            echo "<script> swal('Success!', 'Student added successfully', 'success'); </script>";
+            $existingStudentCheck = "SELECT student_number FROM students WHERE student_number = :studNum";
+            $stmtCheck = $pdo->prepare($existingStudentCheck);
+            $stmtCheck->execute([':studNum' => $studNum]);
+            $existingStudent = $stmtCheck->fetchColumn();
+            if ($existingStudent) {
+                echo "<script> swal('Error!', 'Student number already exists.', 'warning'); </script>";
+            } else {
+                try {
+                    $sql = "INSERT INTO students (full_name, student_number, course, email, password) VALUES (:name, :studNum, :course, :email, :password)";
+                    $stmt = $pdo->prepare($sql);
+                    $stmt->execute([
+                        ":name" => $name,
+                        ":studNum" => $studNum,
+                        ":course" => $course,
+                        ":email" => $email,
+                        ":password" => $hashedPassword
+                    ]);
+                    if ($stmt->rowCount() > 0) {
+                        echo "<script> swal('Success!', 'Student added successfully', 'success'); </script>";
+                    } else {
+                        echo "<script> swal('Error!', 'Failed to add student.', 'error'); </script>";
+                    }
+                } catch (PDOException $e) {
+                    echo "<script> swal('Error!', 'Database error occurred.', 'error'); </script>";                 
+                }
+            }
         }
     }
 } catch (Exception $e) {

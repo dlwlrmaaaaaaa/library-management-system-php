@@ -1,0 +1,3 @@
+updateStudent.php
+- bago mapunta sa table, bumabalik sa dati yung textbox pero updated na sa table
+

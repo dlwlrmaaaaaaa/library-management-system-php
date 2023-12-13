@@ -119,10 +119,10 @@ include('../dbconfig.php');
                                         <td>' . $row->book_title . '</td>
                                         <td>' . $row->due_date . '</td>
                                         <td>
-                                            <a href="#" class="btn mx-auto" data-toggle="tooltip" title="Suspend User" onclick="Suspend(\'' . $student_number . '\' , \'' . $id . '\')">
+                                            <a href="#" class="btn mx-auto" data-toggle="tooltip" title="Suspend User" onclick="Suspend(\''. $id .'\' , \''. $student_number .'\')">
                                                 <i class="fa fa-pause mx-1"></i>
                                             </a>
-                                            <a href="#" class="btn mx-auto" data-toggle="tooltip" title="Block User">
+                                            <a href="#" class="btn mx-auto" data-toggle="tooltip" title="Block User" onclick="Blockuser(\''. $id .'\' , \''. $student_number .'\')">
                                                 <i class="fa fa-ban mx-1"></i>
                                             </a>
                                             <a href="#" class="btn mx-auto" data-toggle="tooltip" title="Send Warning" onclick="sendMessage(\'' . $student_number . '\', \'' . $id . '\' , \'' . $title . '\')">
@@ -149,89 +149,7 @@ include('../dbconfig.php');
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-
-
-    <script>
-        var el = document.getElementById("wrapper");
-        var toggleButton = document.getElementById("menu-toggle");
-
-        const sendMessage = async (student_number, id,title) => {
-            const data = {
-                student_number: student_number,
-                id: id,
-                title: title
-            }
-            try {
-        const response = await fetch('expiredBooksAction/sendWarning.php', {
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        });
-
-        if (!response.ok) {
-            throw new Error('Network response was not ok.');
-        }
-        const datos = await response.json();
-        console.log(datos);
-        } catch (error) {
-            console.error('Error:', error.message);
-        }
-        }                            
-
-    const Suspend = async (id, student_number) => {
-            const studentNumber = {
-                id: id,
-                student_number: student_number
-            }
-            try {
-                const response = await fetch('expiredBooksAction/suspension.php',{
-                    method: 'POST',
-                    headers: {
-                        'Content-type' : 'application/json'
-                    },
-                    body: JSON.stringify(studentNumber)
-                });
-
-            if(!response.ok){
-                throw new Error("Network response was not ok.")
-            }
-            const data = await response.json()
-            console.log(data);
-            } catch (error) {
-                console.error(error);                
-            }
-        }
-
-
-
-        
-
-
-
-
-
-        toggleButton.onclick = function () {
-            el.classList.toggle("toggled");
-        };
-
-        $(document).ready(function() {
-            $('#tbl-return-request').DataTable({
-        });
-
-            // Customizing the search bar
-            $('.dataTables_filter input').addClass('form-control'); 
-            $('.dataTables_filter input').attr('placeholder', 'Search');
-            $('.dataTables_filter label').contents().filter(function() {
-                return this.nodeType === 3; 
-            }).remove(); 
-
-            $('.dataTables_filter input').wrap('<div class="input-group"></div>');
-            $('.dataTables_filter input').before('<div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-search"></i></span></div>');
-
-            $('.dataTables_filter').addClass('col-6');
-        });
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <script src="javascript/expiredBooks.js"></script>                               
 </body>
 </html>
