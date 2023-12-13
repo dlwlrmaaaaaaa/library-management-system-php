@@ -14,8 +14,9 @@
         $stmt = $pdo->prepare($sql);
         $stmt->execute([":id" => $id]);
         $row = $stmt->fetch(PDO::FETCH_OBJ);
+        
         if($stmt->rowCount() > 0){
-             $title = $row->title;
+            $title = $row->title;
             $author = $row->author;
             $genre = $row->genre;
             $isbn = $row->ISBN;
@@ -244,46 +245,90 @@
 
 </html>
 <?php
-    $student_number = $_SESSION['student_number'];
-    $fullname = $_SESSION['student_name'];
-    $user_id = $_SESSION['user_id'];
-    if(isset($_POST['borrow'])){
-        $checkIfSuspended = "SELECT * FROM penalty WHERE suspension > NOW() AND id = :id";
-        $penaltyStmt = $pdo->prepare($checkIfSuspended);
-        $penaltyStmt->execute([":id" => $user_id]);
-        if($penaltyStmt->rowCount() > 0){
-             echo "<script> 
-                swal('Suspended!', 'Request book error!', 'warning'); 
-               </script>"; 
-               return;
-        }else{
-                try {
-            $borrow = "INSERT INTO borrowing (book_id, full_name , student_number, book_title, id) VALUES (:book_id, :fn, :sn, :title, :user_id)";
-            $stmt = $pdo->prepare($borrow);
-            $stmt->execute([":book_id" => $id, 
-            ":fn" => $fullname,
-            ":sn" => $student_number, 
-            ":title" => $title,
-             ":user_id" => $user_id]);
-            if($stmt){
-                echo "<script> 
-                swal('Success!', 'Request book success!', 'success'); 
+$student_number = $_SESSION['student_number'];
+$fullname = $_SESSION['student_name'];
+$user_id = $_SESSION['user_id'];
+
+if (isset($_POST['borrow'])) {
+    $checkIfSuspended = "SELECT * FROM penalty WHERE suspension > NOW() AND id = :id";
+    $penaltyStmt = $pdo->prepare($checkIfSuspended);
+    $penaltyStmt->execute([":id" => $user_id]);
+
+    if ($penaltyStmt->rowCount() > 0) {
+        echo "<script> 
+            swal('Suspended!', 'Request book error!', 'warning'); 
+            </script>";
+        return;
+    }
+
+    try {
+        $checkCount = "SELECT COUNT(*) as count FROM borrowed WHERE id = :id";
+        $countStmt = $pdo->prepare($checkCount);
+        $countStmt->execute([
+            ":id" => $user_id
+        ]);
+        $borrowedcount = $countStmt->fetchColumn();
+
+        $checkIdentical = "SELECT COUNT(*) AS count FROM borrowing WHERE book_id = :book_id AND id = :id";
+        $checkStmt = $pdo->prepare($checkIdentical);
+        $checkStmt->execute([
+            ":book_id" => $id,
+            ":id" => $user_id
+        ]);
+        $check = $checkStmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($check['count'] > 0) {
+            echo "<script> 
+                swal('Error!', 'You cannot request the same book', 'info'); 
                 setTimeout(function() {
                     window.location.href = 'allBooks.php';
                 }, 2000);
-               </script>";     
+            </script>";
+        } else {
+            $checkRequestCount = "SELECT COUNT(*) AS count FROM borrowing WHERE id = :id";
+            $requestStmt = $pdo->prepare($checkRequestCount);
+            $requestStmt->execute([
+                ":id" => $user_id
+            ]);
+            $total = $requestStmt->fetchColumn() + $borrowedcount;
+
+            if ($total >= 3) {
+                echo "<script> 
+                    swal('Error!', 'You reached the maximum allowed request and borrowed', 'info'); 
+                </script>";
+            } else {
+                if ($copies > 0) {
+                    $borrow = "INSERT INTO borrowing (book_id, full_name , student_number, book_title, id) 
+                               VALUES (:book_id, :fn, :sn, :title, :user_id)";
+                    $stmt = $pdo->prepare($borrow);
+                    $stmt->execute([
+                        ":book_id" => $id,
+                        ":fn" => $fullname,
+                        ":sn" => $student_number,
+                        ":title" => $title,
+                        ":user_id" => $user_id
+                    ]);
+
+                    if ($stmt) {
+                        echo "<script> 
+                            swal('Success!', 'Request book success!', 'success'); 
+                            setTimeout(function() {
+                                window.location.href = 'allBooks.php';
+                            }, 1200);
+                        </script>";
+                    }
+                } else {
+                    echo "<script> 
+                        swal('Error!', 'No available copies', 'info'); 
+                        setTimeout(function() {
+                            window.location.href = 'allBooks.php';
+                        }, 1200);
+                    </script>";
+                }
             }
-        }catch (Throwable $th) {
-            throw $th;
         }
-        }
-
-
-
-
-
-       
-
-
+    } catch (Throwable $th) {
+        throw $th;
     }
+}
 ?>

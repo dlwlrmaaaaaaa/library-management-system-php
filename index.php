@@ -167,7 +167,7 @@
                 echo 'swal("Oops!", "' . $errorMessage . '", "error").then(() => { window.location.href = "index.php"; });';
                 echo '</script>';
             }elseif ($stmt->rowCount() > 0 && password_verify($password, $users->password) && $users->status == 'Active'){
-             $_SESSION['student_name'] = $users->full_name;
+            $_SESSION['student_name'] = $users->full_name;
             $_SESSION['student_number'] = $users->student_number;
             $_SESSION['user_id'] = $users->id;
             $_SESSION['userloggedin'] = true;

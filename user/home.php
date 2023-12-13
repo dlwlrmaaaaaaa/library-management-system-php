@@ -1,17 +1,6 @@
 <?php
     include('includes/authenticate.php');
     include('../dbconfig.php');
-    // $id = 0;
-    // try {
-    //     $getID = "SELECT * FROM students WHERE full_name = :name";
-    //     $stmt = $pdo->prepare($getID);
-    //     $stmt->execute(["name" => $name]);
-    //     $row = $stmt->fetch(PDO::FETCH_OBJ);
-    //     $id = $row->id;
-    // } catch (Throwable $th) {
-    //     throw $th;
-    // }
-
     $sql = "SELECT * FROM books ORDER by book_id LIMIT 10";
     $stmt = $pdo->prepare($sql);
     $stmt->execute();

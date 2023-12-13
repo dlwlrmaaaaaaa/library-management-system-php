@@ -1,5 +1,6 @@
 <?php
-
+    include('includes/authenticate.php');
+    include('../dbconfig.php');
 ?>
 
 <!DOCTYPE html>
@@ -93,20 +94,33 @@
                                     </tr>
                                 </thead>
                                     <?php
+                                        $id = $_SESSION['user_id'];
+                                        $sql = "SELECT * FROM borrowed WHERE id = :id";
+                                        $stmt = $pdo->prepare($sql);
+                                        $stmt->execute([
+                                            ":id" => $id
+                                        ]);
+                                        $rows = $stmt->fetchAll(PDO::FETCH_OBJ);
+                                        foreach($rows as $row){
+                                            $book_id = $row->book_id;
+                                            $borrow_id = $row->issued_id;
+                                            $id = $row->id;
+                                            $student_number = $row->student_number;
                                         echo ' <tr>
-                                            <th scope="row">' . "31" . '</th>
-                                            <td>' . "Harry Potter " . '</td>
-                                            <td>' . "11-21-2021" . '</td>
-                                            <td>' . "11-23-2023" . '</td> 
+                                            <th scope="row">' . $row->book_id . '</th>
+                                            <td>' . $row->book_title . '</td>
+                                            <td>' . $row->issue_date . '</td>
+                                            <td>' . $row->due_date . '</td> 
                                             <td>
-                                                <a href="#" class="btn mx-auto" data-toggle="tooltip" title="Return Book">
+                                                <a href="#" class="btn mx-auto" data-toggle="tooltip" title="Return Book" onclick="returnBook(\''. $book_id .'\', \''. $borrow_id .'\')">
                                                     <i class="fa fa-undo mx-1"></i>
                                                 </a>
-                                                <a href="#" class="btn mx-auto" data-toggle="tooltip" title="Add Penalty Count">
+                                                <a href="#" class="btn mx-auto" data-toggle="tooltip" title="Lost Book" onclick="lostBook(\''. $book_id .'\', \''. $borrow_id .'\', \'' . $id . '\', \'' . $student_number . '\')">
                                                     <i class="fa fa-times mx-1"></i>
                                                 </a>
                                             </td> 
                                         </tr>';
+                                        }
                                     ?>
                                 <tbody>
 
@@ -121,13 +135,14 @@
         </div>
     </div>
     <!-- /#page-content-wrapper -->
-    
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+       <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+       <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+ 
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <script src="javascript/returnBook.js"></script>                                    
 
     <script>
         var el = document.getElementById("wrapper");
