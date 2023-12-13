@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 12, 2023 at 12:52 PM
+-- Generation Time: Dec 13, 2023 at 05:28 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -63,14 +63,14 @@ CREATE TABLE `books` (
 --
 
 INSERT INTO `books` (`book_id`, `title`, `author`, `genre`, `ISBN`, `summary`, `copies`, `file_name`) VALUES
-(1, 'The Great Gatsby', 'F. Scott Fitzgerald', 'Novel', '1234-5678-91011', 'A story of decadence, idealism, and the American Dream.', 9, 'great_gatsby.jpg'),
+(1, 'The Great Gatsby', 'F. Scott Fitzgerald', 'Novel', '1234-5678-91011', 'A story of decadence, idealism, and the American Dream.', 7, 'great_gatsby.jpg'),
 (2, 'The Secret Garden', 'William Shakespear', 'Fiction', '1234566778910', 'Abracadbra!', 3, 'secret_garden.jpg'),
-(3, '1984', 'George Orwell', 'Genre', '132435678908', 'All about 1984', 4, '1984.jpg'),
+(3, '1984', 'George Orwell', 'Genre', '132435678908', 'All about 1984', 3, '1984.jpg'),
 (4, 'To Kill a Mockingbird', 'Harper Lee', 'Thriller', '0060935464', 'To Kill a Mockingbird is both a young girl\'s coming-of-age story and a darker drama about the roots and consequences of racism and prejudice, probing how good and evil can coexist within a single community or individual.', 0, 'kill_a_mockingbird.jpg'),
 (5, 'Pride and Prejudice', 'Jane Austen', 'Novel', '9780141439518', 'The novel follows the character development of Elizabeth Bennet, the protagonist of the book, who learns about the repercussions of hasty judgments and comes to appreciate the difference between superficial goodness and actual goodness.\r\n\r\nMr Bennet, owner of the Longbourn estate in Hertfordshire, has five daughters, but his property is entailed and can only be passed to a male heir. His wife also lacks an inheritance, so his family faces becoming poor upon his death. Thus, it is imperative that at least one of the daughters marry well to support the others, which is a motivation that drives the plot.', 3, 'pride_prejudice.jpg'),
 (6, 'The Prince', 'Niccolo Machiavelli', 'Non-fiction', '9780023042705', 'The book advises new rulers on best maintaining their power or even expanding their power. Machiavelli argues that a focus on warfare is important and that rulers should sometimes bend conventional morality or even be cruel to accomplish their goal of defending their state and their own power over it.', 5, 'the_prince.jpg'),
 (7, 'Into Thin Air', 'Jon Krakauer', 'Non-fiction', '0385494785 ', 'Krakauer describes the events leading up to his eventual decision to participate in an Everest expedition in May 1996, despite having mostly given up mountain climbing years before. The 1996 expedition season recorded eight deaths, including that of Krakauer\'s guide Rob Hall. This was the third-highest recorded number of deaths on the mountain in a single day; the April 2015 Nepal earthquake caused the most at 21.', 1, 'into_thin_air.jpg'),
-(8, 'The Couple Next Door', 'Shari Lapena', 'Thriller', '0735221103', 't all started at a dinner party. . .\r\n\r\nA domestic suspense debut about a young couple and their apparently friendly neighbors--a twisty, rollercoaster ride of lies, betrayal, and the secrets between husbands and wives. . .\r\n\r\nAnne and Marco Conti seem to have it all--a loving relationship, a wonderful home, and their beautiful baby, Cora. But one night when they are at a dinner party next door, a terrible crime is committed. Suspicion immediately focuses on the parents. But the truth is a much more complicated story.\r\n\r\nInside the curtained house, an unsettling account of what actually happened unfolds. Detective Rasbach knows that the panicked couple is hiding something. Both Anne and Marco soon discover that the other is keeping secrets, secrets they\'ve kept for years.', 1, 'couple_next.jpg'),
+(8, 'The Couple Next Door', 'Shari Lapena', 'Thriller', '0735221103', 't all started at a dinner party. . .\r\n\r\nA domestic suspense debut about a young couple and their apparently friendly neighbors--a twisty, rollercoaster ride of lies, betrayal, and the secrets between husbands and wives. . .\r\n\r\nAnne and Marco Conti seem to have it all--a loving relationship, a wonderful home, and their beautiful baby, Cora. But one night when they are at a dinner party next door, a terrible crime is committed. Suspicion immediately focuses on the parents. But the truth is a much more complicated story.\r\n\r\nInside the curtained house, an unsettling account of what actually happened unfolds. Detective Rasbach knows that the panicked couple is hiding something. Both Anne and Marco soon discover that the other is keeping secrets, secrets they\'ve kept for years.', 0, 'couple_next.jpg'),
 (9, 'The Curious Case of Benjamin Button', 'F. Scott Fitzgerald', 'Romance', '1416556052', 'Born under unusual circumstances, Benjamin Button springs into being as an elderly man in a New Orleans nursing home and ages in reverse. Twelve years after his birth, he meets Daisy, a child who flickers in and out of his life as she grows up to be a dancer. Though he has all sorts of unusual adventures over the course of his life, it is his relationship with Daisy, and the hope that they will come together at the right time, that drives Benjamin forward.', 2, 'curious_case.jpg'),
 (10, ' Atomic Habits: An Easy & Proven Way to Build Good Habits & Break Bad Ones', ' James Clear', 'Self-help book', '9780735211292 ', 'A comprehensive, practical guide on how to change your habits and get 1% better every day. Using a framework called the Four Laws of Behavior Change, Atomic Habits teaches readers a simple set of rules for creating good habits and breaking bad ones.', 10, 'atomic_habits.jpg'),
 (11, 'Gone Girl', 'Gillian Flynn', 'Thriller', '9780753827666 ', 'On their fifth wedding anniversary, writing teacher Nick Dunne returns home to find his wife Amy missing. Amy\'s fame as the inspiration for her parents\' successful Amazing Amy children\'s books ensures widespread press coverage. The media find Nick\'s apathy towards the disappearance suspicious.', 3, 'gone_girl.jpg'),
@@ -111,9 +111,7 @@ CREATE TABLE `borrowed` (
 --
 
 INSERT INTO `borrowed` (`issued_id`, `book_id`, `id`, `book_title`, `student_number`, `due_date`, `issue_date`, `full_name`) VALUES
-(13, 1, 5, 'The Great Gatsby', '20210686', '2023-12-18', '2023-12-11', 'Justin Marucut'),
-(14, 4, 12, 'To Kill a Mockingbird', '20210684', '2023-12-18', '2023-12-11', 'Dan Edward Manuel'),
-(15, 1, 5, 'The Great ', '20210686', '2023-12-11', '2023-12-12', 'Justin Marucut');
+(14, 4, 12, 'To Kill a Mockingbird', '20210684', '2023-12-10', '2023-12-11', 'Dan Edward Manuel');
 
 -- --------------------------------------------------------
 
@@ -152,7 +150,19 @@ INSERT INTO `messages` (`message_id`, `id`, `student_number`, `message`, `date`)
 (1, 5, '20210686', 'Heyaaa! Haluu', '2023-12-09 10:47:14'),
 (2, 5, '20210686', 'cool', '2023-12-11 11:52:04'),
 (3, 5, '20210686', 'ganda mo', '2023-12-11 11:54:06'),
-(4, 5, '20210686', 'Your book had expired! The Great ', '2023-12-12 00:00:00');
+(4, 5, '20210686', 'Your book had expired! The Great ', '2023-12-12 00:00:00'),
+(5, 5, '20210686', 'Your book had expired! Title: The Great ', '2023-12-13 09:12:16'),
+(6, 5, '20210686', 'Your book had expired! Title: The Great ', '2023-12-13 09:20:28'),
+(7, 5, '20210686', 'Your book had expired! Title: The Great ', '2023-12-13 09:28:38'),
+(8, 5, '20210686', 'Your book had expired! Title: The Great ', '2023-12-13 09:28:57'),
+(9, 5, '20210686', 'Your book had expired! Title: The Great ', '2023-12-13 09:29:30'),
+(10, 5, '20210686', 'Your book had expired! Title: The Great ', '2023-12-13 09:29:58'),
+(11, 5, '20210686', 'Your book had expired! Title: The Great ', '2023-12-13 09:30:13'),
+(12, 5, '20210686', 'Your book had expired! Title: The Great ', '2023-12-13 09:31:11'),
+(13, 5, '20210686', 'Your book had expired! Title: The Great ', '2023-12-13 09:31:47'),
+(14, 5, '20210686', 'Your book had expired! Title: The Great ', '2023-12-13 09:33:54'),
+(15, 5, '20210686', 'Your book had expired! Title: The Great ', '2023-12-13 10:14:10'),
+(16, 12, '20210684', 'Your book had expired! Title: To Kill a Mockingbird', '2023-12-13 11:22:22');
 
 -- --------------------------------------------------------
 
@@ -162,6 +172,7 @@ INSERT INTO `messages` (`message_id`, `id`, `student_number`, `message`, `date`)
 
 CREATE TABLE `penalty` (
   `penalty_id` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `student_number` varchar(50) NOT NULL,
   `count` int(11) NOT NULL,
   `suspension` date DEFAULT (curdate() + interval 7 day),
@@ -172,8 +183,8 @@ CREATE TABLE `penalty` (
 -- Dumping data for table `penalty`
 --
 
-INSERT INTO `penalty` (`penalty_id`, `student_number`, `count`, `suspension`, `penalty_deadline`) VALUES
-(1, '20210686', 1, '2023-12-15', '2023-12-19');
+INSERT INTO `penalty` (`penalty_id`, `id`, `student_number`, `count`, `suspension`, `penalty_deadline`) VALUES
+(11, 12, '20210684', 2, '2023-12-27', '2023-12-20');
 
 -- --------------------------------------------------------
 
@@ -196,9 +207,8 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`id`, `full_name`, `student_number`, `course`, `email`, `password`, `status`) VALUES
-(5, 'Justin Marucut', '20210686', 'BSCS', '20210686m.marucut.justin.bscs@gmail.com', '$2y$10$djiiX2YdIFoTjQfSa7JT0u.HcDn8K6MSPEpypX.IjCGTLdS2ik0.e', 'Active'),
-(12, 'Dan Edward Manuel', '20210684', 'BSCS', 'danedwardm@gmail.com', '$2y$10$.L3nbfkqGr1.xhy4Lrp3muLsmxq9fzJ/GbNq4nl8okDUG8ILQmwiK', 'Active'),
-(14, 'Kurowa', '123456', 'BSCS', 'kurowa@gmail.com', '$2y$10$Zzm8qKqAcJ00jJEpsl2HB.3dbtL.fGhP2qdj/gvFc/d4nfJll0NE6', 'Blacklisted');
+(5, 'Justin Marucut', '20210686', 'BSCS', '20210686m.marucut.justin.bscs@gmail.com', '$2y$10$djiiX2YdIFoTjQfSa7JT0u.HcDn8K6MSPEpypX.IjCGTLdS2ik0.e', 'Blacklisted'),
+(12, 'Dan Edward Manuel', '20210684', 'BSCS', 'danedwardm@gmail.com', '$2y$10$.L3nbfkqGr1.xhy4Lrp3muLsmxq9fzJ/GbNq4nl8okDUG8ILQmwiK', 'Active');
 
 --
 -- Indexes for dumped tables
@@ -244,7 +254,8 @@ ALTER TABLE `messages`
 --
 ALTER TABLE `penalty`
   ADD PRIMARY KEY (`penalty_id`),
-  ADD UNIQUE KEY `unique_student_number` (`student_number`);
+  ADD UNIQUE KEY `unique_student_number` (`student_number`),
+  ADD KEY `fk_students_id` (`id`);
 
 --
 -- Indexes for table `students`
@@ -273,31 +284,31 @@ ALTER TABLE `books`
 -- AUTO_INCREMENT for table `borrowed`
 --
 ALTER TABLE `borrowed`
-  MODIFY `issued_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `issued_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `borrowing`
 --
 ALTER TABLE `borrowing`
-  MODIFY `borrow_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `borrow_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `message_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `message_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `penalty`
 --
 ALTER TABLE `penalty`
-  MODIFY `penalty_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `penalty_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- Constraints for dumped tables
@@ -322,6 +333,12 @@ ALTER TABLE `borrowing`
 --
 ALTER TABLE `messages`
   ADD CONSTRAINT `messages_ibfk_1` FOREIGN KEY (`id`) REFERENCES `students` (`id`);
+
+--
+-- Constraints for table `penalty`
+--
+ALTER TABLE `penalty`
+  ADD CONSTRAINT `fk_students_id` FOREIGN KEY (`id`) REFERENCES `students` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
