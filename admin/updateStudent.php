@@ -1,6 +1,6 @@
 <?php
-       include('../dbconfig.php');
-       include('includes/authenticate.php');
+    include('../dbconfig.php');
+    include('includes/authenticate.php');
     $id = $_GET['id'];
 
     $displaySelectedStudents = "SELECT * FROM students WHERE id = :id";
@@ -18,44 +18,6 @@
     $fullname;
     $course;
     $email;
-
-    if(isset($_POST['submit'])){
-        // Form validation
-        if(!empty($_POST['studNum']) && !empty($_POST['name']) && !empty($_POST['email'])) {
-            $studnum = $_POST['studNum'];
-            $nameinput = $_POST['name'];
-            $courseinput = $_POST['course'] ?? '';
-            $emailinput = $_POST['email'];
-            $newpassword = $_POST['password'];
-
-            $hashedpassword = '';
-            $updatesql = "UPDATE students SET student_number = :sn, full_name = :fn, course = :course, email = :email";
-            
-            if (!empty($newpassword)) {
-                $hashedpassword = password_hash($newpassword, PASSWORD_DEFAULT);
-                $updatesql .= ", password = :pass";
-            }
-            $updatesql .= " WHERE id = :id";          
-            $stmt = $pdo->prepare($updatesql);
-            $parameter = [":sn" => $studnum, ":fn" => $nameinput, ":course" => $courseinput, ":email" => $emailinput, ":id" => $id];           
-            if (!empty($hashedpassword)) {
-                $parameter[":pass"] = $hashedpassword;
-            }     
-            $rowAffected = $stmt->execute($parameter);
-
-            if ($rowAffected) {            
-                        $student_number = $studnum;
-                        $fullname = $nameinput;
-                        $course = $courseinput;
-                        $email = $emailinput;    
-                        echo "<script> alert('Updated Succesfully!') </script>";        
-                    }
-        }
-    }
-    
-         
-      
-
 ?>
 
 <!DOCTYPE html>
@@ -200,17 +162,52 @@
         toggleButton.onclick = function () {
             el.classList.toggle("toggled");
         };
+
     </script>
 
 </body>
 
 </html>
 <?php
-
     if(isset($_POST['submit'])){
-        if(empty($_POST['studNum']) || empty($_POST['name']) || empty($_POST['email'])) {
-        echo "<script> swal('Error!', 'Please fill in all Field Requirements!', 'error'); </script>";
-    }
+        // Form validation
+        if(!empty($_POST['studNum']) && !empty($_POST['name']) && !empty($_POST['email'])) {
+            $studnum = $_POST['studNum'];
+            $nameinput = $_POST['name'];
+            $courseinput = $_POST['course'] ?? '';
+            $emailinput = $_POST['email'];
+            $newpassword = $_POST['password'];
 
+            $hashedpassword = '';
+            $updatesql = "UPDATE students SET student_number = :sn, full_name = :fn, course = :course, email = :email";
+            
+            if (!empty($newpassword)) {
+                $hashedpassword = password_hash($newpassword, PASSWORD_DEFAULT);
+                $updatesql .= ", password = :pass";
+            }
+            $updatesql .= " WHERE id = :id";          
+            $stmt = $pdo->prepare($updatesql);
+            $parameter = [":sn" => $studnum, ":fn" => $nameinput, ":course" => $courseinput, ":email" => $emailinput, ":id" => $id];           
+            if (!empty($hashedpassword)) {
+                $parameter[":pass"] = $hashedpassword;
+            }     
+            $rowAffected = $stmt->execute($parameter);
+
+            if ($rowAffected) {            
+                $student_number = $studnum;
+                $fullname = $nameinput;
+                $course = $courseinput;
+                $email = $emailinput;    
+                echo "<script> 
+                        swal('Success!', 'Updated Succesfully!!', 'success'); 
+                        setTimeout(function() {
+                            window.location.href = 'manageStudent.php';
+                        }, 2000); 
+                    </script>";        
+            }
+            if(empty($_POST['studNum']) || empty($_POST['name']) || empty($_POST['course']) || empty($_POST['email']) || empty($_POST['password'])) {
+                echo "<script> swal('Error!', 'Please fill in all Field Requirements!', 'error'); </script>";
+            }
+        }
     }
 ?>

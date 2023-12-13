@@ -18,6 +18,8 @@
                         class="fas fa-bookmark me-2"></i>Currently Issued</a>
                 <a href="expiredBooks.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-hourglass-end me-2"></i>Expired Books</a>
+                <a href="suspendedUser.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                        class="fas fa-pause me-2"></i>Suspend User</a>
                 <a href="logout.php" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold mt-auto"><i
                         class="fas fa-power-off me-2"></i>Logout</a>
         </div>

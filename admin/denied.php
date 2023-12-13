@@ -4,7 +4,6 @@
     $data = json_decode($json, true);
 
     $borrow_id = $data['borrow_id'];
-
        try {
         $sql = 'DELETE FROM borrowing WHERE borrow_id = :id';
         $stmt = $pdo->prepare($sql);
@@ -12,5 +11,4 @@
     } catch (Throwable $th) {
         throw $th;
     }
-
 ?>

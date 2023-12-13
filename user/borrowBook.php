@@ -257,7 +257,11 @@
             ":title" => $title,
              ":user_id" => $user_id]);
             if($stmt){
-                echo "<script> swal('Success!', 'Request book success!', 'success'); 
+                echo "<script> 
+                swal('Success!', 'Request book success!', 'success'); 
+                setTimeout(function() {
+                    window.location.href = 'allBooks.php';
+                }, 2000);
                 </script>";     
             }
         }catch (Throwable $th) {

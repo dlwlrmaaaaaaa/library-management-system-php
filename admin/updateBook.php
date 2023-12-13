@@ -257,8 +257,10 @@
                 ":id" => $id
             ]);       
             echo "<script> 
-                    alert('Updated Succesfull!')
-                    window.location.href = 'allBooks.php'
+                    swal('Success!', 'Updated Succesfully!!', 'success');
+                    setTimeout(function() {
+                        window.location.href = 'allBooks.php';
+                    }, 2000); 
             </script>";
         }
     } catch (Throwable $th) {

@@ -44,11 +44,9 @@
 } catch (Throwable $th) {
     // Rollback the transaction on error
     $pdo->rollBack();
-
     // Log the error or handle it appropriately
     echo json_encode(["success" => false, "error" => $th->getMessage()]);
 }
 
 
 
-?>

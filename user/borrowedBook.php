@@ -89,6 +89,7 @@
                                         <th>Book Name</th>
                                         <th>Issue Date</th>
                                         <th>Due Date</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                     <?php
@@ -97,15 +98,15 @@
                                             <td>' . "Harry Potter " . '</td>
                                             <td>' . "11-21-2021" . '</td>
                                             <td>' . "11-23-2023" . '</td> 
+                                            <td>
+                                                <a href="#" class="btn mx-auto" data-toggle="tooltip" title="Return Book">
+                                                    <i class="fa fa-undo mx-1"></i>
+                                                </a>
+                                                <a href="#" class="btn mx-auto" data-toggle="tooltip" title="Add Penalty Count">
+                                                    <i class="fa fa-times mx-1"></i>
+                                                </a>
+                                            </td> 
                                         </tr>';
-
-                                        echo ' <tr>
-                                            <th scope="row">' . "Book ID" . '</th>
-                                            <td>' . "Book Name" . '</td>
-                                            <td>' . "Issue Date" . '</td>
-                                            <td>' . "Due Date" . '</td>
-                                        </tr>';
-
                                     ?>
                                 <tbody>
 
