@@ -34,16 +34,16 @@
                 ":status" => "Blacklisted",
                 ":id" => $id
             ]);
-            $deleteBorrowing = "DELETE FROM borrowing WHERE id = :id";
+            $deleteBorrowing = "DELETE FROM borrowing WHERE book_id = :book_id";
             $stmtDeleteBorrowing = $pdo->prepare($deleteBorrowing);
             $stmtDeleteBorrowing->execute([
-                ":id" => $id
+                ":book_id" => $id
             ]);
             // Delete from the borrowed table based on ID
             $deleteBorrowed = "DELETE FROM borrowed WHERE id = :id";
             $stmtDeleteBorrowed = $pdo->prepare($deleteBorrowed);
             $stmtDeleteBorrowed->execute([
-                ":id" => $id
+                ":id" => $book_id
             ]);
             
         }

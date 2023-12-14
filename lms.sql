@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 13, 2023 at 05:28 AM
+-- Generation Time: Dec 14, 2023 at 12:54 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -63,16 +63,16 @@ CREATE TABLE `books` (
 --
 
 INSERT INTO `books` (`book_id`, `title`, `author`, `genre`, `ISBN`, `summary`, `copies`, `file_name`) VALUES
-(1, 'The Great Gatsby', 'F. Scott Fitzgerald', 'Novel', '1234-5678-91011', 'A story of decadence, idealism, and the American Dream.', 7, 'great_gatsby.jpg'),
-(2, 'The Secret Garden', 'William Shakespear', 'Fiction', '1234566778910', 'Abracadbra!', 3, 'secret_garden.jpg'),
-(3, '1984', 'George Orwell', 'Genre', '132435678908', 'All about 1984', 3, '1984.jpg'),
+(1, 'The Great Gatsby', 'F. Scott Fitzgerald', 'Novel', '1234-5678-91011', 'A story of decadence, idealism, and the American Dream.', 5, 'great_gatsby.jpg'),
+(2, 'The Secret Garden', 'William Shakespear', 'Fiction', '1234566778910', 'Abracadbra!', 1, 'secret_garden.jpg'),
+(3, '1984', 'George Orwell', 'Genre', '132435678908', 'All about 1984', 2, '1984.jpg'),
 (4, 'To Kill a Mockingbird', 'Harper Lee', 'Thriller', '0060935464', 'To Kill a Mockingbird is both a young girl\'s coming-of-age story and a darker drama about the roots and consequences of racism and prejudice, probing how good and evil can coexist within a single community or individual.', 0, 'kill_a_mockingbird.jpg'),
-(5, 'Pride and Prejudice', 'Jane Austen', 'Novel', '9780141439518', 'The novel follows the character development of Elizabeth Bennet, the protagonist of the book, who learns about the repercussions of hasty judgments and comes to appreciate the difference between superficial goodness and actual goodness.\r\n\r\nMr Bennet, owner of the Longbourn estate in Hertfordshire, has five daughters, but his property is entailed and can only be passed to a male heir. His wife also lacks an inheritance, so his family faces becoming poor upon his death. Thus, it is imperative that at least one of the daughters marry well to support the others, which is a motivation that drives the plot.', 3, 'pride_prejudice.jpg'),
+(5, 'Pride and Prejudice', 'Jane Austen', 'Novel', '9780141439518', 'The novel follows the character development of Elizabeth Bennet, the protagonist of the book, who learns about the repercussions of hasty judgments and comes to appreciate the difference between superficial goodness and actual goodness.\r\n\r\nMr Bennet, owner of the Longbourn estate in Hertfordshire, has five daughters, but his property is entailed and can only be passed to a male heir. His wife also lacks an inheritance, so his family faces becoming poor upon his death. Thus, it is imperative that at least one of the daughters marry well to support the others, which is a motivation that drives the plot.', 2, 'pride_prejudice.jpg'),
 (6, 'The Prince', 'Niccolo Machiavelli', 'Non-fiction', '9780023042705', 'The book advises new rulers on best maintaining their power or even expanding their power. Machiavelli argues that a focus on warfare is important and that rulers should sometimes bend conventional morality or even be cruel to accomplish their goal of defending their state and their own power over it.', 5, 'the_prince.jpg'),
-(7, 'Into Thin Air', 'Jon Krakauer', 'Non-fiction', '0385494785 ', 'Krakauer describes the events leading up to his eventual decision to participate in an Everest expedition in May 1996, despite having mostly given up mountain climbing years before. The 1996 expedition season recorded eight deaths, including that of Krakauer\'s guide Rob Hall. This was the third-highest recorded number of deaths on the mountain in a single day; the April 2015 Nepal earthquake caused the most at 21.', 1, 'into_thin_air.jpg'),
+(7, 'Into Thin Air', 'Jon Krakauer', 'Non-fiction', '0385494785 ', 'Krakauer describes the events leading up to his eventual decision to participate in an Everest expedition in May 1996, despite having mostly given up mountain climbing years before. The 1996 expedition season recorded eight deaths, including that of Krakauer\'s guide Rob Hall. This was the third-highest recorded number of deaths on the mountain in a single day; the April 2015 Nepal earthquake caused the most at 21.', 0, 'into_thin_air.jpg'),
 (8, 'The Couple Next Door', 'Shari Lapena', 'Thriller', '0735221103', 't all started at a dinner party. . .\r\n\r\nA domestic suspense debut about a young couple and their apparently friendly neighbors--a twisty, rollercoaster ride of lies, betrayal, and the secrets between husbands and wives. . .\r\n\r\nAnne and Marco Conti seem to have it all--a loving relationship, a wonderful home, and their beautiful baby, Cora. But one night when they are at a dinner party next door, a terrible crime is committed. Suspicion immediately focuses on the parents. But the truth is a much more complicated story.\r\n\r\nInside the curtained house, an unsettling account of what actually happened unfolds. Detective Rasbach knows that the panicked couple is hiding something. Both Anne and Marco soon discover that the other is keeping secrets, secrets they\'ve kept for years.', 0, 'couple_next.jpg'),
-(9, 'The Curious Case of Benjamin Button', 'F. Scott Fitzgerald', 'Romance', '1416556052', 'Born under unusual circumstances, Benjamin Button springs into being as an elderly man in a New Orleans nursing home and ages in reverse. Twelve years after his birth, he meets Daisy, a child who flickers in and out of his life as she grows up to be a dancer. Though he has all sorts of unusual adventures over the course of his life, it is his relationship with Daisy, and the hope that they will come together at the right time, that drives Benjamin forward.', 2, 'curious_case.jpg'),
-(10, ' Atomic Habits: An Easy & Proven Way to Build Good Habits & Break Bad Ones', ' James Clear', 'Self-help book', '9780735211292 ', 'A comprehensive, practical guide on how to change your habits and get 1% better every day. Using a framework called the Four Laws of Behavior Change, Atomic Habits teaches readers a simple set of rules for creating good habits and breaking bad ones.', 10, 'atomic_habits.jpg'),
+(9, 'The Curious Case of Benjamin Button', 'F. Scott Fitzgerald', 'Romance', '1416556052', 'Born under unusual circumstances, Benjamin Button springs into being as an elderly man in a New Orleans nursing home and ages in reverse. Twelve years after his birth, he meets Daisy, a child who flickers in and out of his life as she grows up to be a dancer. Though he has all sorts of unusual adventures over the course of his life, it is his relationship with Daisy, and the hope that they will come together at the right time, that drives Benjamin forward.', 1, 'curious_case.jpg'),
+(10, ' Atomic Habits: An Easy & Proven Way to Build Good Habits & Break Bad Ones', ' James Clear', 'Self-help book', '9780735211292 ', 'A comprehensive, practical guide on how to change your habits and get 1% better every day. Using a framework called the Four Laws of Behavior Change, Atomic Habits teaches readers a simple set of rules for creating good habits and breaking bad ones.', 9, 'atomic_habits.jpg'),
 (11, 'Gone Girl', 'Gillian Flynn', 'Thriller', '9780753827666 ', 'On their fifth wedding anniversary, writing teacher Nick Dunne returns home to find his wife Amy missing. Amy\'s fame as the inspiration for her parents\' successful Amazing Amy children\'s books ensures widespread press coverage. The media find Nick\'s apathy towards the disappearance suspicious.', 3, 'gone_girl.jpg'),
 (12, 'A Short History of Nearly Everything', 'Bill Bryson', 'Non-Fiction', '0385408188 ', 'A Short History Of Nearly Everything explains everything we\'ve learned about our world and the universe so far, including how they formed, how we learned to make sense of time, space and gravity, why it\'s such a miracle that we\'re alive and how much of our planet is still a complete mystery to us.', 4, 'nearly_everything.jpg'),
 (13, 'Big Little Lies', 'Liane Moriarty', 'Thriller', '0425274861', 'Jane, a single mother, is on her way to Pirriwee Public School in Sydney\'s Northern Beaches, where her son Ziggy is starting kindergarten. On the way, she meets Madeline, another mother with a daughter of the same age. Madeline\'s friend Celeste is also sending her twin sons, Max and Josh, to school. The two strike up a friendship with Jane. All three of them have their own problems: Madeline is resentful that her daughter from her previous marriage is growing close to her ex-husband\'s new wife, Bonnie; Celeste is physically abused by her rich banker husband, Perry; and Jane was raped and left to raise her son Ziggy on her own. To make matters worse for her, Ziggy is accused of bullying Amabella, his future classmate, during orientation.\r\n\r\nAs months pass, the three become close and Jane shares her experience with the other women. Jane tells the two other women that Ziggy is the result of a rape by a man named Saxon Banks when Jane was 19. Celeste and Madeline realize that the father is Perry\'s cousin, but decide to keep it from Jane for the time being. Meanwhile, Celeste\'s marriage becomes even more violent and she starts meeting with a counselor and rents an apartment for herself and her sons without Perry\'s knowledge. Ziggy is once again accused of bullying Amabella, and again denies it. Jane finds out that Ziggy is keeping a secret about who is hurting Amabella and persuades him to write down the name of the child, which turns out to be Max, one of Celeste\'s twins, but she is not sure how to broach the subject with Celeste.', 4, 'big_ittle.jpg'),
@@ -87,7 +87,10 @@ INSERT INTO `books` (`book_id`, `title`, `author`, `genre`, `ISBN`, `summary`, `
 (23, 'To Kill A Mockingbird', 'Harper Lee', 'Fiction', '123443214567', 'Once upon a time', 5, 'kill_a_mockingbird.jpg'),
 (24, 'Ikaw lang ang iibigin', 'John Marvin Nuque', 'Romace', '0898-10292-12912', 'Once upon a time', 5, ''),
 (25, 'IU', 'IU', 'Romance', '2222222222', 'Once upon a time there\'s an IU', 1000, 'iu.jpg'),
-(29, 'Book of shance', 'Di ko alam', 'Romance', '12345678910', 'Kahit ano', 50, '356604878_101457033028891_4083138123489597083_n.jpg');
+(29, 'Book of shance', 'Di ko alam', 'Romance', '12345678910', 'Kahit ano', 50, '356604878_101457033028891_4083138123489597083_n.jpg'),
+(30, 'Hindi ko to kilala', '20210591', 'Fiction', '2222222222', '123123', 10, '657ae9.jpg'),
+(31, 'Hindi ko to kilala', '20210591', 'Fiction', '2222222222', '123123', 10, '657aea.jpg'),
+(32, 'Negga', 'Kishibutaka', 'Fiction', '1234567810', 'There\'s is...', 10, '657aeb.jpg');
 
 -- --------------------------------------------------------
 
@@ -105,13 +108,6 @@ CREATE TABLE `borrowed` (
   `issue_date` date NOT NULL DEFAULT current_timestamp(),
   `full_name` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `borrowed`
---
-
-INSERT INTO `borrowed` (`issued_id`, `book_id`, `id`, `book_title`, `student_number`, `due_date`, `issue_date`, `full_name`) VALUES
-(14, 4, 12, 'To Kill a Mockingbird', '20210684', '2023-12-10', '2023-12-11', 'Dan Edward Manuel');
 
 -- --------------------------------------------------------
 
@@ -147,22 +143,7 @@ CREATE TABLE `messages` (
 --
 
 INSERT INTO `messages` (`message_id`, `id`, `student_number`, `message`, `date`) VALUES
-(1, 5, '20210686', 'Heyaaa! Haluu', '2023-12-09 10:47:14'),
-(2, 5, '20210686', 'cool', '2023-12-11 11:52:04'),
-(3, 5, '20210686', 'ganda mo', '2023-12-11 11:54:06'),
-(4, 5, '20210686', 'Your book had expired! The Great ', '2023-12-12 00:00:00'),
-(5, 5, '20210686', 'Your book had expired! Title: The Great ', '2023-12-13 09:12:16'),
-(6, 5, '20210686', 'Your book had expired! Title: The Great ', '2023-12-13 09:20:28'),
-(7, 5, '20210686', 'Your book had expired! Title: The Great ', '2023-12-13 09:28:38'),
-(8, 5, '20210686', 'Your book had expired! Title: The Great ', '2023-12-13 09:28:57'),
-(9, 5, '20210686', 'Your book had expired! Title: The Great ', '2023-12-13 09:29:30'),
-(10, 5, '20210686', 'Your book had expired! Title: The Great ', '2023-12-13 09:29:58'),
-(11, 5, '20210686', 'Your book had expired! Title: The Great ', '2023-12-13 09:30:13'),
-(12, 5, '20210686', 'Your book had expired! Title: The Great ', '2023-12-13 09:31:11'),
-(13, 5, '20210686', 'Your book had expired! Title: The Great ', '2023-12-13 09:31:47'),
-(14, 5, '20210686', 'Your book had expired! Title: The Great ', '2023-12-13 09:33:54'),
-(15, 5, '20210686', 'Your book had expired! Title: The Great ', '2023-12-13 10:14:10'),
-(16, 12, '20210684', 'Your book had expired! Title: To Kill a Mockingbird', '2023-12-13 11:22:22');
+(17, 29, '20210686', 'Hello', '2023-12-14 19:12:37');
 
 -- --------------------------------------------------------
 
@@ -184,7 +165,7 @@ CREATE TABLE `penalty` (
 --
 
 INSERT INTO `penalty` (`penalty_id`, `id`, `student_number`, `count`, `suspension`, `penalty_deadline`) VALUES
-(11, 12, '20210684', 2, '2023-12-27', '2023-12-20');
+(17, 29, '20210686', 3, '2024-01-12', '2023-12-21');
 
 -- --------------------------------------------------------
 
@@ -207,8 +188,7 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`id`, `full_name`, `student_number`, `course`, `email`, `password`, `status`) VALUES
-(5, 'Justin Marucut', '20210686', 'BSCS', '20210686m.marucut.justin.bscs@gmail.com', '$2y$10$djiiX2YdIFoTjQfSa7JT0u.HcDn8K6MSPEpypX.IjCGTLdS2ik0.e', 'Blacklisted'),
-(12, 'Dan Edward Manuel', '20210684', 'BSCS', 'danedwardm@gmail.com', '$2y$10$.L3nbfkqGr1.xhy4Lrp3muLsmxq9fzJ/GbNq4nl8okDUG8ILQmwiK', 'Active');
+(29, 'Justin Marucut', '20210686', 'BSIS', '20210686m.marucut.justin.bscs@gmail.com', '$2y$10$tCB7kXLfJ5GxfXmNKfqAx.DjgJwRgrTgbfaF0sl8A2On2hl3lAp4G', 'Blacklisted');
 
 --
 -- Indexes for dumped tables
@@ -278,37 +258,37 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `books`
 --
 ALTER TABLE `books`
-  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `borrowed`
 --
 ALTER TABLE `borrowed`
-  MODIFY `issued_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `issued_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `borrowing`
 --
 ALTER TABLE `borrowing`
-  MODIFY `borrow_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `borrow_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `message_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `message_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `penalty`
 --
 ALTER TABLE `penalty`
-  MODIFY `penalty_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `penalty_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- Constraints for dumped tables

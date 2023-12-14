@@ -1,3 +1,4 @@
+
 <?php
 include('includes/authenticate.php');
 include('../dbconfig.php');
@@ -99,9 +100,9 @@ include('../dbconfig.php');
                         </div>
                         <div class="container col-md-11 main border border-dark">
                             <div class="row ">
-                                <div class="col-md-3 my-2">
+                                <div class="col-md-3 my-2" id="imagecontainer">
                                     <!-- Portrait Photo -->
-                                    <img src="https://impressionsininkblog.files.wordpress.com/2021/08/6655.jpg" alt="Book Photo" class="img-fluid img-thumbnail" width="100">
+                                    <img src="#" id="selectedImage" alt="Book Photo" class="img-fluid img-thumbnail" width="100">
                                 </div>
                                 <div class="col-md-9">
                                     <div class="form-element my-2">
@@ -161,7 +162,7 @@ include('../dbconfig.php');
                                     <div class="form-element my-2">
                                         <div class="row">
                                             <div class="col-md-2 my-2">
-                                                <h6>Availability:</h6>
+                                                <h6>Summary:</h6>
                                             </div>
                                             <div class="col-md-10">
                                                 <textarea class="form-control" name="summary" rows="5" cols="60" placeholder="Enter a Summary"></textarea>
@@ -190,7 +191,7 @@ include('../dbconfig.php');
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <script>
         var el = document.getElementById("wrapper");
@@ -202,6 +203,25 @@ include('../dbconfig.php');
 
         $(document).ready(function() {
             $('#tbl-books').DataTable({
+        });
+
+         document.getElementById('upload').addEventListener('change', function() {
+        const file = this.files[0];
+        const imagecontainer = document.getElementById('imagecontainer');
+        const selectedImage = document.getElementById('selectedImage');
+
+        if (file && file.type.startsWith('image')) {
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+            selectedImage.src = e.target.result;
+            selectedImage.style.display = 'block';
+            }
+
+            reader.readAsDataURL(file);
+        } else {
+            selectedImage.style.display = 'none';
+        }
         });
 
             // Customizing the search bar
@@ -234,7 +254,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     
     $uploadOk = 1;
     $uniqid = uniqid();
-    $randomPart = substr($uniqueID, 0, 6);
+    $randomPart = substr($uniqid, 0, 6);
     $fileExtension = pathinfo($_FILES['upload']['name'], PATHINFO_EXTENSION);
     $randomFileName = $randomPart . '.' . $fileExtension;
 
@@ -243,23 +263,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     if ($check !== false) {
         $uploadOk = 1;
     } else {
-        echo "File is not an image.";
+       echo "<script> swal('Error', 'File not image', 'warning') </script>";
         $uploadOk = 0;
     }
     if (file_exists($destination)) {
-        echo "Sorry, file already exists.";
+        echo "<script> swal('Error', 'Sorry, file already exist', 'warning') </script>";
         $uploadOk = 0;
     }
 
     if ($_FILES["upload"]["size"] > 500000) {
-        echo "Sorry, your file is too large.";
+        echo "<script> swal('Error', 'File Too Large', 'warning') </script>";
         $uploadOk = 0;
     }
     if (
         $fileExtension != "jpg" && $fileExtension != "png" && $fileExtension != "jpeg"
         && $fileExtension != "gif"
     ) {
-        echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+        echo "<script> swal('Error', 'Sorry, only JPG, JPEG, PNG & GIF files are allowed.', 'warning') </script>";
         $uploadOk = 0;
     }
     if ($uploadOk == 1) {
@@ -276,15 +296,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
                     ":copies" => $copies,
                     ":filename" => $randomFileName
                 ]);
+                echo "<script> swal('Success', 'Book added!', 'success') </script>";
             } catch (PDOException $th) {
                 echo $th->getMessage();
             }
             
         } else {
-            echo "Sorry, there was an error uploading your file.";
+             echo "<script> swal('Error', 'Sorry, there was an error uploading your file.', 'warning') </script>";
         }
     }
 }
-
 
 ?>
