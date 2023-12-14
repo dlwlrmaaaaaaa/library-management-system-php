@@ -264,7 +264,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     }
     if ($uploadOk == 1) {
         if (move_uploaded_file($_FILES["upload"]["tmp_name"], $destination)) {
-            $filename = $_FILES['upload']['name'];
             try {
                 $sql = "INSERT INTO books (title, author, genre, ISBN, summary, copies, file_name) VALUES (:title, :author, :genre, :isbn, :summary, :copies, :filename)";
                 $stmt = $pdo->prepare($sql);
@@ -275,7 +274,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
                     ":isbn" => $isbn,
                     ":summary" => $summary,
                     ":copies" => $copies,
-                    ":filename" => $filename
+                    ":filename" => $randomFileName
                 ]);
             } catch (PDOException $th) {
                 echo $th->getMessage();
