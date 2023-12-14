@@ -251,14 +251,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     $isbn = $_POST['isbn'];
     $summary = $_POST['summary'];
     $targetDir = "upload/";
-    
+    $userDir = "../user/upload/";
     $uploadOk = 1;
     $uniqid = uniqid();
     $randomPart = substr($uniqid, 0, 6);
     $fileExtension = pathinfo($_FILES['upload']['name'], PATHINFO_EXTENSION);
     $randomFileName = $randomPart . '.' . $fileExtension;
 
-    $destination = $targetDir . $randomFileName;
+     $adminDestination = $targetDir . $randomFileName;
+     $userDestination = $userDir . $randomFileName;
+
     $check = getimagesize($_FILES["upload"]["tmp_name"]);
     if ($check !== false) {
         $uploadOk = 1;
@@ -266,7 +268,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
        echo "<script> swal('Error', 'File not image', 'warning') </script>";
         $uploadOk = 0;
     }
-    if (file_exists($destination)) {
+    if (file_exists($adminDestination)) {
         echo "<script> swal('Error', 'Sorry, file already exist', 'warning') </script>";
         $uploadOk = 0;
     }
@@ -282,8 +284,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
         echo "<script> swal('Error', 'Sorry, only JPG, JPEG, PNG & GIF files are allowed.', 'warning') </script>";
         $uploadOk = 0;
     }
-    if ($uploadOk == 1) {
-        if (move_uploaded_file($_FILES["upload"]["tmp_name"], $destination)) {
+   if ($uploadOk == 1) {
+    if (move_uploaded_file($_FILES["upload"]["tmp_name"], $adminDestination)) {
+        if (copy($adminDestination, $userDestination)) {
+            // File copied successfully to user destination
             try {
                 $sql = "INSERT INTO books (title, author, genre, ISBN, summary, copies, file_name) VALUES (:title, :author, :genre, :isbn, :summary, :copies, :filename)";
                 $stmt = $pdo->prepare($sql);
@@ -300,11 +304,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
             } catch (PDOException $th) {
                 echo $th->getMessage();
             }
-            
         } else {
-             echo "<script> swal('Error', 'Sorry, there was an error uploading your file.', 'warning') </script>";
+            // Error copying file to user destination
+            echo "<script> swal('Error', 'Failed to copy file to user destination', 'error') </script>";
         }
+    } else {
+        // Error moving file to admin destination
+        echo "<script> swal('Error', 'Failed to move uploaded file', 'error') </script>";
     }
+}
 }
 
 ?>

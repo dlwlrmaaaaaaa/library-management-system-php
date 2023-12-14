@@ -134,7 +134,7 @@ include('../dbconfig.php');
                                             <a href="updateBook.php?id='. $id .'" class="btn mx-auto" data-toggle="tooltip" title="Update Book Information">
                                                 <i class="fa fa-edit mx-1"></i>
                                             </a>
-                                            <a href="deleteBook.php?id='. $id .'" class="btn mx-auto" data-toggle="tooltip" title="Delete Book">
+                                            <a class="btn mx-auto" data-toggle="tooltip" title="Delete Book" onclick="deleteBook(\'' . $id . '\')">
                                                 <i class="fa fa-trash mx-1"></i>
                                             </a>
                                         </td>
@@ -164,7 +164,7 @@ include('../dbconfig.php');
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <script>
         var el = document.getElementById("wrapper");
@@ -173,6 +173,41 @@ include('../dbconfig.php');
         toggleButton.onclick = function () {
             el.classList.toggle("toggled");
         };
+
+        const deleteBook = async (id) => {
+            const confirmed = await swal({
+                title: "Deleting book...",
+                text: "Click Ok to Delete book",
+                icon: "info",
+                buttons: ["No, cancel", "OK"],
+                dangerMode: true,
+            })
+            if(confirmed){
+                try {
+                    const sendData = {
+                        id:id
+                    }
+                    const response = await fetch('bookAction/delete.php',{
+                        method: "POST",
+                        headers: { 'Content-type' : 'application/json'},
+                        body: JSON.stringify(sendData)
+                    })
+                    if (!response.ok) {
+                        const errorMessage = await response.text();
+                        throw new Error(errorMessage || 'Network response was not okay');
+                    }
+            swal("Success", "Deleting done.", "success");
+            setTimeout(() => {
+                location.reload();
+            }, 1500);
+                } catch (error) {
+                    console.error("Error:", error.message);
+                    swal("Error", error.message, "error");
+                }
+            }
+        }
+
+
 
         $(document).ready(function() {
             $('#tbl-books').DataTable({

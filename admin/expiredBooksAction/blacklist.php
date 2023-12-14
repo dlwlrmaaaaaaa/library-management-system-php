@@ -25,6 +25,13 @@
         $stmtDeleteBorrowed->execute([
             ":id" => $id
         ]);
+
+        $deletePenalty = "DELETE FROM penalty WHERE id = :id";
+        $stmtPenalty = $pdo->prepare($deletePenalty);
+        $stmtPenalty->execute([
+            ":id" => $id
+        ]);
+        
     } catch (Throwable $th) {
         throw $th;
     }

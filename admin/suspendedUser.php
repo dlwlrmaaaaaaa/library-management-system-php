@@ -18,6 +18,7 @@
         <link rel="stylesheet" href="Bootsrap\css\bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
         <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
         <title>Urban Reads</title>
     </head>
     <body>
@@ -110,10 +111,10 @@
                                                 <td>' . $row->suspension . '</td> 
                                                 <td>' . $row->penalty_deadline . '</td> 
                                                 <td>
-                                                    <a href="#" class="btn mx-auto" data-toggle="tooltip" title="Block User">
+                                                    <a class="btn mx-auto" data-toggle="tooltip" title="Block User" onclick="blacklist(\'' . $id . '\', \'' . $student_number . '\')">
                                                         <i class="fa fa-ban mx-1"></i>
                                                     </a>
-                                                    <a href="#" class="btn mx-auto" data-toggle="tooltip" title="Add Penalty Count" onclick="addCount(\'' . $id . '\', \'' . $student_number . '\')">
+                                                    <a class="btn mx-auto" data-toggle="tooltip" title="Add Penalty Count" onclick="addCount(\'' . $id . '\', \'' . $student_number . '\')">
                                                         <i class="fa fa-plus mx-1"></i>
                                                     </a>
                                                 </td> 
@@ -133,13 +134,118 @@
             </div>
         </div>
         <!-- /#page-content-wrapper -->
-         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+          <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-         <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+        
+
+        <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-        <script src="javascript/suspendedUser.js"> </script>
+        <script > 
+    
+ var el = document.getElementById("wrapper");
+ var toggleButton = document.getElementById("menu-toggle");
+
+ 
+const blacklist = async (id, student_number) => {
+  const confirmed = await swal({
+    title: "Blacklisting",
+    text: "When blacklisting was done, the users cannot login anymore.",
+    icon: "info",
+    buttons: ["No, cancel", "OK"],
+    dangerMode: true,
+  });
+
+  if (confirmed) {
+    try {
+      const data = {
+        id: id,
+        student_number: student_number
+      }
+      const response = await fetch('expiredBooksAction/blacklist.php', {
+        method: "POST",
+        headers: { 'Content-type': 'application/json', },
+        body: JSON.stringify(data),
+      })
+      if (!response.ok) {
+        const errorMessage = await response.text();
+        throw new Error(errorMessage || 'Network response was not okay');
+      }
+    } catch (error) {
+      console.error("Error:", error.message);
+
+      swal("Error", error.message, "error");
+    }
+        swal("Success", "Blacklisting done.", "success");
+            setTimeout(() => {
+                location.reload();
+            }, 1500);
+  } else {
+    return;
+  }
+};
+const addCount = async (id, student_number) => {
+  const confirmed = await swal({
+    title: "Confirmation",
+    text: 'Click "OK" to Suspension',
+    icon: "warning",
+    buttons: ["No, cancel", "OK"],
+    dangerMode: true,
+  });
+  if (confirmed) {
+    const sendData = {
+      id: id,
+      student_number: student_number,
+    };
+    try {
+      const response = await fetch("suspendAction/addCount.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(sendData),
+      });
+      if (!response.ok) {
+        throw new Error("Server response was not successful.");
+      }
+      swal("Success", "Applied Suspension", "success");
+      setTimeout(() => {
+        location.reload();
+      }, 1500);
+    } catch (error) {
+      console.error(error);
+    }
+  } else {
+    return;
+  }
+};
+
+
+            toggleButton.onclick = function () {
+            el.classList.toggle("toggled");
+            };
+
+            $(document).ready(function () {
+            $("#tbl-borrowed-books").DataTable({});
+
+            // Customizing the search bar
+            $(".dataTables_filter input").addClass("form-control");
+            $(".dataTables_filter input").attr("placeholder", "Search");
+            $(".dataTables_filter label")
+                .contents()
+                .filter(function () {
+                return this.nodeType === 3;
+                })
+                .remove();
+
+            $(".dataTables_filter input").wrap('<div class="input-group"></div>');
+            $(".dataTables_filter input").before(
+                '<div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-search"></i></span></div>'
+            );
+
+            $(".dataTables_filter").addClass("col-6");
+            });</script>
+  
     </body>
 
     </html>
