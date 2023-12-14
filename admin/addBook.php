@@ -101,7 +101,7 @@ include('../dbconfig.php');
                             <div class="row ">
                                 <div class="col-md-3 my-2">
                                     <!-- Portrait Photo -->
-                                    <img src="https://impressionsininkblog.files.wordpress.com/2021/08/6655.jpg" alt="Book Photo" class="img-fluid img-thumbnail" width="100">
+                                    <img src="https://scontent.fmnl9-4.fna.fbcdn.net/v/t1.15752-9/367740044_325305420444580_6049531997578051444_n.png?_nc_cat=108&ccb=1-7&_nc_sid=8cd0a2&_nc_eui2=AeHUtJ19koMwz8Ixtg8xD6aNczQzuzPRjfFzNDO7M9GN8Vy_aVYpGCqDPnB2_zqURNwAnj4PFsGoouo6B9psWAdj&_nc_ohc=X97ompzy3XkAX8GuB81&_nc_ht=scontent.fmnl9-4.fna&cb_e2o_trans=q&oh=03_AdQeEsNyvi1Doy2ayEzqpGZzLWz_jnvs415bIHGLUSi1xQ&oe=65A2497D" alt="Book Photo" class="img-fluid img-thumbnail" width="100">
                                 </div>
                                 <div class="col-md-9">
                                     <div class="form-element my-2">
@@ -161,7 +161,7 @@ include('../dbconfig.php');
                                     <div class="form-element my-2">
                                         <div class="row">
                                             <div class="col-md-2 my-2">
-                                                <h6>Availability:</h6>
+                                                <h6>Summary:</h6>
                                             </div>
                                             <div class="col-md-10">
                                                 <textarea class="form-control" name="summary" rows="5" cols="60" placeholder="Enter a Summary"></textarea>
@@ -234,7 +234,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     
     $uploadOk = 1;
     $uniqid = uniqid();
-    $randomPart = substr($uniqueID, 0, 6);
+    $randomPart = substr($uniqid, 0, 6);
     $fileExtension = pathinfo($_FILES['upload']['name'], PATHINFO_EXTENSION);
     $randomFileName = $randomPart . '.' . $fileExtension;
 
@@ -275,7 +275,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
                     ":isbn" => $isbn,
                     ":summary" => $summary,
                     ":copies" => $copies,
-                    ":filename" => $filename
+                    ":filename" => $randomFileName
                 ]);
             } catch (PDOException $th) {
                 echo $th->getMessage();

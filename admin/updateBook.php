@@ -187,7 +187,6 @@
                                 </div>
                                 
                                 <div class="form-element my-3">
-                                    <input type="submit" class="btn btn-secondary rounded" name="pickPhoto" value="Choose a Photo">
                                     <input type="submit" class="btn btn-secondary rounded" name="update" value="Update Book">
                                 </div>
                             </div>

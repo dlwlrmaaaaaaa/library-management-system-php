@@ -136,11 +136,14 @@ include('../dbconfig.php');
                                             <a href="updateBook.php?id='. $id .'" class="btn mx-auto" data-toggle="tooltip" title="Update Book Information">
                                                 <i class="fa fa-edit mx-1"></i>
                                             </a>
+                                            <a href="deleteBook.php?id='. $id .'" class="btn mx-auto" data-toggle="tooltip" title="Delete Book">
+                                                <i class="fa fa-trash mx-1"></i>
+                                            </a>
                                         </td>
                                     </tr>';                                    
                                         }
                                         }else{
-                                                echo "<script> alert('There is no available book at the moment')";
+                                                echo "<script> swal('Error!', 'There is no available book at the moment', 'error'); </script>";
                                             }                                           
                                         } catch (Throwable $th) {
                                             throw $th;
