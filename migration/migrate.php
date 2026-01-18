@@ -1,5 +1,5 @@
 <?php
-include "dbconfig.php"; // make sure this has your $pdo or $conn PDO connection
+include('../dbconfig.php');
 
 try {
     // Disable foreign key checks
