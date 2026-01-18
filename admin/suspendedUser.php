@@ -1,12 +1,12 @@
-    <?php
-        include('../dbconfig.php');
-        include('includes/authenticate.php');
+<?php
+    include('../dbconfig.php');
+    include('includes/authenticate.php');
 
-        $displaySuspendedUsers = "SELECT * FROM penalty";
-        $stmt = $pdo->prepare($displaySuspendedUsers);
-        $stmt->execute();
-        $rows = $stmt->fetchAll(PDO::FETCH_OBJ);
-    ?>
+    $displaySuspendedUsers = "SELECT * FROM penalty";
+    $stmt = $pdo->prepare($displaySuspendedUsers);
+    $stmt->execute();
+    $rows = $stmt->fetchAll(PDO::FETCH_OBJ);
+?>
 
     <!DOCTYPE html>
     <html lang="en">

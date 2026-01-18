@@ -1,8 +1,8 @@
 <?php
 $dbname = 'lms';
 $dbuser = 'root';
-$dbpass = '';
-$dbhost = 'localhost';
+$dbpass = 'passwrd';
+$dbhost = 'db';
 $dsn = "mysql:host=$dbhost;dbname=$dbname";
 try {
     $pdo = new PDO($dsn, $dbuser, $dbpass);

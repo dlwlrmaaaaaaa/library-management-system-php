@@ -1,52 +1,46 @@
 var el = document.getElementById("wrapper");
 var toggleButton = document.getElementById("menu-toggle");
 
-const sendData = async (
-  id,
-  book_id,
-  studentnumber,
-  title,
-  borrow_id,
-  full_name
-) => {
+const sendData = async (id, book_id, studentnumber, title, borrow_id, full_name) => {
   try {
     const confirmed = await swal({
       title: "Confirmation",
       text: "Click Yes to issue the book",
       icon: "info",
       buttons: ["No, cancel", "Yes, issue it!"],
-      dangerMode: false,
     });
 
-    if (confirmed) {
-      const dataToSend = {
-        id: id,
-        book_id: book_id,
-        studentnumber: studentnumber,
-        title: title,
-        borrow_id: borrow_id,
-        full_name: full_name,
-      };
-      const response = await fetch("issueBookAction/issued.php", {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(dataToSend),
-      });
-      swal({
-        title: "Information",
-        text: "Issued Book",
-        icon: "success",
-        buttons: "Ok",
-        dangerMode: false,
-      });
-      setTimeout(() => {
-        location.reload();
-      }, 1500);
+    if (!confirmed) return;
+
+    const dataToSend = {
+      id,
+      book_id,
+      studentnumber,
+      title,
+      borrow_id,
+      full_name,
+    };
+
+    const response = await fetch("issueBookAction/issued.php", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(dataToSend),
+    });
+
+    const result = await response.json(); // expect JSON from PHP
+
+    if (result.status === "success") {
+      swal("Success", "Issued Book", "success");
+      setTimeout(() => location.reload(), 1500);
+    } else {
+      swal("Error", result.message || "Failed to issue book", "error");
     }
+
   } catch (error) {
     console.error("Error:", error);
+    swal("Error", "Something went wrong!", "error");
   }
 };
 

@@ -1,187 +1,248 @@
 <?php
-        session_start();
-        include("dbconfig.php");  
-          
-?>
+session_start();
+include("dbconfig.php"); // must set $pdo (PDO instance)
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="includes/style.css">
-    <link rel="stylesheet" href="Bootsrap\css\bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-    <title>Urban Reads</title>
-</head>
-<body>
-    <div class="background-container">
-        <svg class="svg-background" version="1.1" xmlns="http://www.w3.org/2000/svg" 
-            xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" height="100%" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice">
-                <defs>
-                    <linearGradient id="bg">
-                        <stop offset="0%" style="stop-color:rgba(130, 158, 249, 0.06)"></stop>
-                        <stop offset="50%" style="stop-color:rgba(76, 190, 255, 0.6)"></stop>
-                        <stop offset="100%" style="stop-color:rgba(115, 209, 72, 0.2)"></stop>
-                    </linearGradient>
-                    <path id="wave" fill="url(#bg)" d="M-363.852,502.589c0,0,236.988-41.997,505.475,0
-            s371.981,38.998,575.971,0s293.985-39.278,505.474,5.859s493.475,48.368,716.963-4.995v560.106H-363.852V502.589z" />
-                </defs>
-                <g>
-                    <use xlink:href='#wave' opacity=".3">
-                        <animateTransform
-                attributeName="transform"
-                attributeType="XML"
-                type="translate"
-                dur="10s"
-                calcMode="spline"
-                values="270 230; -334 180; 270 230"
-                keyTimes="0; .5; 1"
-                keySplines="0.42, 0, 0.58, 1.0;0.42, 0, 0.58, 1.0"
-                repeatCount="indefinite" />
-                    </use>
-                    <use xlink:href='#wave' opacity=".6">
-                        <animateTransform
-                attributeName="transform"
-                attributeType="XML"
-                type="translate"
-                dur="8s"
-                calcMode="spline"
-                values="-270 230;243 220;-270 230"
-                keyTimes="0; .6; 1"
-                keySplines="0.42, 0, 0.58, 1.0;0.42, 0, 0.58, 1.0"
-                repeatCount="indefinite" />
-                    </use>
-                    <use xlink:href='#wave' opacty=".9">
-                        <animateTransform
-                attributeName="transform"
-                attributeType="XML"
-                type="translate"
-                dur="6s"
-                calcMode="spline"
-                values="0 230;-140 200;0 230"
-                keyTimes="0; .4; 1"
-                keySplines="0.42, 0, 0.58, 1.0;0.42, 0, 0.58, 1.0"
-                repeatCount="indefinite" />
-                    </use>
-                </g>
-            </svg>
+// Messages to show inline
+$errorMessage = "";
+$successMessage = "";
 
-        <div class="d-flex" id="wrapper">
-            <!-- Page Content -->
-            <div id="page-content-wrapper" class="scrollable-content">
-            
-                <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
-                    <div class="d-flex align-items-center">
-                        <img src="includes/logo1.png" class="logoo-img me-2">
-                        <h2 class="fs-2 m-0 mx-2 second-text">UrbanReads</h2>
-                    </div>
-                </nav>
-
-                <div class="container-fluid px-4">
-                    <form method="post" action=""class="post">
-                        <br>
-                        <br>
-                        <br>
-                        <div class="container col-md-4 maintop border border-dark">
-                        <div class="input-box">
-                        <br>
-                        <br>
-                        <header>Welcome Back!</header><br>
-                            <div class="input-field">
-                                <input type="text" class="input" name="studentNumber" id="studentNumber" required autocomplete="off">
-                                <label for="studentNumber">Student Number</label>
-                            </div>
-                            <div class="input-field">
-                                <input type="password" class="input" id="password1" name="password" required>
-                                <label for="password1">Enter Password</label>
-                            </div>
-                            <div class="input-field">
-                                <input type="submit" class="submit" value="Login" href="dashboard.php" name="login">
-                            </div>
-                        </div>
-                    </form>
-                    <br>
-                    <br>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /#page-content-wrapper -->
-    
-    <!-- Bootstrap CSS -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Bootstrap JS (Popper.js and Bootstrap JS) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-
-
-    <script>
-        var el = document.getElementById("wrapper");
-        var toggleButton = document.getElementById("menu-toggle");
-
-        toggleButton.onclick = function () {
-            el.classList.toggle("toggled");
-        };
-    </script>
-</body>
-</html>
-<?php
-    try {
-        if(isset($_POST['login'])){
-            $username = $_POST['studentNumber'];
-            $password = $_POST['password'];
-            
- 
-        if (!is_numeric($username)) {
-                    $sql = "SELECT * FROM admin WHERE username = :username";
-                    $stmt = $pdo->prepare($sql);
-                    $stmt->execute(['username' => $username]);
-                    $admin = $stmt->fetch(PDO::FETCH_OBJ);                  
-            if ($stmt->rowCount() > 0) {
-                if (password_verify($password, $admin->password)) {
-                    $_SESSION['admin_name'] = $admin->admin_name;     
-                    $_SESSION['loggedin'] = true;                  
-                     echo '<script>window.location.href = "admin/dashboard.php";</script>';
-                     exit();
-                 
-                } else {
-                    echo "<script> alert('Admin not found') </script>";
-                }
+try {
+    // ===== REGISTER =====
+    if (isset($_POST['register'])) {
+        $full_name = trim($_POST['full_name'] ?? '');
+        $student_number = trim($_POST['student_number'] ?? '');
+        $password = $_POST['password'] ?? '';
+        $confirm = $_POST['confirm_password'] ?? '';
+        $email = $POST['email'] ?? '';
+        if ($full_name === '' || $student_number === '' || $password === '' || $confirm === '') {
+            $errorMessage = "Please fill in all registration fields.";
+        } elseif (!is_numeric($student_number)) {
+            $errorMessage = "Student number must be numeric.";
+        } elseif ($password !== $confirm) {
+            $errorMessage = "Passwords do not match.";
+        } else {
+            // Check uniqueness
+            $checkSql = "SELECT id FROM students WHERE student_number = :sn LIMIT 1";
+            $stmt = $pdo->prepare($checkSql);
+            $stmt->execute([':sn' => $student_number]);
+            if ($stmt->fetch()) {
+                $errorMessage = "Student number already registered.";
             } else {
-                 echo "<script> alert('Admin not found') </script>";
+                $hash = password_hash($password, PASSWORD_DEFAULT);
+                $ins = "INSERT INTO students (full_name, student_number, password, status, course, email) VALUES (:fn, :sn, :pw, 'Active', 'BSIT', :email);";
+                $stmt = $pdo->prepare($ins);
+                $stmt->execute([
+                    ':fn' => $full_name,
+                    ':sn' => $student_number,
+                    ':pw' => $hash,
+                    ':email' => $email
+                ]);
+                $successMessage = "Registration successful. You can now log in.";
             }
-     }else{
-            $loginsql = "SELECT * FROM students WHERE student_number = :username";
-            $stmt = $pdo->prepare($loginsql);
-            $stmt->execute([":username" => $username]);
-            $users = $stmt->fetch(PDO::FETCH_OBJ);
-            if ($stmt->rowCount() > 0 && password_verify($password, $users->password) && $users->status == 'Blacklisted') {
-                 $errorMessage = "Your account is in our Blacklist";
-                 echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
-                echo '<script>';
-                echo 'swal("Oops!", "' . $errorMessage . '", "error").then(() => { window.location.href = "index.php"; });';
-                echo '</script>';
-            }elseif ($stmt->rowCount() > 0 && password_verify($password, $users->password) && $users->status == 'Active'){
-            $_SESSION['student_name'] = $users->full_name;
-            $_SESSION['student_number'] = $users->student_number;
-            $_SESSION['user_id'] = $users->id;
-            $_SESSION['userloggedin'] = true;
-            echo '<script>window.location.href = "user/home.php";</script>';
-            exit();               
-            }else{
-                echo "<script> alert('Invalid student number or password') </script>";
-            }
-
-     }
-                                           
-}
-}catch(PDOException $e) {
-        echo "<script> alert('" + $e->getMessage() + "') </script>" ;
+        }
     }
 
+    // ===== LOGIN =====
+    if (isset($_POST['login'])) {
+        $username = trim($_POST['studentNumber'] ?? '');
+        $password = $_POST['password'] ?? '';
+
+        if ($username === '' || $password === '') {
+            $errorMessage = "Please fill in both login fields.";
+        } else {
+            if (!is_numeric($username)) {
+                // Admin login (non-numeric)
+                $sql = "SELECT * FROM admin WHERE username = :username LIMIT 1";
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute([':username' => $username]);
+                $admin = $stmt->fetch(PDO::FETCH_OBJ);
+
+                if ($admin && password_verify($password, $admin->password)) {
+                    $_SESSION['admin_name'] = $admin->admin_name;
+                    $_SESSION['loggedin'] = true;
+                    header("Location: admin/dashboard.php");
+                    exit();
+                } else {
+                    $errorMessage = "Invalid admin username or password.";
+                }
+            } else {
+                // Student login
+                $loginsql = "SELECT * FROM students WHERE student_number = :username LIMIT 1";
+                $stmt = $pdo->prepare($loginsql);
+                $stmt->execute([":username" => $username]);
+                $user = $stmt->fetch(PDO::FETCH_OBJ);
+
+                if ($user && password_verify($password, $user->password)) {
+                    if (strtolower($user->status) === 'blacklisted') {
+                        $errorMessage = "Your account is in our Blacklist.";
+                    } elseif (strtolower($user->status) === 'active') {
+                        $_SESSION['student_name'] = $user->full_name;
+                        $_SESSION['student_number'] = $user->student_number;
+                        $_SESSION['user_id'] = $user->id;
+                        $_SESSION['userloggedin'] = true;
+                        header("Location: user/home.php");
+                        exit();
+                    } else {
+                        $errorMessage = "Account status doesn't allow login. Contact admin.";
+                    }
+                } else {
+                    $errorMessage = "Invalid student number or password.";
+                }
+            }
+        }
+    }
+
+} catch (PDOException $e) {
+    // In production, log $e->getMessage() instead of showing it.
+    $errorMessage = "Database error: " . $e->getMessage();
+}
 ?>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Urban Reads — Login / Register</title>
+
+  <link rel="icon" type="image/png" href="includes/logo1.png" />
+
+  
+  <!-- Bootstrap 4.5.2 CSS (same version used for JS) -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+  <!-- Font Awesome 5.15.3 (same major version you used) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+  <!-- Optional: your custom CSS -->
+  <link rel="stylesheet" href="includes/style.css">
+
+  <style>
+    /* Minimal design: centered, small card */
+    html,body { height:100%; background:#f7f9fc; }
+    .center-wrap { min-height:100vh; display:flex; align-items:center; justify-content:center; }
+    .card.minimal { border:0; border-radius:10px; box-shadow: 0 6px 18px rgba(35,44,60,.08); padding:18px; width:360px; background:#ffffff; }
+    .brand { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
+    .brand img { height:36px; }
+    .nav-pills .nav-link { border-radius:6px; }
+    .form-small { font-size:14px; }
+    .svg-background { position: absolute; inset:0; width:100%; height:100%; z-index:0; pointer-events:none; opacity:0.06; }
+  </style>
+</head>
+<body>
+  <div class="svg-background">
+    <!-- keep your large SVG if you want; placeholder to keep markup minimal -->
+    <!-- Optional: paste your existing SVG here -->
+  </div>
+
+  <div class="center-wrap">
+    <div class="card minimal" role="region" aria-label="Auth card">
+      <div class="brand">
+        <img src="includes/logo1.png" alt="UrbanReads logo">
+        <h5 class="m-0">UrbanReads</h5>
+      </div>
+
+      <?php if ($errorMessage): ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <?php echo htmlspecialchars($errorMessage); ?>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span>&times;</span></button>
+        </div>
+      <?php endif; ?>
+
+      <?php if ($successMessage): ?>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          <?php echo htmlspecialchars($successMessage); ?>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span>&times;</span></button>
+        </div>
+      <?php endif; ?>
+
+      <!-- Tabs -->
+      <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+        <li class="nav-item w-50">
+          <a class="nav-link active text-center" id="login-tab" data-toggle="pill" href="#login" role="tab">Login</a>
+        </li>
+        <li class="nav-item w-50">
+          <a class="nav-link text-center" id="register-tab" data-toggle="pill" href="#register" role="tab">Register</a>
+        </li>
+      </ul>
+
+      <div class="tab-content">
+        <!-- LOGIN -->
+        <div class="tab-pane fade show active" id="login" role="tabpanel">
+          <form method="post" action="" autocomplete="off" class="form-small">
+            <div class="form-group">
+              <label for="studentNumber">Student Number / Username</label>
+              <input type="text" class="form-control form-control-sm" id="studentNumber" name="studentNumber"
+                     value="<?php echo isset($_POST['studentNumber']) ? htmlspecialchars($_POST['studentNumber']) : ''; ?>" required>
+              <small class="form-text text-muted">Enter student number (numeric) or admin username (non-numeric).</small>
+            </div>
+
+            <div class="form-group">
+              <label for="password1">Password</label>
+              <input type="password" class="form-control form-control-sm" id="password1" name="password" required>
+            </div>
+
+            <button type="submit" name="login" class="btn btn-primary btn-block btn-sm">
+              <i class="fas fa-sign-in-alt mr-1"></i> Login
+            </button>
+          </form>
+        </div>
+
+        <!-- REGISTER -->
+        <div class="tab-pane fade" id="register" role="tabpanel">
+          <form method="post" action="" autocomplete="off" class="form-small mt-2">
+            <div class="form-group">
+              <label for="full_name">Full name</label>
+              <input type="text" class="form-control form-control-sm" id="full_name" name="full_name"
+                     value="<?php echo isset($_POST['full_name']) ? htmlspecialchars($_POST['full_name']) : ''; ?>" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" class="form-control form-control-sm" id="email" name="email"
+                     value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>" required>
+            </div>
+
+            <div class="form-group">
+              <label for="student_number">Student number</label>
+              <input type="text" class="form-control form-control-sm" id="student_number" name="student_number"
+                     value="<?php echo isset($_POST['student_number']) ? htmlspecialchars($_POST['student_number']) : ''; ?>" required>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col">
+                <label for="password">Password</label>
+                <input type="password" class="form-control form-control-sm" id="password" name="password" required>
+              </div>
+              <div class="form-group col">
+                <label for="confirm_password">Confirm</label>
+                <input type="password" class="form-control form-control-sm" id="confirm_password" name="confirm_password" required>
+              </div>
+            </div>
+
+            <button type="submit" name="register" class="btn btn-outline-primary btn-block btn-sm">
+              <i class="fas fa-user-plus mr-1"></i> Register
+            </button>
+            <small class="form-text text-muted text-center mt-2">By registering you accept the site terms.</small>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- jQuery 3.5.1 slim, Popper 1.16.0, Bootstrap 4.5.2 JS (same versions) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script>
+    // Keep tabs client-side minimal: activate pill from hash if present
+    (function(){
+      var hash = window.location.hash;
+      if (hash) {
+        var target = document.querySelector('a[href="'+hash+'"]');
+        if (target) { $(target).tab('show'); }
+      }
+    })();
+  </script>
+</body>
+</html>
