@@ -7,6 +7,8 @@ RUN docker-php-ext-install mysqli pdo pdo_mysql
 # Enable Apache
 RUN a2enmod rewrite
 
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+
 # Set the working directory
 WORKDIR /var/www/html
 
